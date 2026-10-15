@@ -1,10 +1,10 @@
 ---
-name: run-cfop-trainer
+name: run-cfop-driller
 description: Run, build, test, screenshot and drive the CFOP Driller flashcard app (Vite + vanilla DOM). Use when asked to start the app, take a screenshot of its UI, press keys or click in it, or confirm a UI change works in a real browser rather than only in tests.
 ---
 
 CFOP Driller is a static Vite site with no backend. Drive it with
-`.claude/skills/run-cfop-trainer/driver.mjs`: it starts the dev server and a
+`.claude/skills/run-cfop-driller/driver.mjs`: it starts the dev server and a
 headless Chromium-family browser, then talks to the page over the DevTools
 protocol with no dependencies. All paths below are relative to the repo root.
 
@@ -22,7 +22,7 @@ has been run on Linux or macOS.
 ## Run (agent path)
 
 ```bash
-node .claude/skills/run-cfop-trainer/driver.mjs up
+node .claude/skills/run-cfop-driller/driver.mjs up
 ```
 
 `up` reuses a dev server already answering on the port (your own `npm run dev`)
@@ -30,7 +30,7 @@ and starts only what is missing. It prints which it started. `down` stops only
 those, never a server or browser it reused.
 
 ```bash
-node .claude/skills/run-cfop-trainer/driver.mjs smoke
+node .claude/skills/run-cfop-driller/driver.mjs smoke
 ```
 
 `smoke` clears `localStorage`, then drives the core loop with real key events
@@ -43,11 +43,11 @@ toggles, the summary, and takes three screenshots.
 Ad-hoc poking:
 
 ```bash
-node .claude/skills/run-cfop-trainer/driver.mjs shot phone
-node .claude/skills/run-cfop-trainer/driver.mjs shot wide 1280 800
-node .claude/skills/run-cfop-trainer/driver.mjs key space 2 2
-node .claude/skills/run-cfop-trainer/driver.mjs eval "document.querySelector('.count').textContent"
-node .claude/skills/run-cfop-trainer/driver.mjs eval "JSON.parse(localStorage.getItem('cfop-trainer-v1')).prefs"
+node .claude/skills/run-cfop-driller/driver.mjs shot phone
+node .claude/skills/run-cfop-driller/driver.mjs shot wide 1280 800
+node .claude/skills/run-cfop-driller/driver.mjs key space 2 2
+node .claude/skills/run-cfop-driller/driver.mjs eval "document.querySelector('.count').textContent"
+node .claude/skills/run-cfop-driller/driver.mjs eval "JSON.parse(localStorage.getItem('cfop-trainer-v1')).prefs"
 ```
 
 `shot NAME [WIDTH HEIGHT]` defaults to 390x844 (a phone). `key` takes
@@ -55,13 +55,13 @@ node .claude/skills/run-cfop-trainer/driver.mjs eval "JSON.parse(localStorage.ge
 `%TEMP%\cfop-shots\NAME.png`; the command prints the path. Look at the image; a blank frame means the app failed to load.
 
 ```bash
-node .claude/skills/run-cfop-trainer/driver.mjs down
+node .claude/skills/run-cfop-driller/driver.mjs down
 ```
 
 To use a different dev-server port, set `PORT` for every command:
 
 ```bash
-PORT=5199 node .claude/skills/run-cfop-trainer/driver.mjs up
+PORT=5199 node .claude/skills/run-cfop-driller/driver.mjs up
 ```
 
 ## Run (human path)

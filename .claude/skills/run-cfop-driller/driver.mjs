@@ -3,12 +3,12 @@
 // Chromium-family browser over the DevTools protocol. No dependencies: it
 // needs Node 22+ for the global WebSocket and fetch.
 //
-//   node .claude/skills/run-cfop-trainer/driver.mjs up
-//   node .claude/skills/run-cfop-trainer/driver.mjs smoke
-//   node .claude/skills/run-cfop-trainer/driver.mjs shot NAME [WIDTH HEIGHT]
-//   node .claude/skills/run-cfop-trainer/driver.mjs eval "JS EXPRESSION"
-//   node .claude/skills/run-cfop-trainer/driver.mjs key space 1 2 n
-//   node .claude/skills/run-cfop-trainer/driver.mjs down
+//   node .claude/skills/run-cfop-driller/driver.mjs up
+//   node .claude/skills/run-cfop-driller/driver.mjs smoke
+//   node .claude/skills/run-cfop-driller/driver.mjs shot NAME [WIDTH HEIGHT]
+//   node .claude/skills/run-cfop-driller/driver.mjs eval "JS EXPRESSION"
+//   node .claude/skills/run-cfop-driller/driver.mjs key space 1 2 n
+//   node .claude/skills/run-cfop-driller/driver.mjs down
 import { execFileSync, spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
