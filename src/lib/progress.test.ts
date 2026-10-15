@@ -75,7 +75,7 @@ describe("serialize and parseProgress", () => {
     const written: Record<string, unknown> = JSON.parse(serialize(progress(), NOW));
     expect(Object.keys(written)).toEqual(["version", "updatedAt", "prefs", "cards", "notes", "drillStats", "verifyStats", "stars"]);
     expect(Object.keys(progress().prefs)).toEqual([
-      "showNames", "showSolutions", "showNotes", "randomRotation", "shuffle", "mode", "threeD", "speed", "zoom", "aesthetic", "showHotkeys",
+      "showNames", "showSolutions", "showNotes", "randomRotation", "shuffle", "mode", "threeD", "speed", "zoom", "aesthetic", "crossAllStickers", "showHotkeys",
       "skipLearnIntro", "skipDrillIntro", "skipVerifyIntro", "sets",
     ]);
   });
