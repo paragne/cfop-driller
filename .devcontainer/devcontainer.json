@@ -1,0 +1,32 @@
+{
+  "name": "cfop-driller",
+  "build": { "dockerfile": "Dockerfile" },
+  "runArgs": ["--shm-size=1g"],
+  "features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/node/.claude,type=volume",
+    "source=${localEnv:HOME}/.claude/CLAUDE.md,target=/home/node/.claude/CLAUDE.md,type=bind,readonly",
+    "source=${localEnv:HOME}/.claude/hooks,target=/home/node/.claude/hooks,type=bind,readonly",
+    "source=${localEnv:HOME}/.claude/settings.json,target=/home/node/.claude-host/settings.json,type=bind,readonly"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/node/.claude",
+    "HOST_HOME": "${localEnv:HOME}",
+    "BROWSER": "/usr/bin/chromium",
+    "DRIVER_NO_SANDBOX": "1",
+    "NPM_CONFIG_UPDATE_NOTIFIER": "false"
+  },
+  "initializeCommand": "git config --global user.name > .devcontainer/.git-identity && git config --global user.email >> .devcontainer/.git-identity",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "shutdownAction": "none",
+  "forwardPorts": [5173],
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  }
+}
