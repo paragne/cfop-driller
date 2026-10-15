@@ -12,4 +12,4 @@ Format: date | decision | reason. Append only.
 2026-10-14 (backfill) | storage.ts is the only module touching localStorage | One place to audit persistence
 2026-10-14 | Rename repo and product to CFOP Driller; keep localStorage keys and Worker name | Keys hold users' progress; Worker name is internal
 2026-10-14 | Built-in teaching text goes in Case.hint, not user notes | User notes are storage-only and must not be overwritten
-2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work
+2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work2026-10-15 | Stale tests were fixed by adding crossAllStickers to the expected prefs, not by changing code | New prefs must appear in the frozen-blob and key-list tests; old blobs read back with the default
