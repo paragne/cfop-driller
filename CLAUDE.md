@@ -1,117 +1,60 @@
 # CFOP Driller
 
-Flashcard trainer for Rubik's Cube CFOP: F2L, 2-look OLL, 2-look PLL, Full OLL, Full PLL.
-Static site. No backend. Deployed to Cloudflare Workers static assets at cfop.paragone.dev.
+Flashcard trainer for Rubik's Cube CFOP. Static site, no backend.
+Deployed to Cloudflare Workers static assets at cfop.paragone.dev.
+Spec: SPEC.md. Design: DESIGN.md, PRODUCT.md. Decisions: docs/DECISIONS.md.
+
+@docs/STATE.md
 
 ## Stack
+- TypeScript strict, no any. Vite. Vanilla DOM. Vitest.
+- No framework, state library, UI library, or CSS framework.
+- Zero production dependencies. Ask before adding any.
 
-- TypeScript, strict mode, no `any`.
-- Vite. Vanilla DOM. No React, no Vue, no Svelte, no framework.
-- No state management library. No UI component library. No CSS framework.
-- Vitest for tests.
-- Total production dependencies target: zero. Ask before adding any.
+## Commands
+- npm run dev: dev server, localhost only (VS Code forwards the port)
+- npm run check: tsc --noEmit, eslint, vitest run
+- npm run build: tsc and vite build to dist
 
-## Architecture
-
-Module boundaries are load-bearing. Do not cross them.
-
-- `src/data/algorithms.ts` — every case definition. Pure data. Never inline case
-  data anywhere else. Never generate case data at runtime. A case exists once;
-  set membership is a tag on it, never a copy.
-- `src/lib/cube.ts` — facelet model and move engine. Pure functions only.
-  No DOM access, no imports from src/ui or src/data. This module must be
-  independently testable.
-- `src/lib/notation.ts` — parses move strings into move tokens. Pure.
-- `src/lib/case-state.ts` — turns a Case into the cube state to display: setup,
-  normalize, then mask. Pure. May import types from src/data; no DOM, no storage.
-- `src/lib/render.ts` — takes a cube state, returns an SVG string. No app state.
-- `src/lib/srs.ts` — SM-2 scheduling. Pure functions. Takes a card record and a
-  grade, returns a new card record. Never reads or writes storage itself.
-- `src/lib/storage.ts` — the only module in the repo that touches localStorage.
-  Exposes load(), save(), exportJson(), importJson(). If any other file
-  references `localStorage`, that is a bug.
-- `src/ui/` — DOM. The only place querySelector and addEventListener appear.
-- `src/main.ts` — wiring only.
-
-Case images are computed, never stored. A case is defined by its solution
-algorithm plus a mask. The displayed state is the solved state with the inverse
-of the solution applied, with unmasked facelets rendered gray.
+## Layout (module boundaries are load-bearing, do not cross them)
+- src/data/algorithms.ts: every case. Pure data, hand-verified. A case exists once; set membership is a tag.
+- src/lib/cube.ts: facelet model and move engine. Pure. No DOM, no imports from src/ui or src/data.
+- src/lib/notation.ts: move parser. Pure.
+- src/lib/case-state.ts: Case to display state (setup, normalize, mask). Pure.
+- src/lib/render.ts: cube state to SVG string. No app state.
+- src/lib/srs.ts: SM-2. Pure. Never touches storage.
+- src/lib/storage.ts: the only file that may reference localStorage.
+- src/ui/: DOM. The only place for querySelector and addEventListener.
+- src/main.ts: wiring only.
+Case images are computed from the solution alg plus a mask, never stored.
 
 ## Rules
-
-- No file over 200 lines. Split before you exceed it. Exempt: src/data/, which
-  holds flat case records and is capped by hand-verification, not by line count.
-- No file named utils, helpers, common, shared, misc, or index (except entry points).
-- No `any`, no `as` casts to silence the compiler, no `@ts-ignore`.
-- No abstraction with a single caller. Inline it.
-- No options object parameters with fewer than three fields.
-- No error handling for states that cannot occur. Throw on programmer error,
-  handle only genuine runtime conditions (corrupt localStorage, bad import file).
-- Comments explain why, never what. Delete any comment that restates the code.
-- No dead code, no commented-out code, no TODO comments. Open an issue instead.
-- Prefer deleting code over adding a flag to preserve old behavior.
-- No console.log in committed code.
-- If a test fails, diagnose before editing. State whether the code or the test
-  is wrong and why, and wait for my decision before changing a test to make it pass.
-- A test that cannot fail is not a test. If an assertion is true for any possible
-  implementation, say so rather than counting it as coverage.
-- Do not add Co-Authored-By trailers to commit messages.
+- No file over 200 lines (src/data/ exempt).
+- No file named utils, helpers, common, shared, misc, or index (entry points excepted).
+- No any, no as casts to silence the compiler, no @ts-ignore.
+- No abstraction with one caller. No options object with fewer than three fields.
+- No error handling for impossible states. Throw on programmer error. Handle only corrupt localStorage and bad import files.
+- Comments explain why, never what. No dead code, commented-out code, TODO comments, or console.log.
+- Existing case ids are frozen. They key stored user progress.
+- Do not modify src/data/algorithms.ts without stating which case changed and why.
+- No analytics, telemetry, or runtime network requests. Must work offline after first load.
+- references/ is gitignored and may not exist on this machine. Never look there unless I name a file in it. Source material comes from the prompt or a path I give.
+- Case.hint is built-in teaching text. User notes live in storage only. Never write hints into user notes.
 
 ## Testing
-
-`src/lib/cube.ts` is the module with provable correctness. Test it hard:
-
-- Every move applied 4 times returns to identity.
-- (R U R' U') applied 6 times returns to identity.
-- Sune has order 6: applied 6 times it returns to identity, and 3 times it does not.
-- For every case in the data file: apply the inverse of the solution to a solved
-  cube, then apply the solution. The result must be solved. This test validates
-  the entire data file and must pass before any case is considered correct.
-- Notation parser round-trips: parse then stringify equals the input.
-- F2L structural tests cannot detect a wrong or missing U turn, since deleting a
-  U turn yields a different but valid F2L case. U turns in src/data/algorithms.ts
-  are verified by hand only.
-
-`src/lib/srs.ts`: test that a failed card resets interval to 1, that ease factor
-floors at 1.3, and that intervals grow monotonically on repeated success.
+- cube.ts has provable correctness. Test it hard: every move x4 is identity, (R U R' U') x6 is identity, Sune has order 6.
+- For every case: apply inverse(solution), then solution, result must be solved.
+- Parser round-trips. srs.ts: failure resets interval to 1, ease floors at 1.3, intervals grow on repeated success.
+- U turns in F2L data cannot be caught by tests. They are verified by hand.
+- If a test fails, diagnose first. Say whether code or test is wrong and wait for my decision before editing a test.
+- A test that cannot fail is not coverage. Say so.
 
 ## Workflow
+- Propose a plan before writing anything over about 50 lines. Wait for approval.
+- One logical change per commit, conventional format, no Co-Authored-By trailers.
+- Run npm run check on its own, unpiped, and report the real exit status before committing.
+- Never run git push or wrangler deploy. I do both. A push to main deploys production.
+- Never declare UI work done. I run it and judge it.
 
-- Propose a plan before writing code for anything over roughly 50 lines.
-  Wait for approval.
-- One logical change per commit. Conventional commit format.
-- Run `npm run check` (typecheck + lint + test) before claiming a task is done.
-  Do not report success on a failing check.
-- Never pipe a verification command through tail, head, or grep in a way that
-  discards its exit code. Run `npm run check` on its own and report the real
-  exit status before committing.
-- Never run `git push`. Never run `wrangler deploy`. I deploy.
-- Do not modify `src/data/algorithms.ts` without telling me explicitly which
-  case you changed and why. That file is hand-verified.
-
-## Accessibility and scope
-
-- Keyboard first: space reveals solution, 1 marks unknown, 2 marks known,
-  n hides/shows the case name, Enter is Next in Drill. In 3D, left and right
-  step, down and up jump to the start and the end.
-- Works offline after first load.
-- No analytics, no telemetry, no external requests at runtime.
-
-## Visual design
-
-Dense, fast, high-contrast. This is a drilling tool used with a cube in one
-hand, not a marketing page.
-
-- Dark background, near-black. The cube renders bright against it.
-- One accent color, used only for the primary action. Everything else is
-  grayscale, except the home stats, whose rows run through the rainbow so the
-  sets tell apart.
-- System font stack. No web fonts, no font loading.
-- Sharp or minimally rounded corners. No shadows, no gradients, no glass
-  effects, no animated transitions except where they convey state change.
-- The case picture is the largest element on screen by a wide margin.
-  Everything else is chrome.
-- Primary actions sit in the lower third, reachable by thumb on a phone.
-- No modal dialogs. Notes edit in place.
-- Design mobile-first, single column, then let it breathe on desktop. Do not
-  design a desktop layout and shrink it.
+## Accessibility
+- Keyboard first: space reveals, 1 unknown, 2 known, n toggles name, Enter is Next in Drill. In 3D, left and right step, down and up jump to start and end.

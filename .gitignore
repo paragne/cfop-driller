@@ -25,4 +25,4 @@ dist-ssr
 
 .wrangler/
 .claude/settings.local.json
-reference/
+references/
