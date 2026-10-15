@@ -34,8 +34,8 @@ type CaseSet =
   | "2-Look OLL" | "2-Look PLL" | "Full OLL" | "Full PLL";
 
 type Alg = {
-  display: string;         // "U' (R U R') [U2 R U' R']" — parens preserved
-  moves: string;           // "U' R U R' U2 R U' R'" — parser input
+  display: string;         // "U' (R U R') [U2 R U' R']" **parens preserved
+  moves: string;           // "U' R U R' U2 R U' R'" **parser input
   affectsOtherSlots?: boolean; // F2L only: J Perm's highlighted algs
 };
 

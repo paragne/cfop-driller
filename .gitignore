@@ -26,3 +26,6 @@ dist-ssr
 .wrangler/
 .claude/settings.local.json
 references/
+
+.env
+.env.*
