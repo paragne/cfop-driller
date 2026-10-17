@@ -63,7 +63,7 @@ const ROWS: readonly (readonly CaseSet[])[] = [
   ["2-Look PLL", "Full PLL"],
 ];
 
-const REPO_URL = "https://github.com/paragne/cfop-trainer";
+const REPO_URL = "https://github.com/paragne/cfop-driller";
 
 const percent = (accuracy: number | null) =>
   accuracy === null ? "–" : `${Math.round(accuracy * 100)}%`;
