@@ -3,7 +3,7 @@
 Updated: 2026-10-18
 
 ## Current task
-None. Task 1 (stale progress tests), the rename, and CI are done. Next session: update CLAUDE.md Layout.
+None. Task 1 (stale progress tests), the rename, CI, and the CLAUDE.md Layout update are done. Next session: minor UI tweaks (list to be supplied).
 
 ## Done
 - Devbox clone, npm ci.
@@ -21,19 +21,19 @@ None. Task 1 (stale progress tests), the rename, and CI are done. Next session: 
 
 - Rename (2026-10-17): package.json, package-lock.json, REPO_URL in src/ui/home.ts now cfop-driller. Skill folder was already run-cfop-driller. No visible "CFOP Trainer" text existed. Left on purpose: localStorage keys, wrangler.jsonc name (and SPEC.md:377 copy), comment "CFOP trainer" in src/data/algorithms.ts:2 (data file, comment only). npm run check: exit 0, 72 files, 7459 tests.
 - CI (2026-10-18): .github/workflows/ci.yml runs npm ci and npm run check on push to main. checkout v7.0.1 and setup-node v7.1.0 pinned by SHA, permissions: contents: read. .nvmrc pins Node 24.21.0 and the workflow reads it. Not yet verified on GitHub (needs a push). npm run check: exit 0, 72 files, 7459 tests.
+- CLAUDE.md Layout (2026-10-18): added src/lib/ rule (pure, may import types and CASE_SETS from src/data/), src/ui/three-d/, and the three Vite entries. cube.ts keeps its no-data-import rule. npm run check: exit 0, 72 files, 7459 tests.
 
 ## Next (one task per session)
-1. Update CLAUDE.md Layout to match the audit (three-d/, lib modules, lib to data imports).
-2. Minor UI tweaks (list to be supplied by me).
-3. Add Case.hint: type, SPEC.md section, card display, tests. No data changes yet.
-4. OLL mapping. Read references/learn-oll-cubehead.pdf. Produce a table: PDF case, PDF alg, matching existing case id, picture matches (yes, rotated, AUF), proposed change. No data edits. I approve the table.
-5. OLL batch 1: Oriented Edges (OLL 21-27), T-shapes, Squares. Name, algs, hint. State each changed case in the commit message.
-6. OLL batch 2: Lightning Bolts, P-shapes.
-7. OLL batch 3: C-shapes, Fishes, L-shapes.
-8. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
-9. OLL batch 5: Dot cases. Reconcile total count against 57.
-10. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
-11. README. I write it. Credit CubeHead.
+1. Minor UI tweaks (list to be supplied by me).
+2. Add Case.hint: type, SPEC.md section, card display, tests. No data changes yet.
+3. OLL mapping. Read references/learn-oll-cubehead.pdf. Produce a table: PDF case, PDF alg, matching existing case id, picture matches (yes, rotated, AUF), proposed change. No data edits. I approve the table.
+4. OLL batch 1: Oriented Edges (OLL 21-27), T-shapes, Squares. Name, algs, hint. State each changed case in the commit message.
+5. OLL batch 2: Lightning Bolts, P-shapes.
+6. OLL batch 3: C-shapes, Fishes, L-shapes.
+7. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
+8. OLL batch 5: Dot cases. Reconcile total count against 57.
+9. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
+10. README. I write it. Credit CubeHead.
 
 ## Open decisions
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
