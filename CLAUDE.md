@@ -18,14 +18,17 @@ Spec: SPEC.md. Design: DESIGN.md, PRODUCT.md. Decisions: docs/DECISIONS.md.
 
 ## Layout (module boundaries are load-bearing, do not cross them)
 - src/data/algorithms.ts: every case. Pure data, hand-verified. A case exists once; set membership is a tag.
-- src/lib/cube.ts: facelet model and move engine. Pure. No DOM, no imports from src/ui or src/data.
+- src/lib/: about 50 pure modules (session, queue, verify, cross-*, mat4, prefs, progress-*, and more). No DOM, no localStorage, no imports from src/ui. They may import types and CASE_SETS from src/data/.
+- src/lib/cube.ts: facelet model and move engine. No imports from src/data; only types from notation.ts.
 - src/lib/notation.ts: move parser. Pure.
 - src/lib/case-state.ts: Case to display state (setup, normalize, mask). Pure.
 - src/lib/render.ts: cube state to SVG string. No app state.
 - src/lib/srs.ts: SM-2. Pure. Never touches storage.
 - src/lib/storage.ts: the only file that may reference localStorage.
 - src/ui/: DOM. The only place for querySelector and addEventListener.
+- src/ui/three-d/: WebGL 3D viewer. Own entry three-d.html via src/ui/three-d/main.ts.
 - src/main.ts: wiring only.
+Vite builds three entries: index.html, contact-sheet.html, three-d.html.
 Case images are computed from the solution alg plus a mask, never stored.
 
 ## Rules
