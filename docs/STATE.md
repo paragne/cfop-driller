@@ -1,9 +1,9 @@
 # State
 
-Updated: 2026-10-15
+Updated: 2026-10-18
 
 ## Current task
-None. Task 1 (stale progress tests) and the rename to cfop-driller are done. Next session: CI.
+None. Task 1 (stale progress tests), the rename, and CI are done. Next session: update CLAUDE.md Layout.
 
 ## Done
 - Devbox clone, npm ci.
@@ -20,31 +20,30 @@ None. Task 1 (stale progress tests) and the rename to cfop-driller are done. Nex
 - Task 1 (2026-10-15), commit 882b2cb: commit b96770d added pref crossAllStickers and left 3 tests stale. Added the pref to the expected values in progress.test.ts, progress-v1.test.ts, progress-v2.test.ts. No source changes. npm run check: exit 0, 72 files, 7459 tests.
 
 - Rename (2026-10-17): package.json, package-lock.json, REPO_URL in src/ui/home.ts now cfop-driller. Skill folder was already run-cfop-driller. No visible "CFOP Trainer" text existed. Left on purpose: localStorage keys, wrangler.jsonc name (and SPEC.md:377 copy), comment "CFOP trainer" in src/data/algorithms.ts:2 (data file, comment only). npm run check: exit 0, 72 files, 7459 tests.
+- CI (2026-10-18): .github/workflows/ci.yml runs npm ci and npm run check on push to main. checkout v7.0.1 and setup-node v7.1.0 pinned by SHA, permissions: contents: read. .nvmrc pins Node 24.21.0 and the workflow reads it. Not yet verified on GitHub (needs a push). npm run check: exit 0, 72 files, 7459 tests.
 
 ## Next (one task per session)
-1. CI: GitHub Actions running npm ci and npm run check on push to main. Actions pinned by commit SHA, permissions: contents: read.
-2. Update CLAUDE.md Layout to match the audit (three-d/, lib modules, lib to data imports).
-3. Minor UI tweaks (list to be supplied by me).
-4. Add Case.hint: type, SPEC.md section, card display, tests. No data changes yet.
-5. OLL mapping. Read references/learn-oll-cubehead.pdf. Produce a table: PDF case, PDF alg, matching existing case id, picture matches (yes, rotated, AUF), proposed change. No data edits. I approve the table.
-6. OLL batch 1: Oriented Edges (OLL 21-27), T-shapes, Squares. Name, algs, hint. State each changed case in the commit message.
-7. OLL batch 2: Lightning Bolts, P-shapes.
-8. OLL batch 3: C-shapes, Fishes, L-shapes.
-9. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
-10. OLL batch 5: Dot cases. Reconcile total count against 57.
-11. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
-12. README. I write it. Credit CubeHead.
+1. Update CLAUDE.md Layout to match the audit (three-d/, lib modules, lib to data imports).
+2. Minor UI tweaks (list to be supplied by me).
+3. Add Case.hint: type, SPEC.md section, card display, tests. No data changes yet.
+4. OLL mapping. Read references/learn-oll-cubehead.pdf. Produce a table: PDF case, PDF alg, matching existing case id, picture matches (yes, rotated, AUF), proposed change. No data edits. I approve the table.
+5. OLL batch 1: Oriented Edges (OLL 21-27), T-shapes, Squares. Name, algs, hint. State each changed case in the commit message.
+6. OLL batch 2: Lightning Bolts, P-shapes.
+7. OLL batch 3: C-shapes, Fishes, L-shapes.
+8. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
+9. OLL batch 5: Dot cases. Reconcile total count against 57.
+10. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
+11. README. I write it. Credit CubeHead.
 
 ## Open decisions
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
-- Pin Node version (engines field or .nvmrc) for CI.
 - PDF alg as algs[0] vs alternate (default: alternate unless it solves the picture exactly).
 - CubeHead permission vs paraphrased hints.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
 
 ## Known issues
-- No README, no CI.
+- No README.
 - Caret ranges in package.json. Install with npm ci only.
 - contact-sheet.html and three-d.html ship in production builds. debug-render-at.ts may ship with three-d.
 - references/ is gitignored. It exists on this devbox too.
