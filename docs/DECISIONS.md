@@ -13,3 +13,5 @@ Format: date | decision | reason. Append only.
 2026-10-14 | Rename repo and product to CFOP Driller; keep localStorage keys and Worker name | Keys hold users' progress; Worker name is internal
 2026-10-14 | Built-in teaching text goes in Case.hint, not user notes | User notes are storage-only and must not be overwritten
 2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work2026-10-15 | Stale tests were fixed by adding crossAllStickers to the expected prefs, not by changing code | New prefs must appear in the frozen-blob and key-list tests; old blobs read back with the default
+2026-10-19 | Hint UI work moved ahead of UI tweaks; UI tweaks go last | Hints unblock the OLL batches
+2026-10-20 | Case.hint is optional, shown before reveal, hidden by the Notes toggle, also shown in Verify | Same role as a note as a recall hook; an optional field needs no data edits; a shared toggle avoids a new pref and its test churn
