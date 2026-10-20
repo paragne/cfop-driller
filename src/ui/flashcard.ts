@@ -33,6 +33,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
   const solution = el("div", "solution");
   onStarClick(solution, onStar);
   const notes = createNotes(onNote);
+  const hint = el("p", "hint");
 
   const reveal = keyedButton("primary", "Reveal", "space / num0", onReveal);
   const dontKnow = keyedButton("", "Don't know", "1 / num3", onDontKnow);
@@ -51,7 +52,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
   // The note shares the name's row, on the right.
   const headline = el("div", "headline");
   headline.append(name, notes.element);
-  element.append(headline, meta, figure, solution, actions);
+  element.append(headline, hint, meta, figure, solution, actions);
 
   let shown: string | null = null;
   let solutionHtml = "";
@@ -85,6 +86,8 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     }
 
     notes.show(progress.notes[c.id] ?? "", progress.prefs.showNotes);
+    hint.textContent = c.hint ?? "";
+    hint.hidden = !progress.prefs.showNotes || hint.textContent === "";
 
     name.hidden = !progress.prefs.showNames || name.textContent === "";
     meta.hidden = !progress.prefs.showNames;

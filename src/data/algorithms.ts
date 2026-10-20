@@ -62,6 +62,8 @@ export type Case = {
   mask: Mask;
   setup: string | null;
   videoUrl: string | null;
+  // Built-in teaching text, read-only. User notes live in storage, never here.
+  hint?: string;
 };
 
 const FR: Mask = { kind: "f2l", slot: "FR" };

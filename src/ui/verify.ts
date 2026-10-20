@@ -45,6 +45,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   figure.append(stage.element);
   const name = el("p", "name");
   const notes = createNotes(onNote);
+  const hint = el("p", "hint");
   const headline = el("div", "headline");
   headline.append(name, notes.element);
   const solution = el("div", "solution");
@@ -71,7 +72,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const actions = el("nav", "actions");
   actions.append(primary.node, skipIntro.label, mismatch.node, match.node, restart, home);
 
-  element.append(headline, count, ready, figure, solution, altLabel, altPicker, regripLine, actions);
+  element.append(headline, hint, count, ready, figure, solution, altLabel, altPicker, regripLine, actions);
 
   function renderAlts(v: Verify): void {
     const indices = choices(v);
@@ -117,6 +118,8 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
       shownCase = v.current.id;
     }
     notes.show(progress.notes[v.current.id] ?? "", progress.prefs.showNotes);
+    hint.textContent = v.current.hint ?? "";
+    hint.hidden = v.phase === "ready" || !progress.prefs.showNotes || hint.textContent === "";
     for (const kbd of kbds) kbd.hidden = !progress.prefs.showHotkeys;
     skipIntro.label.hidden = v.phase !== "ready";
     skipIntro.input.checked = progress.prefs.skipVerifyIntro;

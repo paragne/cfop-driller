@@ -110,6 +110,14 @@ describe("affectsOtherSlots", () => {
   });
 });
 
+describe("hint", () => {
+  // Passes vacuously until the OLL batches give cases hints.
+  it("is trimmed, non-empty text wherever a case has one", () => {
+    const bad = ALL_CASES.filter((c) => c.hint !== undefined && (c.hint === "" || c.hint !== c.hint.trim()));
+    expect(bad.map((c) => c.id)).toEqual([]);
+  });
+});
+
 describe("OLL", () => {
   it.each(OLL_CASES)("$id: the alg orients the last layer over intact F2L", (c) => {
     const cube = setupCube(c);
