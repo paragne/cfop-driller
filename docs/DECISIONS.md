@@ -15,3 +15,8 @@ Format: date | decision | reason. Append only.
 2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work2026-10-15 | Stale tests were fixed by adding crossAllStickers to the expected prefs, not by changing code | New prefs must appear in the frozen-blob and key-list tests; old blobs read back with the default
 2026-10-19 | Hint UI work moved ahead of UI tweaks; UI tweaks go last | Hints unblock the OLL batches
 2026-10-20 | Case.hint is optional, shown before reveal, hidden by the Notes toggle, also shown in Verify | Same role as a note as a recall hook; an optional field needs no data edits; a shared toggle avoids a new pref and its test churn
+2026-10-20 | OLL source is references/OLL in one month.pdf (CubeHead); all 57 cases map to existing ids, table in docs/oll-mapping.md | The file STATE named does not exist; ids are frozen, so the PDF maps onto them
+2026-10-20 | PDF algs go in as alternates with any needed AUF prefix; no algs[0] changes | Keeps every picture and 3D start state users already know
+2026-10-20 | oll-21 stays "H" (alias "Cross"); oll-57 stays "OLL 57" (alias "H") | Two cards must not share a name; 2-Look users know 21 as H
+2026-10-20 | PDF names for OLL 3, 4, 29, 30 not used; those keep their numbers | Public UI copy; OLL 3 and 4 names reference a hate group
+2026-10-20 | Case sections unchanged except "L Shapes" becomes "Knight Moves" | Sections are display only; current "L Shapes" clashes with the PDF's L-shapes

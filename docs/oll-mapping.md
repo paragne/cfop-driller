@@ -1,6 +1,6 @@
 # OLL mapping: CubeHead PDF to existing cases
 
-Date: 2026-10-20. Status: proposal, awaiting approval. No data changed.
+Date: 2026-10-20. Status: recommendations accepted 2026-10-20 (user confirms in-app per batch). Decision 2: OLL 29 and 30 keep their numbers. No data changed.
 
 Source: `references/OLL in one month.pdf` ("How to Learn OLL in One Month" by CubeHead, 7 pages). STATE.md named `learn-oll-cubehead.pdf`; that file does not exist, and this is the only file in `references/`.
 
