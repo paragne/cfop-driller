@@ -34,7 +34,7 @@ describe("alternate algs", () => {
   const oll24 = byId("oll-24");
   const oll25 = byId("oll-25");
   const pllUa = byId("pll-ua");
-  const sune = byId("oll-27");
+  const bruno = byId("oll-22");
   const other = byId("pll-h");
   const mk = (current: Case): Verify => ({
     pool: [current, other],
@@ -64,7 +64,7 @@ describe("alternate algs", () => {
   });
 
   it("a case with only one alg offers no choice", () => {
-    expect(choices(mk(sune))).toEqual([]);
+    expect(choices(mk(bruno))).toEqual([]);
   });
 
   it("is non-empty exactly where an independent computation finds differing outcomes from solved", () => {

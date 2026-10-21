@@ -100,9 +100,10 @@ function multi(display: string, moves: string): Alg {
   return { display, moves, affectsOtherSlots: true };
 }
 
-// The full sheet carries no case names, so these are named by their standard
+// The full sheet carries no case names, so these default to their standard
 // number. The number was derived by matching orientation patterns against two
-// public tables, not read off the sheet.
+// public tables, not read off the sheet. Names and hints from CubeHead's "How
+// to Learn OLL in One Month" override it per case.
 function oll(id: string, section: string, algs: Alg[]): Case {
   return {
     id,
@@ -607,7 +608,11 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Sune",
     aliases: ["OLL 27"],
-    algs: [a("R U R' U (R U2 R')", "R U R' U R U2 R'")],
+    algs: [
+      a("R U R' U (R U2 R')", "R U R' U R U2 R'"),
+      a("y' R' U2 R U R' U R", "y' R' U2 R U R' U R"),
+    ],
+    hint: "Dopest alg of them all",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -619,7 +624,11 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Anti-Sune",
     aliases: ["OLL 26", "Antisune"],
-    algs: [a("(R U2 R') U' R U' R'", "R U2 R' U' R U' R'")],
+    algs: [
+      a("(R U2 R') U' R U' R'", "R U2 R' U' R U' R'"),
+      a("y' R' U' R U' R' U2 R", "y' R' U' R U' R' U2 R"),
+    ],
+    hint: "Inverse of the dopest alg of them all",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -630,10 +639,13 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "H",
-    aliases: ["OLL 21", "Double Sune"],
+    aliases: ["OLL 21", "Double Sune", "Cross"],
     algs: [
       a("R U R' U (R U' R' U) R U2 R'", "R U R' U R U' R' U R U2 R'"),
+      a("U (R U2 R') (U' R U R') (U' R U' R')", "U R U2 R' U' R U R' U' R U' R'"),
+      a("U y (R U R' U) (R U' R' U) (R U2 R')", "U y R U R' U R U' R' U R U2 R'"),
     ],
+    hint: "Begins and ends the same as (anti-)sune",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -646,6 +658,7 @@ export const OLL_CASES: Case[] = [
     name: "Pi",
     aliases: ["OLL 22", "Bruno"],
     algs: [a("R U2 (R2 U') (R2 U') R2 U2 R", "R U2 R2 U' R2 U' R2 U2 R")],
+    hint: "Never release the R face! and do the U-moves with left hand",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -661,6 +674,7 @@ export const OLL_CASES: Case[] = [
       a("(r U R' U') (r' F R F')", "r U R' U' r' F R F'"),
       a("U (R U R) D (R' U' R) D' R2", "U R U R D R' U' R D' R2"),
     ],
+    hint: "Sexy-move followed by sledge-hammer starting with r's instad of R's",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -676,6 +690,7 @@ export const OLL_CASES: Case[] = [
       a("F' (r U R' U') (r' F R)", "F' r U R' U' r' F R"),
       a("U R2 D' (R U' R') D (R U R)", "U R2 D' R U' R' D R U R"),
     ],
+    hint: "Same as Chameleon with the last F' in front",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -687,23 +702,56 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Headlights",
     aliases: ["OLL 23"],
-    algs: [a("R2 D (R' U2 R) D' (R' U2 R')", "R2 D R' U2 R D' R' U2 R'")],
+    algs: [
+      a("R2 D (R' U2 R) D' (R' U2 R')", "R2 D R' U2 R D' R' U2 R'"),
+      a("y2 R2 D' (R U2 R') D (R U2 R)", "y2 R2 D' R U2 R' D R U2 R"),
+    ],
+    hint: "Try to push the D' with ringfinger. Probably hardest of this group",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
   },
 
   // --- T Shapes (2) --------------------------------------------------------
-  oll("oll-45", "T Shapes", [a("F (R U R' U') F'", "F R U R' U' F'")]),
-  oll("oll-33", "T Shapes", [a("(R U R' U') (R' F R F')", "R U R' U' R' F R F'")]),
+  {
+    ...oll("oll-45", "T Shapes", [a("F (R U R' U') F'", "F R U R' U' F'")]),
+    name: "T",
+    aliases: ["OLL 45"],
+    hint: "F (sexy) F' , easy right?",
+  },
+  {
+    ...oll("oll-33", "T Shapes", [a("(R U R' U') (R' F R F')", "R U R' U' R' F R F'")]),
+    name: "Key",
+    aliases: ["OLL 33"],
+    hint: "(sexy) (sledge), I'll take it",
+  },
 
   // --- Block Shapes (2) ----------------------------------------------------
-  oll("oll-6", "Block Shapes", [a("(r U2 R') U' R U' r'", "r U2 R' U' R U' r'")]),
-  oll("oll-5", "Block Shapes", [a("(r' U2 R) U R' U r", "r' U2 R U R' U r")]),
+  {
+    ...oll("oll-6", "Block Shapes", [a("(r U2 R') U' R U' r'", "r U2 R' U' R U' r'")]),
+    name: "Righty Square",
+    aliases: ["OLL 6"],
+    hint: "Anti-Sune beginning and ending with wide moves",
+  },
+  {
+    ...oll("oll-5", "Block Shapes", [a("(r' U2 R) U R' U r", "r' U2 R U R' U r")]),
+    name: "Lefty Square",
+    aliases: ["OLL 5"],
+    hint: "Mirror of Righty-Square",
+  },
 
   // --- Edges Only (2) ------------------------------------------------------
-  oll("oll-28", "Edges Only", [a("(r U R' U') M (U R U' R')", "r U R' U' M U R U' R'")]),
-  oll("oll-57", "Edges Only", [a("(R U R' U') M' (U R U' r')", "R U R' U' M' U R U' r'")]),
+  {
+    ...oll("oll-28", "Edges Only", [a("(r U R' U') M (U R U' R')", "r U R' U' M U R U' R'")]),
+    name: "Arrow",
+    aliases: ["OLL 28"],
+    hint: "(wide sexy) M (insert)",
+  },
+  {
+    ...oll("oll-57", "Edges Only", [a("(R U R' U') M' (U R U' r')", "R U R' U' M' U R U' r'")]),
+    aliases: ["H"],
+    hint: "(sexy) M' (wide insert)",
+  },
 
   // --- Lightning Shapes (6) ------------------------------------------------
   oll("oll-7", "Lightning Shapes", [a("r U R' U (R U2 r')", "r U R' U R U2 r'")]),
