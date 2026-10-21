@@ -20,3 +20,4 @@ Format: date | decision | reason. Append only.
 2026-10-20 | oll-21 stays "H" (alias "Cross"); oll-57 stays "OLL 57" (alias "H") | Two cards must not share a name; 2-Look users know 21 as H
 2026-10-20 | PDF names for OLL 3, 4, 29, 30 not used; those keep their numbers | Public UI copy; OLL 3 and 4 names reference a hate group
 2026-10-20 | Case sections unchanged except "L Shapes" becomes "Knight Moves" | Sections are display only; current "L Shapes" clashes with the PDF's L-shapes
+2026-10-21 | OLL hints are CubeHead's PDF notes verbatim, typos included | User's call; README credits CubeHead

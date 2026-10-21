@@ -1,9 +1,9 @@
 # State
 
-Updated: 2026-10-20 (OLL mapping)
+Updated: 2026-10-21 (OLL batch 1)
 
 ## Current task
-None. OLL mapping is done. Next session: OLL batch 1 (Next 1).
+None. OLL batch 1 is done, not yet viewed in browser. Next session: OLL batch 2 (Next 1).
 
 ## Done
 - Devbox clone, npm ci.
@@ -25,22 +25,23 @@ None. OLL mapping is done. Next session: OLL batch 1 (Next 1).
 - Reorder (2026-10-19): UI tweaks moved from first to last in Next.
 - OLL mapping (2026-10-20): docs/oll-mapping.md. Source is references/OLL in one month.pdf (the named learn-oll-cubehead.pdf does not exist). 57 PDF cases map one-to-one onto the 57 Full OLL ids, checked by script on cube.ts and by eye on rendered pages. 18 PDF pictures are the app picture after a U turn. City (OLL 34) picture disagrees with its own alg by U. 44 PDF algs are new. Recommendations accepted, recorded in DECISIONS.md. poppler-utils installed on the devbox (apt) to read the PDF.
 - Task 2 Case.hint (2026-10-20): optional hint?: string on Case (type only, no case changed). Shown as a .hint line under the name row on flashcards and in Verify, before reveal, hidden by the Notes toggle, hidden on the Verify intro. SPEC.md "Hints" section. Test in algorithms-structure.test.ts (trimmed, non-empty) passes vacuously until the OLL batches add hints. No style.css change. Viewed in browser by user. npm run check: exit 0, 72 files, 7460 tests.
+- OLL batch 1 (2026-10-21), commit 8ffe2e2: oll-21 to 27, 45, 33, 5, 6, 28, 57. Names T, Key, Righty Square, Lefty Square, Arrow (old "OLL n" moved to aliases). Alias Cross on 21, H on 57. Alternates on 27, 26, 23, and two on 21 with U prefix. Hints verbatim from the PDF on all 13, typos kept ("instad", "Righty-Square", "F' , easy"). verify-choices.test.ts one-alg fixture moved from oll-27 to oll-22. Leading-y alternates show as Verify choices; the independent choices test passes. npm run check: exit 0, 72 files, 7489 tests.
 
 ## Next (one task per session)
 Follow docs/oll-mapping.md: PDF algs as alternates with the AUF prefix the table gives, no algs[0] changes, names per its table and DECISIONS.md. Check Verify regrip on any alg with a mid-alg rotation in the batch that adds it.
-1. OLL batch 1: Oriented Edges (OLL 21-27), T-shapes, Squares, Solved Corners (28, 57). Name, algs, hint. State each changed case in the commit message.
-2. OLL batch 2: Lightning Bolts, P-shapes.
-3. OLL batch 3: C-shapes, Fishes, L-shapes. Rename section "L Shapes" to "Knight Moves" in batch 4, not here.
-4. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
-5. OLL batch 5: Dot cases. Reconcile total count against 57.
-6. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
-7. README. I write it. Credit CubeHead.
-8. Minor UI tweaks (list to be supplied by me).
+Hints are CubeHead's notes verbatim (DECISIONS.md 2026-10-21). Name a case with `{ ...oll(...), name, aliases, hint }` as batch 1 does. State each changed case in the commit message.
+1. OLL batch 2: Lightning Bolts, P-shapes.
+2. OLL batch 3: C-shapes, Fishes, L-shapes. Rename section "L Shapes" to "Knight Moves" in batch 4, not here.
+3. OLL batch 4: W-shapes, Lines, Knight Moves, Awkward Shapes.
+4. OLL batch 5: Dot cases. Reconcile total count against 57.
+5. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update).
+6. README. I write it. Credit CubeHead.
+7. Minor UI tweaks (list to be supplied by me).
 
 ## Open decisions
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
 - PDF alg as algs[0] vs alternate (default: alternate unless it solves the picture exactly).
-- CubeHead permission vs paraphrased hints. Blocks hints in every OLL batch; algs and names can land without them. Many PDF notes are jokes or profanity and need rewriting regardless.
+- Verbatim hints with profanity (later batches): ship as printed or skip that case's hint. Ask when the batch reaches one.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
 
