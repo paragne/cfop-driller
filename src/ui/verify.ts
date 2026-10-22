@@ -47,7 +47,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const notes = createNotes(onNote);
   const hint = el("p", "hint");
   const headline = el("div", "headline");
-  headline.append(name, notes.element);
+  headline.append(name, hint, notes.element);
   const solution = el("div", "solution");
   onStarClick(solution, onStar);
   const altLabel = el("p", "hint", "Expected if you used:");
@@ -72,7 +72,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const actions = el("nav", "actions");
   actions.append(primary.node, skipIntro.label, mismatch.node, match.node, restart, home);
 
-  element.append(headline, hint, count, ready, figure, solution, altLabel, altPicker, regripLine, actions);
+  element.append(headline, count, ready, figure, solution, altLabel, altPicker, regripLine, actions);
 
   function renderAlts(v: Verify): void {
     const indices = choices(v);

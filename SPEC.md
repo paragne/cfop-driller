@@ -217,9 +217,9 @@ and happens in place.
 Per-case teaching text, built into the case data as Case.hint. Optional: a case
 without one shows nothing. Read-only in the app. Never stored with progress,
 never exported, and never copied into a note. Notes are the user's own text.
-Shown on its own line under the name's row, on every flashcard and in Verify.
-Visible while the solution is hidden, like a note. The Notes toggle hides it
-too. Verify hides it on the intro screen, where no case is shown yet.
+Shown on the right of the name's row, before the note, on every flashcard
+and in Verify. Visible while the solution is hidden, like a note. The Notes
+toggle hides it too. Verify hides it on the intro screen, where no case is shown yet.
 
 ## Scheduling (SM-2)
 

@@ -49,10 +49,10 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
   title.append(section, " · ", count);
   const meta = el("div", "meta");
   meta.append(title);
-  // The note shares the name's row, on the right.
+  // The hint and the note share the name's row, on the right.
   const headline = el("div", "headline");
-  headline.append(name, notes.element);
-  element.append(headline, hint, meta, figure, solution, actions);
+  headline.append(name, hint, notes.element);
+  element.append(headline, meta, figure, solution, actions);
 
   let shown: string | null = null;
   let solutionHtml = "";
