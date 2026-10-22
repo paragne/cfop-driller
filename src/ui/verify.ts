@@ -45,8 +45,11 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   figure.append(stage.element);
   const name = el("p", "name");
   const notes = createNotes(onNote);
+  // As on the flashcard: a long note must not push the count away from the name.
+  const lead = el("div", "lead");
+  lead.append(name, count);
   const headline = el("div", "headline");
-  headline.append(name, notes.element);
+  headline.append(lead, notes.element);
   const solution = el("div", "solution");
   onStarClick(solution, onStar);
   const altLabel = el("p", "hint", "Expected if you used:");
@@ -71,7 +74,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const actions = el("nav", "actions");
   actions.append(primary.node, skipIntro.label, mismatch.node, match.node, restart, home);
 
-  element.append(headline, count, ready, figure, solution, altLabel, altPicker, regripLine, actions);
+  element.append(headline, ready, figure, solution, altLabel, altPicker, regripLine, actions);
 
   function renderAlts(v: Verify): void {
     const indices = choices(v);
