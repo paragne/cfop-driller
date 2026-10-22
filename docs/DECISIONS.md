@@ -37,3 +37,6 @@ Format: date | decision | reason. Append only.
 2026-10-22 | Reveal shows the name and meta line in Learn and Drill even when Names is off; the next card hides them again | Revealing answers the whole card. The Names pref is never changed
 2026-10-22 | Card header is two boxes: name over meta line on the left, hint on the right (flashcard and Verify) | A long hint grew the shared row and pushed the meta line down
 2026-10-22 | Meta line drops the group and reads "Card N" (Drill) or "Card N / total" (Learn), where Learn N is done + 1 | "Card 0 / 20" on the first card read wrong; a failed card keeps its number
+2026-10-22 | One top-left menu button: data menu on home, card toggles menu on card screens (two panels, one trigger) | Task asked for a hamburger; a second button would crowd the left cell beside Back
+2026-10-22 | Blind and Guided set Names, Hints, Auto-reveal, Hotkeys; they leave 3D and All stickers alone | Presets cover what a card shows, not how it is viewed
+2026-10-22 | All stickers moves into the card menu, shown only in Cross | The toggle bar it lived in is gone
