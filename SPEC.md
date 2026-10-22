@@ -119,14 +119,14 @@ AUF (U, U', U2) is safe because U turns leave centers home.
 - Pick sets to drill: any combination of F2L, 2-Look OLL, 2-Look PLL, Full OLL,
   Full PLL.
 - One case shown at a time as a computed SVG.
-- Controls: reveal/hide solution, reveal/hide case name, show/hide notes, edit
-  notes.
+- Controls: reveal/hide solution, reveal/hide case name, show/hide hints, edit
+  hint.
 - Grade: "Know it" or "Don't know it".
 - Grading feeds the scheduler. Next case is drawn from the due queue.
 - Name visibility is a sticky stored preference: it is the visible state, and
   toggling it carries across cards.
-- Note visibility is a sticky stored preference, on by default. Hiding notes
-  never removes the edit button, so a note can still be written.
+- Hint visibility is a sticky stored preference, on by default. Hiding hints
+  never removes the edit button, so a hint can still be written.
 - Solution auto-reveal is a sticky stored preference, off by default. Revealing
   the solution for the current card is per-card state that resets on every new
   card. Revealing must never write the preference, or one reveal would show
@@ -201,25 +201,25 @@ AUF (U, U', U2) is safe because U turns leave centers home.
 - A first-time user has every case due, so Learn's first session is a random
   twenty with shuffle on.
 
-## Notes
+## Hints
+
+The UI calls a note a hint. Stored as `notes` in progress; the key keeps that
+name so saved files still load.
 
 Per-case freeform text, unlimited length, plain text. Stored with the user's
 progress. Included in export. Shown on the card at the right of the name's row,
 never wider than 40% of the card, so it stays clear of the 60% line. It is
 clamped to four lines with an ellipsis, and clicking it opens it to its full
-length. It is visible while the solution is hidden, since a note is often the
-memory hook that lets you recall the alg without seeing it. The Notes toggle
-hides the text. Writing starts from the edit button in the top bar, beside 3D,
-and happens in place.
+length. It is visible while the solution is hidden, since a hint is often the
+memory hook that lets you recall the alg without seeing it. The Hints toggle
+hides the text. Writing starts from the Edit hint button in the top bar, beside
+3D, and happens in place.
 
-## Hints
-
-Per-case teaching text, built into the case data as Case.hint. Optional: a case
-without one shows nothing. Read-only in the app. Never stored with progress,
-never exported, and never copied into a note. Notes are the user's own text.
-Shown on the right of the name's row, before the note, on every flashcard
-and in Verify. Visible while the solution is hidden, like a note. The Notes
-toggle hides it too. Verify hides it on the intro screen, where no case is shown yet.
+A new user has no hints. The owner's hints ship in the case data as
+Case.hint and are never displayed directly. Load My Hints in the home menu
+asks "Load the app owner's hints?" in place, then copies Case.hint into every
+case that has no hint yet and reports how many it loaded. A hint the user wrote
+is never overwritten.
 
 ## Scheduling (SM-2)
 
@@ -464,7 +464,7 @@ record, however many sets include it.
 - Drill: endless random cycling over the chosen sets. Same card screen, with
   the grade buttons replaced by Next, which is the Enter key. Enter yields to a
   focused button, link or field, where it already activates them. No immediate repeats.
-  Nothing graded, scheduled or recorded; notes stay editable, since a note is
+  Nothing graded, scheduled or recorded; hints stay editable, since a hint is
   the user's own text and not a grade. Cards come from a shuffle bag: every
   case in the chosen sets once in random order, then a reshuffle whose first
   card is never the one just shown.
@@ -476,7 +476,7 @@ record, however many sets include it.
   Its set selection, `prefs.sets.gallery`, defaults to every set and takes F2L
   sets; a stored blob without it loads the default, so no version bump.
   Choosing a case opens the Drill card layout with the solution always shown
-  and no Reveal, grade or Next button; notes, stars and 3D work as there. A
+  and no Reveal, grade or Next button; hints, stars and 3D work as there. A
   large Back control at the top left returns to the grid at the scroll position
   left. Gallery records no grades, scheduling or timing. Shuffle and Random AUF
   do not apply and are hidden while it is selected.
@@ -486,7 +486,7 @@ record, however many sets include it.
 No sidebar. The home screen is the navigation.
 
 - Top bar: logo centered, returns home. On the home screen a menu button at the
-  left opens Save Data, Load Data, Wipe Data and Share (which copies
+  left opens Save Data, Load Data, Load My Hints, Wipe Data and Share (which copies
   https://cfop.paragone.dev), and a `?` at the right opens a how-to, both in
   place under the bar with no dialog. Leaving a session via the logo needs no
   confirmation, since grades save on each tap.
@@ -503,8 +503,8 @@ No sidebar. The home screen is the navigation.
   counts every case the session queue would take: never seen, or `due <= now`.
   The rows run in the order the sets are listed above and take the colors of the
   rainbow in that order, red to violet.
-- The card screens carry the Names, Auto-reveal and Notes toggles (Verify has
-  neither Auto-reveal nor Notes). On a phone they take a row under the bar so
+- The card screens carry the Names, Auto-reveal and Hints toggles (Verify has
+  no Auto-reveal). On a phone they take a row under the bar so
   the logo stays centered. Set toggles live only on the home screen.
 
 ### Brand

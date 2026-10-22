@@ -42,7 +42,7 @@ Case images are computed from the solution alg plus a mask, never stored.
 - Do not modify src/data/algorithms.ts without stating which case changed and why.
 - No analytics, telemetry, or runtime network requests. Must work offline after first load.
 - references/ is gitignored and may not exist on this machine. Never look there unless I name a file in it. Source material comes from the prompt or a path I give.
-- Case.hint is built-in teaching text. User notes live in storage only. Never write hints into user notes.
+- Case.hint is the owner's hint data, never displayed. It reaches user notes only through Load My Hints, which fills empty notes and never overwrites one.
 
 ## Testing
 - cube.ts has provable correctness. Test it hard: every move x4 is identity, (R U R' U') x6 is identity, Sune has order 6.
