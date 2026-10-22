@@ -9,7 +9,7 @@ import type { Mode } from "./lib/prefs.ts";
 import { defaultProgress } from "./lib/progress.ts";
 import type { Progress } from "./lib/progress.ts";
 import { setAesthetic, setMode, setNote, setNumberPref, setPref, setStar, toggleSet } from "./lib/progress-edit.ts";
-import { cardView, chooseAlt, chooseCross, press, start, verifyView } from "./lib/screen.ts";
+import { chooseAlt, chooseCross, press, start } from "./lib/screen.ts";
 import type { Action, Screen } from "./lib/screen.ts";
 import { offeredSets } from "./lib/selection.ts";
 import { starredAlg } from "./lib/stars.ts";
@@ -60,6 +60,11 @@ function star(algIndex: number): void {
   if (view === null) throw new Error("alg starred with no case on screen");
   commit(setStar(progress, view.c.id, starredAlg(view.c, progress.stars) === algIndex ? 0 : algIndex));
 }
+function note(text: string): void {
+  const view = caseView(screen);
+  if (view === null) throw new Error("note edited with no case on screen");
+  persist(setNote(progress, view.c.id, text));
+}
 
 const play = {
   onStar: star,
@@ -97,11 +102,7 @@ const flashcard = createFlashcard({
   onDontKnow: () => handle("dontKnow"),
   onKnow: () => handle("know"),
   onNext: () => handle("next"),
-  onNote: (text) => {
-    const view = cardView(screen);
-    if (view === null) throw new Error("note edited with no card on screen");
-    persist(setNote(progress, view.c.id, text));
-  },
+  onNote: note,
   onStar: star,
   play,
 });
@@ -110,11 +111,7 @@ const verify = createVerify({
   onMismatch: () => handle("dontKnow"),
   onMatch: () => handle("know"),
   onChoose: (i) => show(chooseAlt(screen, i)),
-  onNote: (text) => {
-    const v = verifyView(screen);
-    if (v === null) throw new Error("note edited with no case on screen");
-    persist(setNote(progress, v.current.id, text));
-  },
+  onNote: note,
   onStar: star,
   onRestart: () => startMode("verify"),
   onHome: goHome,
@@ -195,6 +192,5 @@ function handle(action: Action): void {
 document.body.append(topbar.element, menu.element, help.element, status.element, home.element, createLegend(topbar.helpButton));
 document.body.append(gallery.element, intro.element, flashcard.element, verify.element, cross.element, summary.element);
 bindKeys(handle, (step) => flashcard.step(step) || verify.step(step) || cross.step(step), () => screen.kind === "drill" || screen.kind === "cross");
-if (loaded.problem === "unreadable") status.show(SET_ASIDE);
-if (loaded.problem === "unavailable") status.show(NOT_SAVING);
+if (loaded.problem !== null) status.show(loaded.problem === "unreadable" ? SET_ASIDE : NOT_SAVING);
 render();
