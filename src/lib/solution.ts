@@ -18,8 +18,10 @@ const star = (i: number, starred: number) =>
 
 export function renderSolution(c: Case, auf: Auf, starred: number): string {
   const [primary, ...alternates] = c.algs;
+  // With one alg there is nothing to choose between.
+  const first = alternates.length === 0 ? "" : star(0, starred);
   const algs = [
-    `<p class="alg primary">${star(0, starred)}${escape(prefixed(auf, primary.display))}</p>`,
+    `<p class="alg primary">${first}${escape(prefixed(auf, primary.display))}</p>`,
     ...alternates.map(
       (alg, k) =>
         `<p class="alg alt">${star(k + 1, starred)}${escape(prefixed(auf, alg.display))}${alg.affectsOtherSlots === true ? ` ${FLAG}` : ""}</p>`,

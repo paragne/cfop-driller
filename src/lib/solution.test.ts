@@ -120,4 +120,8 @@ describe("the star buttons", () => {
   it("fills the starred one and leaves the others outlined", () => {
     expect(buttons(renderSolution(three, "", 1)).map((m) => m[3])).toEqual(["☆", "★", "☆"]);
   });
+
+  it("leaves a one-alg case without a star", () => {
+    expect(buttons(renderSolution(caseWith(["R U R'"], null), "", 0))).toEqual([]);
+  });
 });
