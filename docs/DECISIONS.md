@@ -34,3 +34,6 @@ Format: date | decision | reason. Append only.
 2026-10-22 | Legend drops the merge rule | Owner's second hint list writes merges explicitly with ∧
 2026-10-22 | UI says "hint" for a note; the stored key stays `notes` | Saved files and exports keep loading without a migration
 2026-10-22 | Load My Hints confirms in an in-place strip under the menu (Load, Cancel), like the import strip | Menu has no dialogs; one pattern for both confirmations
+2026-10-22 | Reveal shows the name and meta line in Learn and Drill even when Names is off; the next card hides them again | Revealing answers the whole card. The Names pref is never changed
+2026-10-22 | Card header is two boxes: name over meta line on the left, hint on the right (flashcard and Verify) | A long hint grew the shared row and pushed the meta line down
+2026-10-22 | Meta line drops the group and reads "Card N" (Drill) or "Card N / total" (Learn), where Learn N is done + 1 | "Card 0 / 20" on the first card read wrong; a failed card keeps its number
