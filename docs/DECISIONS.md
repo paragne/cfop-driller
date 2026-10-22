@@ -28,3 +28,7 @@ Format: date | decision | reason. Append only.
 2026-10-22 | Pref toggles move to a hamburger menu with Blind and Guided presets | Fewer controls on the card
 2026-10-22 | PLL gets owner hints too; all hints live in docs/hints.md | Same legend covers both sets
 2026-10-22 | DESIGN.md merged, not replaced: the 9 existing rules kept, tokens extracted from style.css, North Star "The Flash Card", accent "Lavender Signal". Sidecar .impeccable/design.json committed | Code is the incumbent authority; the old rules still match it
+2026-10-22 | Legend is a chip in the top bar tools, right of 3D, and closes only on its chip, Close or Escape, not on a click elsewhere | It is a reference kept open while drilling; Next is a click. Other panels keep click-elsewhere
+2026-10-22 | Case hint shows on the right of the name row, before the note | Interim step toward merging hints into notes, which take that spot
+2026-10-22 | In Verify, know (numpad . and 2) also triggers Check; numpad 0 still does | One key for Check then Match. Removing num0 for Check alone would need a new action
+2026-10-22 | Legend drops the merge rule | Owner's second hint list writes merges explicitly with ∧
