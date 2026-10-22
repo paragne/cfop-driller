@@ -8,12 +8,13 @@ import { SHIPPED_MODES } from "./lib/prefs.ts";
 import type { Mode } from "./lib/prefs.ts";
 import { defaultProgress } from "./lib/progress.ts";
 import type { Progress } from "./lib/progress.ts";
-import { loadHints, setAesthetic, setMode, setNote, setNumberPref, setPref, setStar, toggleSet } from "./lib/progress-edit.ts";
+import { loadHints, setAesthetic, setGuided, setMode, setNote, setNumberPref, setPref, setStar, toggleSet } from "./lib/progress-edit.ts";
 import { chooseAlt, chooseCross, press, start } from "./lib/screen.ts";
 import type { Action, Screen } from "./lib/screen.ts";
 import { offeredSets } from "./lib/selection.ts";
 import { starredAlg } from "./lib/stars.ts";
 import { exportJson, importJson, load, save, wipe } from "./lib/storage.ts";
+import { createCardMenu } from "./ui/card-menu.ts";
 import { createCross } from "./ui/cross.ts";
 import { createFlashcard } from "./ui/flashcard.ts";
 import { createGallery } from "./ui/gallery.ts";
@@ -23,7 +24,6 @@ import { createIntro } from "./ui/intro.ts";
 import { createLegend } from "./ui/legend.ts";
 import { bindKeys } from "./ui/keys.ts";
 import { createMenu } from "./ui/menu.ts";
-import { createPrefBar } from "./ui/pref-bar.ts";
 import { renderApp } from "./ui/render-app.ts";
 import { createStatus } from "./ui/status.ts";
 import { createSummary } from "./ui/summary.ts";
@@ -44,14 +44,13 @@ const topbar = createTopbar({
   onHome: () => goHome(),
   onMenu: () => {
     help.close();
-    menu.toggle();
+    (screen.kind === "home" ? menu : cardMenu).toggle();
   },
   onHelp: () => {
     menu.close();
     help.toggle();
   },
   onNotes: () => (screen.kind === "verify" ? verify.editNote() : flashcard.editNote()),
-  onThreeD: () => commit(setPref(progress, "threeD", !progress.prefs.threeD)),
   onBack: () => show(closeCase(screen)),
 });
 // Starring the starred alg again clears it, back to the primary.
@@ -88,12 +87,6 @@ const intro = createIntro({
     commit(setPref(progress, screen.mode === "learn" ? "skipLearnIntro" : "skipDrillIntro", skip));
   },
 });
-const prefBar = createPrefBar({
-  onNames: () => handle("toggleNames"),
-  onToggle: (key) => commit(setPref(progress, key, !progress.prefs[key])),
-  touchPrimary,
-});
-topbar.left.append(prefBar.element);
 const flashcard = createFlashcard({
   onReveal: () => handle("reveal"),
   onDontKnow: () => handle("dontKnow"),
@@ -148,6 +141,14 @@ const menu = createMenu({
   onOpenChange: (open) => topbar.setMenuOpen(open),
   trigger: topbar.menuButton,
 });
+const cardMenu = createCardMenu({
+  onNames: () => handle("toggleNames"),
+  onToggle: (key) => commit(setPref(progress, key, !progress.prefs[key])),
+  onGuided: (on) => commit(setGuided(progress, on)),
+  touchPrimary,
+  onOpenChange: (open) => topbar.setMenuOpen(open),
+  trigger: topbar.menuButton,
+});
 const help = createHelp(topbar.helpButton, (open) => topbar.setHelpOpen(open));
 
 function persist(next: Progress): void {
@@ -181,7 +182,7 @@ function switchSet(set: CaseSet): void {
   commit(toggleSet(progress, mode, set));
 }
 
-const render = (): void => renderApp({ topbar, menu, help, home, intro, prefBar, flashcard, verify, cross, summary, gallery }, progress, screen);
+const render = (): void => renderApp({ topbar, menu, help, home, intro, cardMenu, flashcard, verify, cross, summary, gallery }, progress, screen);
 
 function handle(action: Action): void {
   const next = press(screen, action, context());
@@ -190,7 +191,7 @@ function handle(action: Action): void {
   render();
 }
 
-document.body.append(topbar.element, menu.element, help.element, status.element, home.element, createLegend(topbar.helpButton));
+document.body.append(topbar.element, menu.element, cardMenu.element, help.element, status.element, home.element, createLegend(topbar.helpButton));
 document.body.append(gallery.element, intro.element, flashcard.element, verify.element, cross.element, summary.element);
 bindKeys(handle, (step) => flashcard.step(step) || verify.step(step) || cross.step(step), () => screen.kind === "drill" || screen.kind === "cross");
 if (loaded.problem !== null) status.show(loaded.problem === "unreadable" ? SET_ASIDE : NOT_SAVING);

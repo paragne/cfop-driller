@@ -16,7 +16,7 @@ const COPY: Record<IntroMode, { title: string; body: readonly string[] }> = {
     body: [
       "Cases come up on a spaced-repetition schedule. Solve each one on your cube or in your head before you reveal it: this is honor code, not a cube check.",
       "Reveal shows the algorithm. Grade yourself honestly with Know it or Don't know it. Your grade decides when this case comes back.",
-      "Names, hints and auto-reveal are sticky preferences, toggled from the bar above the card.",
+      "Names, hints and auto-reveal are sticky preferences, toggled from the menu at top left.",
     ],
   },
   drill: {

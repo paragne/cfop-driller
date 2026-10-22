@@ -1,13 +1,12 @@
 import logoMark from "../assets/logo-mark.svg";
 import { el } from "./dom.ts";
-import { HELP_ICON, MENU_ICON, NOTE_EDIT_ICON, THREE_D_ICON } from "./icons.ts";
+import { HELP_ICON, MENU_ICON, NOTE_EDIT_ICON } from "./icons.ts";
 
 type Handlers = {
   onHome: () => void;
   onMenu: () => void;
   onHelp: () => void;
   onNotes: () => void;
-  onThreeD: () => void;
   onBack: () => void;
 };
 
@@ -22,7 +21,7 @@ function iconButton(className: string, label: string, markup: string, onClick: (
   return node;
 }
 
-export function createTopbar({ onHome, onMenu, onHelp, onNotes, onThreeD, onBack }: Handlers) {
+export function createTopbar({ onHome, onMenu, onHelp, onNotes, onBack }: Handlers) {
   const home = iconButton("logo", "CFOP Driller, home", `<img src="${logoMark}" alt="" />`, onHome);
   const back = el("button", "back", "‹ Back");
   back.type = "button";
@@ -34,22 +33,17 @@ export function createTopbar({ onHome, onMenu, onHelp, onNotes, onThreeD, onBack
   help.setAttribute("aria-expanded", "false");
   const notes = iconButton("icon", "Edit hint", NOTE_EDIT_ICON, onNotes);
   notes.hidden = true;
-  const threeD = iconButton("icon", "3D view", THREE_D_ICON, onThreeD);
-  threeD.setAttribute("aria-pressed", "false");
-  threeD.hidden = true;
 
-  // The left cell holds the menu on the home screen and the card's toggles
-  // elsewhere; empty, it would let the logo drift off center.
+  // Empty, the left cell would let the logo drift off center.
   const left = el("div", "topbar-left");
-  left.append(back, menu);
+  left.append(menu, back);
   const tools = el("div", "tools");
-  tools.append(notes, threeD, help);
+  tools.append(notes, help);
   const element = el("header", "topbar");
   element.append(left, home, tools);
 
   return {
     element,
-    left,
     menuButton: menu,
     helpButton: help,
     setMenuOpen(open: boolean): void {
@@ -62,19 +56,15 @@ export function createTopbar({ onHome, onMenu, onHelp, onNotes, onThreeD, onBack
     setBack(available: boolean): void {
       back.hidden = !available;
     },
-    // The menu and the how-to belong to the home screen alone.
-    setHomeTools(available: boolean): void {
-      menu.hidden = !available;
-      help.hidden = !available;
+    // The menu holds data on the home screen and card toggles on a card; the
+    // how-to belongs to the home screen alone.
+    setTools(menuAvailable: boolean, helpAvailable: boolean): void {
+      menu.hidden = !menuAvailable;
+      help.hidden = !helpAvailable;
     },
     // Only a Learn or Drill card has a note to write.
     setNotesAvailable(available: boolean): void {
       notes.hidden = !available;
-    },
-    // A mode, not a per-card choice, so it stays pressed from card to card.
-    setThreeD(available: boolean, on: boolean): void {
-      threeD.hidden = !available;
-      threeD.setAttribute("aria-pressed", String(on));
     },
   };
 }

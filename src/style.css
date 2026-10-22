@@ -41,25 +41,11 @@ body {
 .topbar .back { padding: 0 1rem; border-color: var(--fg); font-size: 1.125rem; font-weight: 600; white-space: nowrap; }
 .tools { justify-self: end; display: flex; }
 .icon { display: grid; place-items: center; width: 2.75rem; padding: 0; }
-/* The same chip as Names and Auto-reveal on the other side of the logo. */
+/* One chip size on both sides of the logo. */
 .topbar .tools .icon, .topbar-left .icon { min-height: 2rem; width: 2.5rem; border-color: var(--line); background: var(--panel); }
 .tools { gap: 0.25rem; }
 .topbar .tools .icon[aria-expanded="true"], .topbar .tools .icon[aria-pressed="true"], .icon[aria-expanded="true"], .icon[aria-pressed="true"] { border-color: var(--fg); background: var(--fg); color: var(--bg); }
 
-.prefs { display: flex; gap: 0.25rem; }
-/* Three chips do not fit beside the logo on a phone: they take a row of their
-   own under the bar, and the logo stays centered. */
-@media (max-width: 36rem) {
-  .topbar-left { display: contents; }
-  .topbar-left .prefs { grid-column: 1 / -1; grid-row: 2; margin-top: 0.25rem; }
-  .topbar-left > .icon, .topbar-left > .back { grid-column: 1; grid-row: 1; justify-self: start; }
-  .topbar .logo { grid-column: 2; grid-row: 1; }
-  .topbar .tools { grid-column: 3; grid-row: 1; }
-}
-/* In the top bar, so smaller than the set toggles, and still buttons. */
-.topbar .prefs .toggle { min-height: 2rem; padding: 0.125rem 0.5rem; border-color: var(--line); background: var(--panel); font-size: 0.75rem; white-space: nowrap; }
-.topbar .prefs kbd { display: none; }
-.topbar .prefs .toggle[aria-pressed="true"] { border-color: var(--fg); background: var(--fg); color: var(--bg); }
 .set-toggles, .modes, .options, .set-row { display: flex; flex-wrap: wrap; gap: 0.25rem; }
 
 /* Pressed is inverted grayscale, so the accent stays on the primary action. */
@@ -354,6 +340,11 @@ kbd {
   font-size: 0.875rem;
 }
 .data.help { left: auto; right: max(0.75rem, calc(50% - 20rem)); }
+/* Presets above, single toggles below, two to a row so each label fits at
+   phone width. */
+.card-menu { display: grid; gap: 0.75rem; width: min(18rem, calc(100% - 1.5rem)); }
+.card-menu .presets, .card-menu .card-prefs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.card-menu .card-prefs { padding-top: 0.75rem; border-top: 1px solid var(--line); }
 .data-actions { display: grid; gap: 0.5rem; }
 .data-row { display: grid; grid-template-columns: 8.5rem 1fr; align-items: center; gap: 0.75rem; }
 .data-row p, .import-strip p { margin: 0; }

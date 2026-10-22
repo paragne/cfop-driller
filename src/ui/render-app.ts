@@ -13,7 +13,7 @@ import type { createHelp } from "./help.ts";
 import type { createHome } from "./home.ts";
 import type { createIntro } from "./intro.ts";
 import type { createMenu } from "./menu.ts";
-import type { createPrefBar } from "./pref-bar.ts";
+import type { createCardMenu } from "./card-menu.ts";
 import type { createSummary } from "./summary.ts";
 import { webgl2Available } from "./three-d/webgl-support.ts";
 import type { createTopbar } from "./topbar.ts";
@@ -25,7 +25,7 @@ type Parts = {
   help: ReturnType<typeof createHelp>;
   home: ReturnType<typeof createHome>;
   intro: ReturnType<typeof createIntro>;
-  prefBar: ReturnType<typeof createPrefBar>;
+  cardMenu: ReturnType<typeof createCardMenu>;
   flashcard: ReturnType<typeof createFlashcard>;
   verify: ReturnType<typeof createVerify>;
   cross: ReturnType<typeof createCross>;
@@ -36,24 +36,25 @@ type Parts = {
 // Brings every part of the page in line with the state: which screen shows,
 // and what each part on it says.
 export function renderApp(
-  { topbar, menu, help, home, intro, prefBar, flashcard, verify, cross, summary, gallery }: Parts,
+  { topbar, menu, help, home, intro, cardMenu, flashcard, verify, cross, summary, gallery }: Parts,
   progress: Progress,
   screen: Screen,
 ): void {
   const onHome = screen.kind === "home";
   const introFor = introMode(screen);
-  topbar.setHomeTools(onHome);
-  if (!onHome) {
-    menu.close();
-    help.close();
-  }
   home.element.hidden = !onHome;
   intro.element.hidden = introFor === null;
   const browsing = screen.kind === "gallery" ? screen : null;
   const onGrid = browsing !== null && browsing.open === null;
+  const carding = !onHome && !onGrid && introFor === null;
+  topbar.setTools(onHome || carding, onHome);
+  if (!onHome) {
+    menu.close();
+    help.close();
+  }
+  if (!carding) cardMenu.close();
   gallery.render(browsing && gallerySections(ALL_CASES, progress.prefs.sets.gallery), browsing?.open ?? null);
   topbar.setBack(browsing !== null && !onGrid);
-  prefBar.element.hidden = onHome || onGrid || introFor !== null;
   if (onHome) {
     home.render({
       mode: progress.prefs.mode,
@@ -67,8 +68,6 @@ export function renderApp(
   } else if (introFor !== null) {
     const skipped = introFor === "learn" ? progress.prefs.skipLearnIntro : progress.prefs.skipDrillIntro;
     intro.render(introFor, progress.prefs.showHotkeys, skipped);
-  } else {
-    prefBar.render(progress);
   }
   const view = cardView(screen);
   const verifying = verifyView(screen);
@@ -88,7 +87,7 @@ export function renderApp(
   const playing = shown === null ? null : playView(screen, progress.stars);
   const onCard = view !== null || verifying !== null;
   topbar.setNotesAvailable(onCard);
-  topbar.setThreeD(available && onCard, progress.prefs.threeD);
+  cardMenu.render(progress, available && onCard);
   flashcard.setPlay(view === null ? null : shown, playing, progress.prefs, progress.stars);
   verify.setPlay(verifying === null ? null : shown, playing, progress.prefs, progress.stars);
 }

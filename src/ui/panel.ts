@@ -22,5 +22,7 @@ export function dismissable(
     if (opened && e.key === "Escape") setOpen(false);
   });
 
-  return { toggle: () => setOpen(!opened), close: () => setOpen(false) };
+  // Two panels share the menu button, so closing one that is already shut
+  // must not report the button as collapsed while the other is open.
+  return { toggle: () => setOpen(!opened), close: () => opened && setOpen(false) };
 }
