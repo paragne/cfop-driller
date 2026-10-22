@@ -28,19 +28,19 @@ None. Task 1 done, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, 
 - OLL batch 1 (2026-10-21), commit 8ffe2e2: oll-21 to 27, 45, 33, 5, 6, 28, 57. Names T, Key, Righty Square, Lefty Square, Arrow (old "OLL n" moved to aliases). Alias Cross on 21, H on 57. Alternates on 27, 26, 23, and two on 21 with U prefix. Hints verbatim from the PDF on all 13, typos kept ("instad", "Righty-Square", "F' , easy"). verify-choices.test.ts one-alg fixture moved from oll-27 to oll-22. Leading-y alternates show as Verify choices; the independent choices test passes. npm run check: exit 0, 72 files, 7489 tests.
 
 - OLL one alg + hints (2026-10-22), commit 87f1e08: Full OLL keeps only the PDF top alg (WTF: the y alg), 23 algs[0] replaced, pictures follow. PDF names, "L Shapes" section now "Knight Moves". Owner hints on every Full OLL and Full PLL case (docs/hints.md), none on Sune, Anti-Sune, Pi. oll-29 and oll-52 now leave the cube rotated (oll-42 no longer does); Verify regrip test passes for both, 3D mask cross-check excludes them like f2l-slot-3/4/5. Alternate-alg tests use src/lib/two-alg.fixture.ts. npm run check: exit 0, 72 files, 7447 tests. User to check in browser: WTF and Rice Cooker in 3D, any turned picture (e.g. Reverse Lightning, City), Verify on WTF.
+- Ua (2026-10-22): owner's alg is now algs[0], old algs[0] second. Same permutation, picture unchanged. npm run check: exit 0, 7447 tests.
 
 ## Next (one task per session)
 Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/hints.md.
 1. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 2 to 5 (global UI rule).
-2. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown. Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
-3. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
-4. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
-5. Legend drawer: a button on the right edge opens the legend from docs/hints.md. Full screen on mobile.
+2. Legend drawer (user priority): a button on the right edge opens the legend from docs/hints.md. Full screen on mobile.
+3. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown, top right on the name row (not under the title). Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
+4. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
+5. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
 6. README. I write it. Credit CubeHead.
 7. Minor UI tweaks (list to be supplied by me).
 
 ## Open decisions
-- Ua hint describes its second alg (R U R' U R' U' R2 U' R' U R' U R U2), not algs[0] (R2 U' R' U' R U R U R U' R). Make the second algs[0], or keep as is.
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
