@@ -45,9 +45,8 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   figure.append(stage.element);
   const name = el("p", "name");
   const notes = createNotes(onNote);
-  const hint = el("p", "hint");
   const headline = el("div", "headline");
-  headline.append(name, hint, notes.element);
+  headline.append(name, notes.element);
   const solution = el("div", "solution");
   onStarClick(solution, onStar);
   const altLabel = el("p", "hint", "Expected if you used:");
@@ -118,8 +117,6 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
       shownCase = v.current.id;
     }
     notes.show(progress.notes[v.current.id] ?? "", progress.prefs.showNotes);
-    hint.textContent = v.current.hint ?? "";
-    hint.hidden = v.phase === "ready" || !progress.prefs.showNotes || hint.textContent === "";
     for (const kbd of kbds) kbd.hidden = !progress.prefs.showHotkeys;
     skipIntro.label.hidden = v.phase !== "ready";
     skipIntro.input.checked = progress.prefs.skipVerifyIntro;

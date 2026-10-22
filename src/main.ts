@@ -8,7 +8,7 @@ import { SHIPPED_MODES } from "./lib/prefs.ts";
 import type { Mode } from "./lib/prefs.ts";
 import { defaultProgress } from "./lib/progress.ts";
 import type { Progress } from "./lib/progress.ts";
-import { setAesthetic, setMode, setNote, setNumberPref, setPref, setStar, toggleSet } from "./lib/progress-edit.ts";
+import { loadHints, setAesthetic, setMode, setNote, setNumberPref, setPref, setStar, toggleSet } from "./lib/progress-edit.ts";
 import { chooseAlt, chooseCross, press, start } from "./lib/screen.ts";
 import type { Action, Screen } from "./lib/screen.ts";
 import { offeredSets } from "./lib/selection.ts";
@@ -142,6 +142,11 @@ const menu = createMenu({
     status.show(wiped ? "Data wiped from this browser." : "Could not wipe this browser's storage.");
     render();
   },
+  onLoadHints: () => {
+    const { progress: next, added } = loadHints(progress, ALL_CASES);
+    commit(next);
+    return added;
+  },
   notify: (message) => status.show(message),
   onOpenChange: (open) => topbar.setMenuOpen(open),
   trigger: topbar.menuButton,
@@ -179,8 +184,7 @@ function switchSet(set: CaseSet): void {
   commit(toggleSet(progress, mode, set));
 }
 
-const render = (): void =>
-  renderApp({ topbar, menu, help, home, intro, prefBar, flashcard, verify, cross, summary, gallery }, progress, screen);
+const render = (): void => renderApp({ topbar, menu, help, home, intro, prefBar, flashcard, verify, cross, summary, gallery }, progress, screen);
 
 function handle(action: Action): void {
   const next = press(screen, action, context());

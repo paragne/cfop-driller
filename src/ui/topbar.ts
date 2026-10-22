@@ -32,7 +32,7 @@ export function createTopbar({ onHome, onMenu, onHelp, onNotes, onThreeD, onBack
   menu.setAttribute("aria-expanded", "false");
   const help = iconButton("icon", "How to use", HELP_ICON, onHelp);
   help.setAttribute("aria-expanded", "false");
-  const notes = iconButton("icon", "Edit note", NOTE_EDIT_ICON, onNotes);
+  const notes = iconButton("icon", "Edit hint", NOTE_EDIT_ICON, onNotes);
   notes.hidden = true;
   const threeD = iconButton("icon", "3D view", THREE_D_ICON, onThreeD);
   threeD.setAttribute("aria-pressed", "false");

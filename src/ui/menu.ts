@@ -11,6 +11,8 @@ type Handlers = {
   onExport: () => { filename: string; text: string };
   onImport: (text: string, mode: ImportMode) => ImportResult;
   onWipe: () => void;
+  // How many empty notes the owner's hints filled.
+  onLoadHints: () => number;
   notify: (message: string | null) => void;
   onOpenChange: (open: boolean) => void;
   // The button that opens it, so pressing that is not also a click elsewhere.
@@ -32,7 +34,7 @@ const ARMED_MS = 4000;
 // replace choice for a loaded file appears right where the file was picked,
 // and wiping asks for a second press on the button itself, so nothing is a
 // dialog.
-export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notify, onOpenChange, trigger }: Handlers) {
+export function createMenu({ cases, cardCount, onExport, onImport, onWipe, onLoadHints, notify, onOpenChange, trigger }: Handlers) {
   const element = el("section", "data");
   element.hidden = true;
 
@@ -44,6 +46,7 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
   const exportButton = el("button", "", "Save Data");
   const importButton = el("button", "", "Load Data");
   const wipeButton = el("button", "", "Wipe Data");
+  const hintsButton = el("button", "", "Load My Hints");
   const shareButton = el("button", "", "Share");
   const row = (button: HTMLButtonElement, text: string) => {
     const node = el("div", "data-row");
@@ -52,9 +55,10 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
   };
   const actions = el("div", "data-actions");
   actions.append(
-    row(exportButton, "Save your progress and notes to a file."),
+    row(exportButton, "Save your progress and hints to a file."),
     row(importButton, "Load a file you saved before."),
-    row(wipeButton, "Erase progress, notes and settings from this browser."),
+    row(hintsButton, "Fill cases that have no hint with the app owner's."),
+    row(wipeButton, "Erase progress, hints and settings from this browser."),
     row(shareButton, "Copy a link to this site."),
     input,
   );
@@ -66,7 +70,12 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
   const replace = el("button", "");
   const cancel = el("button", "", "Cancel");
   strip.append(description, merge, replace, cancel);
-  element.append(actions, strip);
+  const hintsStrip = el("div", "import-strip");
+  hintsStrip.hidden = true;
+  const loadHints = el("button", "", "Load");
+  const keepHints = el("button", "", "Cancel");
+  hintsStrip.append(el("p", "", "Load the app owner's hints?"), loadHints, keepHints);
+  element.append(actions, strip, hintsStrip);
 
   let pending: string | null = null;
   let disarm: ReturnType<typeof setTimeout> | undefined;
@@ -79,6 +88,7 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
   function close(): void {
     pending = null;
     strip.hidden = true;
+    hintsStrip.hidden = true;
     disarmWipe();
   }
 
@@ -92,7 +102,7 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
     }
     const dropped = result.dropped === 0 ? "" : ` ${result.dropped} unknown case id${result.dropped === 1 ? " was" : "s were"} dropped.`;
     const unsaved = result.saved ? "" : " This browser could not save it; export to keep it.";
-    const totals = `${noun(result.progress.cards, "card")}, ${noun(result.progress.notes, "note")}`;
+    const totals = `${noun(result.progress.cards, "card")}, ${noun(result.progress.notes, "hint")}`;
     notify(`${mode === "merge" ? "Merged" : "Replaced"}: ${totals}.${dropped}${unsaved}`);
   }
 
@@ -107,6 +117,18 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
   });
 
   importButton.addEventListener("click", () => input.click());
+
+  hintsButton.addEventListener("click", () => {
+    close();
+    notify(null);
+    hintsStrip.hidden = false;
+  });
+  loadHints.addEventListener("click", () => {
+    const added = onLoadHints();
+    close();
+    notify(`Loaded ${added} hint${added === 1 ? "" : "s"}. Hints you wrote are kept.`);
+  });
+  keepHints.addEventListener("click", close);
 
   wipeButton.addEventListener("click", () => {
     if (wipeButton.textContent === "Wipe Data") {
@@ -138,12 +160,13 @@ export function createMenu({ cases, cardCount, onExport, onImport, onWipe, notif
       notify(`Could not import: ${parsed.error}`);
       return;
     }
+    close();
     notify(null);
     pending = text;
     const dropped = parsed.dropped === 0 ? "" : ` · ${parsed.dropped} unknown case id${parsed.dropped === 1 ? "" : "s"} dropped`;
     description.textContent =
       `File saved ${new Date(parsed.updatedAt).toLocaleDateString()} · ` +
-      `${noun(parsed.progress.cards, "card")} · ${noun(parsed.progress.notes, "note")}${dropped}`;
+      `${noun(parsed.progress.cards, "card")} · ${noun(parsed.progress.notes, "hint")}${dropped}`;
     replace.textContent = `Replace (discards ${cardCount()} local card${cardCount() === 1 ? "" : "s"})`;
     strip.hidden = false;
   });

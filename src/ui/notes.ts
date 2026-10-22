@@ -7,7 +7,7 @@ export function createNotes(onNote: (text: string) => void) {
   const element = el("div", "notes-side");
   const text = el("p", "note-text");
   const area = el("textarea", "note");
-  area.setAttribute("aria-label", "Notes for this case");
+  area.setAttribute("aria-label", "Hint for this case");
 
   let editing = false;
   let visible = true;

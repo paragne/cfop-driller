@@ -17,7 +17,7 @@ type Handlers = {
 export function createPrefBar({ onNames, onAutoReveal, onNotes, onHotkeys, onAllStickers, touchPrimary }: Handlers) {
   const names = keyedButton("toggle", "Names", "n", onNames).node;
   const autoReveal = toggleButton("Auto-reveal", onAutoReveal);
-  const notes = toggleButton("Notes", onNotes);
+  const notes = toggleButton("Hints", onNotes);
   const hotkeys = toggleButton("Hotkeys", onHotkeys);
   const allStickers = toggleButton("All stickers", onAllStickers);
   hotkeys.hidden = touchPrimary;

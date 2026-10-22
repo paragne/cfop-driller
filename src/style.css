@@ -223,7 +223,6 @@ body {
    ellipsis falls off the edge of right-aligned text. */
 .notes-side { flex: 0 1 auto; max-width: 40%; margin-left: auto; }
 .notes-side.editing { flex-basis: 40%; }
-.headline .hint { flex: 0 1 auto; max-width: 40%; margin-left: auto; font-size: 1rem; }
 .note-text {
   margin: 0;
   display: -webkit-box;
