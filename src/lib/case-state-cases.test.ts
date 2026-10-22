@@ -80,12 +80,14 @@ describe("PLL masks", () => {
 // The corrective rotation puts the physical cubies in the same reference
 // frame case-state.ts's normalize() puts the flat array in (see
 // orientation.ts: homeRotation is normalize()'s physical twin) — except for
-// the four cases orientation.test.ts already documents as exceptions: a
-// partial-depth move in the setup (d, M, a wide move) can displace centers
-// in a way no single rigid rotation reproduces alongside the same corners
-// and edges, so relabeling (normalize) and a real rotation (homeRotation)
-// diverge. Not a mask bug; excluded the same way that test excludes them.
-const ROTATION_EXCEPTIONS = ["f2l-slot-3", "f2l-slot-4", "f2l-slot-5", "oll-42"];
+// the cases whose setup leaves the cube turned. A partial-depth move (d, M, a
+// wide move) can displace centers in a way no single rigid rotation
+// reproduces alongside the same corners and edges (f2l-slot-3/4/5, as
+// orientation.test.ts documents), and a whole-cube rotation in the alg
+// (oll-29's leading y, oll-52's mid-alg y) moves every sticker where
+// relabeling only recolors them. Either way relabeling (normalize) and a real
+// rotation (homeRotation) diverge. Not a mask bug.
+const ROTATION_EXCEPTIONS = ["f2l-slot-3", "f2l-slot-4", "f2l-slot-5", "oll-29", "oll-52"];
 describe("physical sticker mask matches the 2D mask", () => {
   it.each(ALL_CASES.filter((c) => !ROTATION_EXCEPTIONS.includes(c.id)))("$id", (c) => {
     const setupMoves = c.setup === null ? invert(parse(c.algs[0].moves)) : parse(c.setup);

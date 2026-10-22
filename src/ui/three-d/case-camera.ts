@@ -28,8 +28,8 @@
  * R shows the same picture as rotating the object by R⁻¹, so the camera
  * needs homeRotation's result inverted to land on the same picture
  * normalize() would draw. (For OLL/PLL this was never visible before now:
- * homeRotation is empty for every non-F2L case but oll-42, so inverting an
- * empty correction changes nothing there.)
+ * homeRotation is empty for every non-F2L case but oll-29 and oll-52, so
+ * inverting an empty correction changes nothing there.)
  */
 import { homeRotation } from "../../lib/orientation.ts";
 import { invert } from "../../lib/notation.ts";

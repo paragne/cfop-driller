@@ -7,6 +7,7 @@ import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { begin, check, expected, judge, regrip, startVerify } from "./verify.ts";
 import type { Verify } from "./verify.ts";
+import { OLL_24_TWO_ALGS, OLL_25_TWO_ALGS } from "./two-alg.fixture.ts";
 
 const byId = (id: string): Case => {
   const c = ALL_CASES.find((known) => known.id === id);
@@ -30,7 +31,7 @@ describe("startVerify", () => {
   });
 
   it("starts each step on the starred alg, the primary when none is starred", () => {
-    const pair = [byId("oll-24"), byId("oll-25")];
+    const pair = [OLL_24_TWO_ALGS, OLL_25_TWO_ALGS];
     const stars = { "oll-24": 1, "oll-25": 1 };
     const p = { ...withVerify(["Full OLL"]), stars };
     const v = startVerify(pair, p, () => 0.5);
@@ -83,7 +84,7 @@ describe("regrip", () => {
   });
 
   // Confirms the invariant regrip promises for every real case, not just
-  // oll-42: whatever it returns, applying it truly restores home centers.
+  // oll-29: whatever it returns, applying it truly restores home centers.
   it.each(ALL_CASES.filter((c) => c.group !== "F2L"))(
     "$id: regripping after algs[0] from solved leaves the centers home",
     (c) => {
@@ -93,19 +94,19 @@ describe("regrip", () => {
     },
   );
 
-  it("needs a y for oll-42 and nothing for a case that does not rotate", () => {
-    expect(regrip(applyMoves(SOLVED, parse(byId("oll-42").algs[0].moves)))).toEqual(["y"]);
+  it("needs a y' for oll-29 and nothing for a case that does not rotate", () => {
+    expect(regrip(applyMoves(SOLVED, parse(byId("oll-29").algs[0].moves)))).toEqual(["y'"]);
     expect(regrip(applyMoves(SOLVED, parse(byId("oll-27").algs[0].moves)))).toEqual([]);
   });
 });
 
-describe("oll-42 leaves a displaced grip", () => {
-  const oll42 = byId("oll-42");
+describe("oll-29 leaves a displaced grip", () => {
+  const oll29 = byId("oll-29");
   const next = byId("pll-h");
   const mk = (over: Partial<Verify> = {}): Verify => ({
-    pool: [oll42, next],
+    pool: [oll29, next],
     bag: [next],
-    current: oll42,
+    current: oll29,
     cube: SOLVED,
     auf: "",
     chosen: 0,
@@ -125,7 +126,7 @@ describe("oll-42 leaves a displaced grip", () => {
   it("Match applies the rotation, and the next step computes from that green-front grip", () => {
     const v = mk();
     const e = expected(v);
-    const rotated = applyMoves(e, parse("y"));
+    const rotated = applyMoves(e, parse("y'"));
     const after = judge(v, true, withVerify(["Full OLL", "2-Look PLL"]), Math.random);
     expect(after.cube).toEqual(rotated);
     expect(after.current.id).toBe("pll-h");

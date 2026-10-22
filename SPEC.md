@@ -146,8 +146,8 @@ AUF (U, U', U2) is safe because U turns leave centers home.
   algorithm so far (this step's AUF-prefixed algorithm applied to wherever the
   previous step left the cube), top view, no mask, never normalized. The
   un-normalized state is exactly the physical cube as held after executing,
-  including any net rotation. One alg, `oll-42`, leaves centers displaced; when
-  the expected state needs a whole-cube rotation to restore home centers
+  including any net rotation. Two algs, `oll-29` and `oll-52`, leave centers
+  displaced; when the expected state needs a whole-cube rotation to restore home centers
   (green front, yellow up), Check names that rotation as an instruction, and
   Match applies it to the engine state directly rather than normalizing, since
   normalizing recolors stickers in place instead of physically relocating

@@ -1,6 +1,6 @@
-# OLL owner hints and legend
+# Owner hints and legend
 
-Date: 2026-10-22. Written by the owner. Source text for Case.hint (STATE task 1) and the legend drawer (STATE task 6). Copy hints as written.
+Date: 2026-10-22. Written by the owner. Source text for Case.hint (OLL and PLL) and the legend drawer (STATE task 6). Copy hints as written.
 
 Names are PDF names (docs/oll-mapping.md). "Anti-Nazi" and "Nazi" are keys from the owner's list only: they are oll-3 and oll-4, which keep the names "OLL 3" and "OLL 4" in the app (DECISIONS.md 2026-10-20). Sune, Anti-Sune and Pi/Bruno get no hint.
 
@@ -51,7 +51,7 @@ Names are PDF names (docs/oll-mapping.md). "Anti-Nazi" and "Nazi" are keys from 
 | Gun | `(Kite)⁻¹ = F (insert) (sledge[:3])⁻¹ (insert)` |
 | Anti-Gun | `(sledge[:3]) U (sledge[:3])⁻¹ (F U' F')` |
 | Poodle | `(Sune) (T)` |
-| Anti-Poodle | `(Anti-Sune) (T)` |
+| Anti-Poodle | `(~Sune~) (T)` |
 | WTF | `y (sexy) (R U' R') (F' U' F) (R U R')` |
 | Anti-WTF | `F U 2(Ne U') F'` |
 | Blank | `(Ne) (sledge) U2' (sledge)` |
@@ -62,6 +62,45 @@ Names are PDF names (docs/oll-mapping.md). "Anti-Nazi" and "Nazi" are keys from 
 | Crown | `(Wide Sune) ~Wide Sune~` |
 | Anti-Nazi (oll-3) | `(P) U' (T)` |
 | Nazi (oll-4) | `(P) U (T)` |
+
+## PLL hints
+
+The PLL list arrived 2026-10-22, in the owner's words.
+
+```
+EDGES ONLY
+Ua = (Su) (R' U' R2 U' R') (⇌Su⇌)          palindrome: reads the same backward
+Ub = R' U R' U' R' (~insert~) U R2
+H  = M2 U' M2 U2 M2 U' M2                   palindrome
+Z  = M' U' 2(M2 U') M' U2 M2
+
+CORNERS ONLY
+Aa = x R' U (R' D2 R) U' (R' D2 R) R x'     same shape as Headlights
+Ab = (Aa)⁻¹
+E  = x' (a D b D') (b D a D') x             a = R U' R', b = Su[:3] = R U R'
+
+ADJACENT SWAP
+T  = (sexy) (sledge[:3]) (anti-sexy) (Su[:3]) F'
+F  = (R' U' F') (T) (F U R)
+Jb = (R U R' F') (T[:9])
+Ja = x R2 (F R F') R U2 (r' U r) U2 x'
+Ra = (anti-sexy) R U R D (R' U' R) D' R' U2 R'
+Rb = (~Ne~) U2 R' F (sexy) R' F' R2
+
+DIAGONAL SWAP
+Y  = (Mounted Fish) (Key)
+Na = (Su) (Jb) U2 (R U' R')
+Nb = (R' U R U') R' (F' U' F) (sexy) R U' (f R f')
+V  = (R' U R' U') (R D' R' D) R' (U D') R2 U' R2 D R2
+
+G-PERMS
+Ga = R2 U (R' U R' U') R U' R2 D (~insert~) D'
+Gb = (Ga)⁻¹
+Gc = D (~Ga~) D'
+Gd = (Gc)⁻¹ = D (~Gb~) D'
+```
+
+In the app the column padding is cut to three spaces.
 
 ## Legend
 

@@ -83,7 +83,7 @@ const centersHome = (cube: Cube): boolean => normalize(cube).every((color, i) =>
 // two reaches the rest (vertex and edge rotations).
 const ROTATIONS = ["x", "x'", "x2", "y", "y'", "y2", "z", "z'", "z2"] as const;
 
-// The regrip a solver makes by habit after an algorithm like oll-42 leaves
+// The regrip a solver makes by habit after an algorithm like oll-29 leaves
 // the cube rotated: the shortest whole-cube turn that restores home centers,
 // i.e. green front, yellow up. Applied on Match, never normalized:
 // cube.test.ts documents why normalizing instead would silently discard the

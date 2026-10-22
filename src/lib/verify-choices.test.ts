@@ -7,6 +7,7 @@ import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { begin, check, choices, choose, expected, judge, regrip, reset, startVerify } from "./verify.ts";
 import type { Verify } from "./verify.ts";
+import { OLL_24_TWO_ALGS, OLL_25_TWO_ALGS } from "./two-alg.fixture.ts";
 
 const byId = (id: string): Case => {
   const c = ALL_CASES.find((known) => known.id === id);
@@ -31,8 +32,8 @@ const seeded = (seed: number) => () => {
 };
 
 describe("alternate algs", () => {
-  const oll24 = byId("oll-24");
-  const oll25 = byId("oll-25");
+  const oll24 = OLL_24_TWO_ALGS;
+  const oll25 = OLL_25_TWO_ALGS;
   const pllUa = byId("pll-ua");
   const bruno = byId("oll-22");
   const other = byId("pll-h");

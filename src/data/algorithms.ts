@@ -100,19 +100,21 @@ function multi(display: string, moves: string): Alg {
   return { display, moves, affectsOtherSlots: true };
 }
 
-// The full sheet carries no case names, so these default to their standard
-// number. The number was derived by matching orientation patterns against two
-// public tables, not read off the sheet. Names and hints from CubeHead's "How
-// to Learn OLL in One Month" override it per case.
-function oll(id: string, section: string, algs: Alg[]): Case {
+// Names are CubeHead's ("How to Learn OLL in One Month"); OLL 3 and 4 keep
+// their number because the PDF names them after a hate group. The number
+// stays an alias, derived by matching orientation patterns against two public
+// tables. Hints are the owner's (docs/hints.md).
+function oll(id: string, section: string, name: string | null, alg: Alg, hint: string): Case {
+  const number = `OLL ${id.slice("oll-".length)}`;
   return {
     id,
     group: "OLL",
     sets: ["Full OLL"],
     section,
-    name: `OLL ${id.slice("oll-".length)}`,
-    aliases: [],
-    algs,
+    name: name ?? number,
+    aliases: name === null ? [] : [number],
+    algs: [alg],
+    hint,
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -121,7 +123,8 @@ function oll(id: string, section: string, algs: Alg[]): Case {
 
 // The full PLL sheet names every case, so these keep the sheet's names. Its
 // pictures pin each case exactly, and the algs were checked against them.
-function pll(id: string, section: string, name: string, algs: Alg[], aliases: string[] = []): Case {
+// Hints are the owner's (docs/hints.md).
+function pll(id: string, section: string, name: string, algs: Alg[], hint: string, aliases: string[] = []): Case {
   return {
     id,
     group: "PLL",
@@ -130,6 +133,7 @@ function pll(id: string, section: string, name: string, algs: Alg[], aliases: st
     name,
     aliases,
     algs,
+    hint,
     mask: { kind: "pll-full" },
     setup: null,
     videoUrl: null,
@@ -608,11 +612,7 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Sune",
     aliases: ["OLL 27"],
-    algs: [
-      a("R U R' U (R U2 R')", "R U R' U R U2 R'"),
-      a("y' R' U2 R U R' U R", "y' R' U2 R U R' U R"),
-    ],
-    hint: "Dopest alg of them all",
+    algs: [a("R U R' U (R U2 R')", "R U R' U R U2 R'")],
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -624,11 +624,7 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Anti-Sune",
     aliases: ["OLL 26", "Antisune"],
-    algs: [
-      a("(R U2 R') U' R U' R'", "R U2 R' U' R U' R'"),
-      a("y' R' U' R U' R' U2 R", "y' R' U' R U' R' U2 R"),
-    ],
-    hint: "Inverse of the dopest alg of them all",
+    algs: [a("(R U2 R') U' R U' R'", "R U2 R' U' R U' R'")],
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -638,14 +634,10 @@ export const OLL_CASES: Case[] = [
     group: "OLL",
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
-    name: "H",
-    aliases: ["OLL 21", "Double Sune", "Cross"],
-    algs: [
-      a("R U R' U (R U' R' U) R U2 R'", "R U R' U R U' R' U R U2 R'"),
-      a("U (R U2 R') (U' R U R') (U' R U' R')", "U R U2 R' U' R U R' U' R U' R'"),
-      a("U y (R U R' U) (R U' R' U) (R U2 R')", "U y R U R' U R U' R' U R U2 R'"),
-    ],
-    hint: "Begins and ends the same as (anti-)sune",
+    name: "Cross",
+    aliases: ["OLL 21", "Double Sune", "H"],
+    algs: [a("R U R' U (R U' R' U) R U2 R'", "R U R' U R U' R' U R U2 R'")],
+    hint: "(Su) (R U' R' U) (Ne)",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -658,7 +650,6 @@ export const OLL_CASES: Case[] = [
     name: "Pi",
     aliases: ["OLL 22", "Bruno"],
     algs: [a("R U2 (R2 U') (R2 U') R2 U2 R", "R U2 R2 U' R2 U' R2 U2 R")],
-    hint: "Never release the R face! and do the U-moves with left hand",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -670,11 +661,8 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Chameleon",
     aliases: ["OLL 24"],
-    algs: [
-      a("(r U R' U') (r' F R F')", "r U R' U' r' F R F'"),
-      a("U (R U R) D (R' U' R) D' R2", "U R U R D R' U' R D' R2"),
-    ],
-    hint: "Sexy-move followed by sledge-hammer starting with r's instad of R's",
+    algs: [a("(r U R' U') (r' F R F')", "r U R' U' r' F R F'")],
+    hint: "(fat sexy) (fat sledge)",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -686,11 +674,8 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Bowtie",
     aliases: ["OLL 25"],
-    algs: [
-      a("F' (r U R' U') (r' F R)", "F' r U R' U' r' F R"),
-      a("U R2 D' (R U' R') D (R U R)", "U R2 D' R U' R' D R U R"),
-    ],
-    hint: "Same as Chameleon with the last F' in front",
+    algs: [a("F' (r U R' U') (r' F R)", "F' r U R' U' r' F R")],
+    hint: "F' (Chameleon*) F, * = (fat sexy) (fat sledge)",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
@@ -702,150 +687,343 @@ export const OLL_CASES: Case[] = [
     section: "Finish OLL",
     name: "Headlights",
     aliases: ["OLL 23"],
-    algs: [
-      a("R2 D (R' U2 R) D' (R' U2 R')", "R2 D R' U2 R D' R' U2 R'"),
-      a("y2 R2 D' (R U2 R') D (R U2 R)", "y2 R2 D' R U2 R' D R U2 R"),
-    ],
-    hint: "Try to push the D' with ringfinger. Probably hardest of this group",
+    algs: [a("R2 D (R' U2 R) D' (R' U2 R')", "R2 D R' U2 R D' R' U2 R'")],
+    hint: "R2 D (~Ne~) D' (~Ne~) R2",
     mask: { kind: "oll-full" },
     setup: null,
     videoUrl: null,
   },
 
-  // --- T Shapes (2) --------------------------------------------------------
-  {
-    ...oll("oll-45", "T Shapes", [a("F (R U R' U') F'", "F R U R' U' F'")]),
-    name: "T",
-    aliases: ["OLL 45"],
-    hint: "F (sexy) F' , easy right?",
-  },
-  {
-    ...oll("oll-33", "T Shapes", [a("(R U R' U') (R' F R F')", "R U R' U' R' F R F'")]),
-    name: "Key",
-    aliases: ["OLL 33"],
-    hint: "(sexy) (sledge), I'll take it",
-  },
+  // --- T Shapes (2) -------------------------------------------------------
+  oll("oll-45", "T Shapes", "T", a("F (R U R' U') F'", "F R U R' U' F'"), "F (sexy) F'"),
+  oll("oll-33", "T Shapes", "Key", a("(R U R' U') (R' F R F')", "R U R' U' R' F R F'"), "(sexy) (sledge)"),
 
-  // --- Block Shapes (2) ----------------------------------------------------
-  {
-    ...oll("oll-6", "Block Shapes", [a("(r U2 R') U' R U' r'", "r U2 R' U' R U' r'")]),
-    name: "Righty Square",
-    aliases: ["OLL 6"],
-    hint: "Anti-Sune beginning and ending with wide moves",
-  },
-  {
-    ...oll("oll-5", "Block Shapes", [a("(r' U2 R) U R' U r", "r' U2 R U R' U r")]),
-    name: "Lefty Square",
-    aliases: ["OLL 5"],
-    hint: "Mirror of Righty-Square",
-  },
+  // --- Block Shapes (2) ---------------------------------------------------
+  oll("oll-6", "Block Shapes", "Righty Square", a("(r U2 R') U' R U' r'", "r U2 R' U' R U' r'"), "Wide Anti-Sune"),
+  oll(
+    "oll-5",
+    "Block Shapes",
+    "Lefty Square",
+    a("(r' U2 R) U R' U r", "r' U2 R U R' U r"),
+    "~Righty-Square*~ [*Wide Anti-Sune]",
+  ),
 
-  // --- Edges Only (2) ------------------------------------------------------
-  {
-    ...oll("oll-28", "Edges Only", [a("(r U R' U') M (U R U' R')", "r U R' U' M U R U' R'")]),
-    name: "Arrow",
-    aliases: ["OLL 28"],
-    hint: "(wide sexy) M (insert)",
-  },
-  {
-    ...oll("oll-57", "Edges Only", [a("(R U R' U') M' (U R U' r')", "R U R' U' M' U R U' r'")]),
-    aliases: ["H"],
-    hint: "(sexy) M' (wide insert)",
-  },
+  // --- Edges Only (2) -----------------------------------------------------
+  oll(
+    "oll-28",
+    "Edges Only",
+    "Arrow",
+    a("(r U R' U') M (U R U' R')", "r U R' U' M U R U' R'"),
+    "(fat sexy) M (insert)",
+  ),
+  oll(
+    "oll-57",
+    "Edges Only",
+    "H",
+    a("(R U R' U') M' (U R U' r')", "R U R' U' M' U R U' r'"),
+    "(sexy) M' (thick insert)",
+  ),
 
-  // --- Lightning Shapes (6) ------------------------------------------------
-  oll("oll-7", "Lightning Shapes", [a("r U R' U (R U2 r')", "r U R' U R U2 r'")]),
-  oll("oll-8", "Lightning Shapes", [a("R' F' (r U' r') F2 R", "R' F' r U' r' F2 R")]),
-  oll("oll-11", "Lightning Shapes", [
+  // --- Lightning Shapes (6) -----------------------------------------------
+  oll("oll-7", "Lightning Shapes", "Lightning", a("r U R' U (R U2 r')", "r U R' U R U2 r'"), "Wide Sune"),
+  oll(
+    "oll-8",
+    "Lightning Shapes",
+    "Reverse Lightning",
+    a("r' U' R U' R' U2 r", "r' U' R U' R' U2 r"),
+    "~Lightning*~ [*Wide Sune]",
+  ),
+  oll(
+    "oll-11",
+    "Lightning Shapes",
+    "Downstairs",
     a("r' (R2 U R' U R U2 R') U M'", "r' R2 U R' U R U2 R' U M'"),
-  ]),
-  oll("oll-12", "Lightning Shapes", [
-    a("r (R2 U' R U' R' U2 R) U' M", "r R2 U' R U' R' U2 R U' M"),
-  ]),
-  oll("oll-40", "Lightning Shapes", [a("(f R' F' R) (U R U' R') S'", "f R' F' R U R U' R' S'")]),
-  oll("oll-39", "Lightning Shapes", [a("f' (r U r' U') (r' F r S)", "f' r U r' U' r' F r S")]),
+    "M (Sune) U M'",
+  ),
+  oll(
+    "oll-12",
+    "Lightning Shapes",
+    "Upstairs",
+    a("M' (R' U' R U' R' U2 R) U' M", "M' R' U' R U' R' U2 R U' M"),
+    "~Downstairs~ = M' (~Sune~) U' M",
+  ),
+  oll(
+    "oll-40",
+    "Lightning Shapes",
+    "Big Lightning",
+    a("R' F (R U R' U') F' U R", "R' F R U R' U' F' U R"),
+    "R' F (sexy) F' U R",
+  ),
+  oll(
+    "oll-39",
+    "Lightning Shapes",
+    "Lefty Big Lightning",
+    a("L F' (L' U' L U) F U' L'", "L F' L' U' L U F U' L'"),
+    "||Big Lightning||",
+  ),
 
-  // --- P Shapes (4) --------------------------------------------------------
-  oll("oll-44", "P Shapes", [a("F (U R U' R') F'", "F U R U' R' F'")]),
-  oll("oll-43", "P Shapes", [a("R' (U' F' U F) R", "R' U' F' U F R")]),
-  oll("oll-31", "P Shapes", [a("R' U' F (U R U' R') F' R", "R' U' F U R U' R' F' R")]),
-  oll("oll-32", "P Shapes", [a("S (R U R' U') (R' F R f')", "S R U R' U' R' F R f'")]),
+  // --- P Shapes (4) -------------------------------------------------------
+  oll("oll-44", "P Shapes", "P", a("f (R U R' U') f'", "f R U R' U' f'"), "f (sexy) f'"),
+  oll("oll-43", "P Shapes", "Inverse P", a("f' (L' U' L U) f", "f' L' U' L U f"), "||P||"),
+  oll("oll-31", "P Shapes", "Couch", a("R' U' F (U R U' R') F' R", "R' U' F U R U' R' F' R"), "(Big Lightning)⁻¹"),
+  oll(
+    "oll-32",
+    "P Shapes",
+    "Anti-Couch",
+    a("R U B' (U' R' U) R B R'", "R U B' U' R' U R B R'"),
+    "~Couch~ = S (Key) S'",
+  ),
 
-  // --- C Shapes (2) --------------------------------------------------------
-  oll("oll-46", "C Shapes", [a("R' U' (R' F R F') U R", "R' U' R' F R F' U R")]),
-  oll("oll-34", "C Shapes", [a("f R f' U' r' U' R U M'", "f R f' U' r' U' R U M'")]),
+  // --- C Shapes (2) -------------------------------------------------------
+  oll(
+    "oll-46",
+    "C Shapes",
+    "Seein' Headlights",
+    a("R' U' (R' F R F') U R", "R' U' R' F R F' U R"),
+    "R' U' (sledge) U R",
+  ),
+  oll(
+    "oll-34",
+    "C Shapes",
+    "City",
+    a("(R U R' U') B' (R' F R F') B", "R U R' U' B' R' F R F' B"),
+    "(sexy) B' (sledge) B",
+  ),
 
-  // --- Fish Shapes (4) -----------------------------------------------------
-  oll("oll-37", "Fish Shapes", [a("(F R' F' R) (U R U' R')", "F R' F' R U R U' R'")]),
-  oll("oll-35", "Fish Shapes", [a("R U2 R2' (F R F' R) U2 R'", "R U2 R2' F R F' R U2 R'")]),
-  oll("oll-9", "Fish Shapes", [
+  // --- Fish Shapes (4) ----------------------------------------------------
+  oll(
+    "oll-37",
+    "Fish Shapes",
+    "Mounted Fish",
+    a("F (R U' R' U') (R U R' F')", "F R U' R' U' R U R' F'"),
+    "F (anti-sexy) (Su[:3]) F'",
+  ),
+  oll(
+    "oll-35",
+    "Fish Shapes",
+    "Fish Salad",
+    a("(R U2) (R2 F R F') (R U2 R')", "R U2 R2 F R F' R U2 R'"),
+    "(Ne) (sledge) (Ne)",
+  ),
+  oll(
+    "oll-9",
+    "Fish Shapes",
+    "Kite",
     a("(R U R' U') R' F (R2 U R' U') F'", "R U R' U' R' F R2 U R' U' F'"),
-  ]),
-  oll("oll-10", "Fish Shapes", [a("R U R' U (R' F R F') R U2 R'", "R U R' U R' F R F' R U2 R'")]),
+    "(sexy) (sledge[:3]) (sexy) F'",
+  ),
+  oll(
+    "oll-10",
+    "Fish Shapes",
+    "Anti-Kite",
+    a("(R U R' U) (R' F R F') (R U2 R')", "R U R' U R' F R F' R U2 R'"),
+    "(Su) (sledge) (Ne)",
+  ),
 
-  // --- W Shapes (2) --------------------------------------------------------
-  oll("oll-38", "W Shapes", [
-    a("(R U R' U) R U' R' U' (R' F R F')", "R U R' U R U' R' U' R' F R F'"),
-  ]),
-  oll("oll-36", "W Shapes", [
-    a("(L' U' L U') L' U L U (r U' r' F)", "L' U' L U' L' U L U r U' r' F"),
-  ]),
+  // --- W Shapes (2) -------------------------------------------------------
+  oll(
+    "oll-38",
+    "W Shapes",
+    "Mario",
+    a("(R U R' U) (R U' R' U') (R' F R F')", "R U R' U R U' R' U' R' F R F'"),
+    "(Su) (anti-sexy) (sledge)",
+  ),
+  oll(
+    "oll-36",
+    "W Shapes",
+    "Wario",
+    a("(R' U' R U') (R' U R U) l U' R' U x", "R' U' R U' R' U R U l U' R' U x"),
+    "~Mario*~ [*(Su) (anti-sexy) (sledge)]",
+  ),
 
-  // --- Hook Shapes (6) -----------------------------------------------------
-  oll("oll-48", "Hook Shapes", [a("F (R U R' U') (R U R' U') F'", "F R U R' U' R U R' U' F'")]),
-  oll("oll-47", "Hook Shapes", [
-    a("(F R' F' R) U2 (R U' R' U) R U2 R'", "F R' F' R U2 R U' R' U R U2 R'"),
-  ]),
-  oll("oll-54", "Hook Shapes", [a("r U R' U (R U' R' U) R U2 r'", "r U R' U R U' R' U R U2 r'")]),
-  oll("oll-53", "Hook Shapes", [
-    a("r' U' R U' (R' U R U') R' U2 r", "r' U' R U' R' U R U' R' U2 r"),
-  ]),
-  oll("oll-49", "Hook Shapes", [a("r U' (r2' U) (r2 U) r2' U' r", "r U' r2' U r2 U r2' U' r")]),
-  oll("oll-50", "Hook Shapes", [a("r' U (r2 U') (r2' U') r2 U r'", "r' U r2 U' r2' U' r2 U r'")]),
+  // --- Hook Shapes (6) ----------------------------------------------------
+  oll(
+    "oll-48",
+    "Hook Shapes",
+    "Breakneck",
+    a("F (R U R' U') (R U R' U') F'", "F R U R' U' R U R' U' F'"),
+    "F 2(sexy) F'",
+  ),
+  oll(
+    "oll-47",
+    "Hook Shapes",
+    "Anti-Breakneck",
+    a("R' U' (R' F R F') (R' F R F') U R", "R' U' R' F R F' R' F R F' U R"),
+    "R' U' 2(sledge) U R",
+  ),
+  oll(
+    "oll-54",
+    "Hook Shapes",
+    "Anti-Frying Pan",
+    a("(r U R' U) (R U' R' U) R U2 r'", "r U R' U R U' R' U R U2 r'"),
+    "Wide Cross* [*(Su) (R U' R' U) (Ne)]",
+  ),
+  oll(
+    "oll-53",
+    "Hook Shapes",
+    "Frying Pan",
+    a("(r' U' R U') (R' U R U') R' U2 r", "r' U' R U' R' U R U' R' U2 r"),
+    "~Wide Cross*~ [*(Su) (R U' R' U) (Ne)]",
+  ),
+  oll(
+    "oll-49",
+    "Hook Shapes",
+    "Back Squeezy",
+    a("r U' r2 U r2 U r2 U' r", "r U' r2 U r2 U r2 U' r"),
+    "~Front Squeezy~",
+  ),
+  oll(
+    "oll-50",
+    "Hook Shapes",
+    "Front Squeezy",
+    a("r' U r2 U' r2 U' r2 U r'", "r' U r2 U' r2 U' r2 U r'"),
+    "r' U r2 U' r2 U' r2 U r'   (pdrome U goes + - - +)",
+  ),
 
-  // --- Line Shapes (4) -----------------------------------------------------
-  oll("oll-51", "Line Shapes", [a("F (U R U' R') (U R U' R') F'", "F U R U' R' U R U' R' F'")]),
-  oll("oll-52", "Line Shapes", [a("R' (F' U' F U') R U R' U R", "R' F' U' F U' R U R' U R")]),
-  oll("oll-56", "Line Shapes", [
+  // --- Line Shapes (4) ----------------------------------------------------
+  oll("oll-51", "Line Shapes", "Ant", a("f (R U R' U') (R U R' U') f'", "f R U R' U' R U R' U' f'"), "f 2(sexy) f'"),
+  oll(
+    "oll-52",
+    "Line Shapes",
+    "Rice Cooker",
+    a("(R U R' U R U') y (R U' R') F'", "R U R' U R U' y R U' R' F'"),
+    "(Su) R U' y (R U' R') F'",
+  ),
+  oll(
+    "oll-56",
+    "Line Shapes",
+    "Streetlights",
     a("r U r' (U R U' R') (U R U' R') r U' r'", "r U r' U R U' R' U R U' R' r U' r'"),
-  ]),
-  oll("oll-55", "Line Shapes", [
-    a("R' F (R U R U') R2 F' R2 U' R' U (R U R')", "R' F R U R U' R2 F' R2 U' R' U R U R'"),
-  ]),
+    "(r U r') 2(insert) (r U' r')",
+  ),
+  oll(
+    "oll-55",
+    "Line Shapes",
+    "Highway",
+    a("R U2 R2 (U' R U' R') U2 F R F'", "R U2 R2 U' R U' R' U2 F R F'"),
+    "(Ne) (~Sune~) (sledge)",
+  ),
 
-  // --- L Shapes (4) --------------------------------------------------------
-  oll("oll-16", "L Shapes", [a("r U r' (R U R' U') r U' r'", "r U r' R U R' U' r U' r'")]),
-  oll("oll-15", "L Shapes", [a("R' F' R (L' U' L U) R' F R", "R' F' R L' U' L U R' F R")]),
-  oll("oll-13", "L Shapes", [a("(F U R U') R2 F' R (U R U' R')", "F U R U' R2 F' R U R U' R'")]),
-  oll("oll-14", "L Shapes", [a("R' F (R U R') F' R (F U' F')", "R' F R U R' F' R F U' F'")]),
+  // --- Knight Moves (4) ---------------------------------------------------
+  oll(
+    "oll-16",
+    "Knight Moves",
+    "Anti-Squeegee",
+    a("(r U r') (R U R' U') (r U' r')", "r U r' R U R' U' r U' r'"),
+    "(r U r') (sexy) (r U' r')",
+  ),
+  oll(
+    "oll-15",
+    "Knight Moves",
+    "Squeegee",
+    a("(r' U' r) (R' U' R U) (r' U r)", "r' U' r R' U' R U r' U r"),
+    "~Anti-Squeegee*~ [*(r U r') (sexy) (r U' r')]",
+  ),
+  oll(
+    "oll-13",
+    "Knight Moves",
+    "Gun",
+    a("F U R U' R2 F' R U (R U' R')", "F U R U' R2 F' R U R U' R'"),
+    "(Kite)⁻¹ = F (insert) (sledge[:3])⁻¹ (insert)",
+  ),
+  oll(
+    "oll-14",
+    "Knight Moves",
+    "Anti-Gun",
+    a("(R' F R) (U R' F' R) (F U' F')", "R' F R U R' F' R F U' F'"),
+    "(sledge[:3]) U (sledge[:3])⁻¹ (F U' F')",
+  ),
 
-  // --- Awkward Shapes (4) --------------------------------------------------
-  oll("oll-29", "Awkward Shapes", [
-    a("r2 D' (r U r') D r2 U' (r' U' r)", "r2 D' r U r' D r2 U' r' U' r"),
-  ]),
-  oll("oll-30", "Awkward Shapes", [
-    a("F U (R U2 R' U')(R U2 R' U') F'", "F U R U2 R' U' R U2 R' U' F'"),
-  ]),
-  oll("oll-41", "Awkward Shapes", [
-    a("(R U R' U R U2 R')F (R U R' U') F'", "R U R' U R U2 R' F R U R' U' F'"),
-  ]),
-  oll("oll-42", "Awkward Shapes", [a("R' U' F2 u' (R U R') D R2 B", "R' U' F2 u' R U R' D R2 B")]),
+  // --- Awkward Shapes (4) -------------------------------------------------
+  oll(
+    "oll-29",
+    "Awkward Shapes",
+    "WTF",
+    a("y (R U R' U') (R U' R') (F' U' F) (R U R')", "y R U R' U' R U' R' F' U' F R U R'"),
+    "y (sexy) (R U' R') (F' U' F) (R U R')",
+  ),
+  oll(
+    "oll-30",
+    "Awkward Shapes",
+    "Anti-WTF",
+    a("F U (R U2 R' U') (R U2 R' U') F'", "F U R U2 R' U' R U2 R' U' F'"),
+    "F U 2(Ne U') F'",
+  ),
+  oll(
+    "oll-41",
+    "Awkward Shapes",
+    "Poodle",
+    a("(R U R' U R U2 R') F (R U R' U') F'", "R U R' U R U2 R' F R U R' U' F'"),
+    "(Sune) (T)",
+  ),
+  oll(
+    "oll-42",
+    "Awkward Shapes",
+    "Anti-Poodle",
+    a("(R' U' R U' R' U2 R) F (R U R' U') F'", "R' U' R U' R' U2 R F R U R' U' F'"),
+    "(~Sune~) (T)",
+  ),
 
-  // --- Dot Cases (8) -------------------------------------------------------
-  oll("oll-1", "Dot Cases", [a("R U2 (R2 F R F') U2 (R' F R F')", "R U2 R2 F R F' U2 R' F R F'")]),
-  oll("oll-2", "Dot Cases", [a("f (U R U' R') S' (U R U' R') F'", "f U R U' R' S' U R U' R' F'")]),
-  oll("oll-17", "Dot Cases", [a("(F R' F' R) U S' (R U' R') S", "F R' F' R U S' R U' R' S")]),
-  oll("oll-19", "Dot Cases", [a("S' (R U R') S U' (R' F R F')", "S' R U R' S U' R' F R F'")]),
-  oll("oll-18", "Dot Cases", [
-    a("(r U R' U R U2 r')(r' U' R U' R' U2 r)", "r U R' U R U2 r' r' U' R U' R' U2 r"),
-  ]),
-  oll("oll-4", "Dot Cases", [
-    a("(R' F2 R2 U2 R') F'(R U2 R2 F2 R)", "R' F2 R2 U2 R' F' R U2 R2 F2 R"),
-  ]),
-  oll("oll-3", "Dot Cases", [
-    a("(R' F2 R2 U2 R') F (R U2 R2 F2 R)", "R' F2 R2 U2 R' F R U2 R2 F2 R"),
-  ]),
-  oll("oll-20", "Dot Cases", [a("S R' U' (R U) (R U) R U' R' S'", "S R' U' R U R U R U' R' S'")]),
+  // --- Dot Cases (8) ------------------------------------------------------
+  oll(
+    "oll-1",
+    "Dot Cases",
+    "Blank",
+    a("(R U2) (R2 F R F') U2 (R' F R F')", "R U2 R2 F R F' U2 R' F R F'"),
+    "(Ne) (sledge) U2' (sledge)",
+  ),
+  oll(
+    "oll-2",
+    "Dot Cases",
+    "Zamboni",
+    a("F (R U R' U') F' f (R U R' U') f'", "F R U R' U' F' f R U R' U' f'"),
+    "(T) (P)",
+  ),
+  oll(
+    "oll-17",
+    "Dot Cases",
+    "Slash",
+    a("(R U R' U) (R' F R F') U2 (R' F R F')", "R U R' U R' F R F' U2 R' F R F'"),
+    "(Su) (sledge) U2' (sledge)",
+  ),
+  oll(
+    "oll-19",
+    "Dot Cases",
+    "Bunny",
+    a("M U (R U R' U') M' (R' F R F')", "M U R U R' U' M' R' F R F'"),
+    "M U (sexy) M' (sledge)",
+  ),
+  oll(
+    "oll-18",
+    "Dot Cases",
+    "Crown",
+    a("(r U R' U R U2 r') (r' U' R U' R' U2 r)", "r U R' U R U2 r' r' U' R U' R' U2 r"),
+    "(Wide Sune) ~Wide Sune~",
+  ),
+  oll(
+    "oll-4",
+    "Dot Cases",
+    null,
+    a("f (R U R' U') f' U F (R U R' U') F'", "f R U R' U' f' U F R U R' U' F'"),
+    "(P) U (T)",
+  ),
+  oll(
+    "oll-3",
+    "Dot Cases",
+    null,
+    a("f (R U R' U') f' U' F (R U R' U') F'", "f R U R' U' f' U' F R U R' U' F'"),
+    "(P) U' (T)",
+  ),
+  {
+    ...oll(
+      "oll-20",
+      "Dot Cases",
+      "X",
+      a("M U (R U R' U') M2 (U R U' r')", "M U R U R' U' M2 U R U' r'"),
+      "M U (sexy) M2 (thick insert)",
+    ),
+    aliases: ["OLL 20", "Super Lip"],
+  },
 ];
 
 export const PLL_CASES: Case[] = [
@@ -900,6 +1078,7 @@ export const PLL_CASES: Case[] = [
         "R U R' U R' U' R2 U' R' U R' U R U2",
       ),
     ],
+    hint: "(Su) (R' U' R2 U' R') (⇌Su⇌)   palindrome: reads the same backward",
     mask: { kind: "pll-full" },
     setup: null,
     videoUrl: null,
@@ -914,6 +1093,7 @@ export const PLL_CASES: Case[] = [
     algs: [
       a("R' U (R' U') (R' U') R' U (R U R2)", "R' U R' U' R' U' R' U R U R2"),
     ],
+    hint: "R' U R' U' R' (~insert~) U R2",
     mask: { kind: "pll-full" },
     setup: null,
     videoUrl: null,
@@ -926,6 +1106,7 @@ export const PLL_CASES: Case[] = [
     name: "H Perm",
     aliases: [],
     algs: [a("M2 U' (M2 U2 M2) U' M2", "M2 U' M2 U2 M2 U' M2")],
+    hint: "M2 U' M2 U2 M2 U' M2   palindrome",
     mask: { kind: "pll-full" },
     setup: null,
     videoUrl: null,
@@ -940,6 +1121,7 @@ export const PLL_CASES: Case[] = [
     algs: [
       a("M' U' (M2 U') (M2 U') M' U2 M2", "M' U' M2 U' M2 U' M' U2 M2"),
     ],
+    hint: "M' U' 2(M2 U') M' U2 M2",
     mask: { kind: "pll-full" },
     setup: null,
     videoUrl: null,
@@ -948,39 +1130,39 @@ export const PLL_CASES: Case[] = [
   // --- Corners Only (3) --------------------------------------------------
   pll("pll-aa", "Corners Only", "Aa Perm", [
     a("x (R' U R') D2 (R U' R') D2 R2 x'", "x R' U R' D2 R U' R' D2 R2 x'"),
-  ]),
+  ], "x R' U (R' D2 R) U' (R' D2 R) R x'   same shape as Headlights"),
   pll("pll-ab", "Corners Only", "Ab Perm", [
     a("x R2 D2 (R U R') D2(R U' R) x'", "x R2 D2 R U R' D2 R U' R x'"),
-  ]),
+  ], "(Aa)⁻¹"),
   pll("pll-e", "Corners Only", "E Perm", [
     a(
       "x' (R U' R') D (R U R') D' (R U R') D (R U' R') D' x",
       "x' R U' R' D R U R' D' R U R' D R U' R' D' x",
     ),
-  ]),
+  ], "x' (a D b D') (b D a D') x   a = R U' R', b = Su[:3] = R U R'"),
 
   // --- Adjacent Swap (6) -------------------------------------------------
   pll("pll-t", "Adjacent Swap", "T Perm", [
     a("(R U R' U') R' F (R2 U' R')U' (R U R' F')", "R U R' U' R' F R2 U' R' U' R U R' F'"),
-  ]),
+  ], "(sexy) (sledge[:3]) (anti-sexy) (Su[:3]) F'"),
   pll("pll-f", "Adjacent Swap", "F Perm", [
     a(
       "R' U' F' (R U R' U') R' F (R2 U' R') U' (R U R') U R",
       "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
     ),
-  ]),
+  ], "(R' U' F') (T) (F U R)"),
   pll("pll-jb", "Adjacent Swap", "Jb Perm", [
     a("R U R' F' (R U R' U') R' F (R2 U' R')", "R U R' F' R U R' U' R' F R2 U' R'"),
-  ]),
+  ], "(R U R' F') (T[:9])"),
   pll("pll-ja", "Adjacent Swap", "Ja Perm", [
     a("x R2 (F R F' R) U2 (r' U r) U2 x'", "x R2 F R F' R U2 r' U r U2 x'"),
-  ], ["L Perm"]),
+  ], "x R2 (F R F') R U2 (r' U r) U2 x'", ["L Perm"]),
   pll("pll-ra", "Adjacent Swap", "Ra Perm", [
     a("(R U' R' U') R U R D (R' U' R D') R' U2 R'", "R U' R' U' R U R D R' U' R D' R' U2 R'"),
-  ]),
+  ], "(anti-sexy) R U R D (R' U' R) D' R' U2 R'"),
   pll("pll-rb", "Adjacent Swap", "Rb Perm", [
     a("(R' U2 R U2) R' F (R U R' U') R' F' R2", "R' U2 R U2 R' F R U R' U' R' F' R2"),
-  ]),
+  ], "(~Ne~) U2 R' F (sexy) R' F' R2"),
 
   // --- Diagonal Swap (4) -------------------------------------------------
   pll("pll-y", "Diagonal Swap", "Y Perm", [
@@ -988,39 +1170,39 @@ export const PLL_CASES: Case[] = [
       "F (R U' R' U') R U R' F' (R U R' U') R' F R F'",
       "F R U' R' U' R U R' F' R U R' U' R' F R F'",
     ),
-  ]),
+  ], "(Mounted Fish) (Key)"),
   pll("pll-na", "Diagonal Swap", "Na Perm", [
     a(
       "(R U R' U) R U R' F' (R U R' U') R' F (R2 U' R') U2 R U' R'",
       "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'",
     ),
-  ]),
+  ], "(Su) (Jb) U2 (R U' R')"),
   pll("pll-nb", "Diagonal Swap", "Nb Perm", [
     a(
       "(R' U R U') R' (F' U' F) R U (R' U' R U') f R f'",
       "R' U R U' R' F' U' F R U R' U' R U' f R f'",
     ),
-  ]),
+  ], "(R' U R U') R' (F' U' F) (sexy) R U' (f R f')"),
   pll("pll-v", "Diagonal Swap", "V Perm", [
     a(
       "(R' U R' U') R D' R' D R' (U D') R2 U' R2 D R2",
       "R' U R' U' R D' R' D R' U D' R2 U' R2 D R2",
     ),
-  ]),
+  ], "(R' U R' U') (R D' R' D) R' (U D') R2 U' R2 D R2"),
 
   // --- G-Perms (4) -------------------------------------------------------
   pll("pll-ga", "G-Perms", "Ga Perm", [
     a("R2 (U R' U R') U' R U' R2 (D U') R' U R D'", "R2 U R' U R' U' R U' R2 D U' R' U R D'"),
-  ]),
+  ], "R2 U (R' U R' U') R U' R2 D (~insert~) D'"),
   pll("pll-gb", "G-Perms", "Gb Perm", [
     a("D R' U' R (U D') R2 U R' U (R U' R U') R2", "D R' U' R U D' R2 U R' U R U' R U' R2"),
-  ]),
+  ], "(Ga)⁻¹"),
   pll("pll-gc", "G-Perms", "Gc Perm", [
     a("D R2 (U' R U' R) U R' U R2 (D' U) R U' R'", "D R2 U' R U' R U R' U R2 D' U R U' R'"),
-  ]),
+  ], "D (~Ga~) D'"),
   pll("pll-gd", "G-Perms", "Gd Perm", [
     a("R U R' (U' D) R2 U' R U' (R' U R' U) R2 D'", "R U R' U' D R2 U' R U' R' U R' U R2 D'"),
-  ]),
+  ], "(Gc)⁻¹ = D (~Gb~) D'"),
 ];
 
 export const ALL_CASES: Case[] = [...F2L_CASES, ...OLL_CASES, ...PLL_CASES];

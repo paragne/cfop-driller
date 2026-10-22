@@ -7,6 +7,7 @@ import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { chooseAlt, press, start, verifyView } from "./screen.ts";
 import type { Action, Context, Screen } from "./screen.ts";
+import { OLL_24_TWO_ALGS, OLL_25_TWO_ALGS } from "./two-alg.fixture.ts";
 
 const NOW = 1_800_000_000_000;
 
@@ -92,7 +93,7 @@ describe("what the view carries", () => {
   });
 
   it("plays the starred alg in Learn, the primary without one, and the primary when the star is stale", () => {
-    const pair = ALL_CASES.filter((c) => c.id === "oll-24" || c.id === "oll-25");
+    const pair = [OLL_24_TWO_ALGS, OLL_25_TWO_ALGS];
     const p = progress({ sets: { ...defaultProgress().prefs.sets, learn: ["Full OLL"] } });
     const screen = after(start("learn", { ...ctx(p), cases: pair }), p, "reveal");
     const id = playView(screen)?.c.id;
@@ -103,7 +104,7 @@ describe("what the view carries", () => {
   });
 
   it("follows the alg chosen in Verify, keeping the card's key", () => {
-    const pair = ALL_CASES.filter((c) => c.id === "oll-24" || c.id === "oll-25");
+    const pair = [OLL_24_TWO_ALGS, OLL_25_TWO_ALGS];
     const p = progress({ mode: "verify", sets: { ...defaultProgress().prefs.sets, verify: ["Full OLL"] } });
     let screen = start("verify", { ...ctx(p), cases: pair });
     screen = after(screen, p, "reveal", "reveal");

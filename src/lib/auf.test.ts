@@ -30,8 +30,8 @@ describe("the turned picture and the prefixed alg agree", () => {
     expect(LAST_LAYER).toHaveLength(83);
   });
 
-  // Normalized after, like algorithms-structure.test.ts: oll-42 ends with the
-  // centers displaced and would otherwise read as unsolved.
+  // Normalized after, like algorithms-structure.test.ts: oll-29 and oll-52 end
+  // with the centers displaced and would otherwise read as unsolved.
   it.each(PAIRS)("%s with AUF %j: algs[0] solves the picture exactly", (id, auf) => {
     expect(solve(id, auf, byId(id).algs[0].moves)).toEqual(SOLVED);
   });

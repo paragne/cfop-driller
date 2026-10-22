@@ -107,7 +107,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
       stage.picture.innerHTML = renderCase(turnState(caseState(v.current), v.auf), viewFor(v.current.mask));
     } else if (showsExpected) {
       // No mask and never normalized: exactly the physical cube as held,
-      // including any net rotation an algorithm like oll-42 leaves behind.
+      // including any net rotation an algorithm like oll-29 leaves behind.
       stage.picture.innerHTML = renderCase(expected(v), "top");
     }
 
