@@ -27,3 +27,4 @@ Format: date | decision | reason. Append only.
 2026-10-22 | Hints merge into notes: owner hints ship as data, off by default, "Load My Hints" fills empty notes after confirmation | One feature instead of two; never overwrites what the user wrote. Supersedes 2026-10-14 hint/notes split and 2026-10-20 hint display
 2026-10-22 | Pref toggles move to a hamburger menu with Blind and Guided presets | Fewer controls on the card
 2026-10-22 | PLL gets owner hints too; all hints live in docs/hints.md | Same legend covers both sets
+2026-10-22 | DESIGN.md merged, not replaced: the 9 existing rules kept, tokens extracted from style.css, North Star "The Flash Card", accent "Lavender Signal". Sidecar .impeccable/design.json committed | Code is the incumbent authority; the old rules still match it

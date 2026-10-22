@@ -1,9 +1,9 @@
 # State
 
-Updated: 2026-10-22 (legend)
+Updated: 2026-10-22 (PRODUCT.md, DESIGN.md)
 
 ## Current task
-None. Legend built ahead of PRODUCT.md at user request, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, DESIGN.md).
+None. Next session: Next 1 (.legend class clash).
 
 ## Done
 - Devbox clone, npm ci.
@@ -30,18 +30,19 @@ None. Legend built ahead of PRODUCT.md at user request, not yet viewed in browse
 - OLL one alg + hints (2026-10-22), commit 87f1e08: Full OLL keeps only the PDF top alg (WTF: the y alg), 23 algs[0] replaced, pictures follow. PDF names, "L Shapes" section now "Knight Moves". Owner hints on every Full OLL and Full PLL case (docs/hints.md), none on Sune, Anti-Sune, Pi. oll-29 and oll-52 now leave the cube rotated (oll-42 no longer does); Verify regrip test passes for both, 3D mask cross-check excludes them like f2l-slot-3/4/5. Alternate-alg tests use src/lib/two-alg.fixture.ts. npm run check: exit 0, 72 files, 7447 tests. User to check in browser: WTF and Rice Cooker in 3D, any turned picture (e.g. Reverse Lightning, City), Verify on WTF.
 - Ua (2026-10-22): owner's alg is now algs[0], old algs[0] second. Same permutation, picture unchanged. npm run check: exit 0, 7447 tests.
 - Legend (2026-10-22): src/ui/legend.ts, a vertical "Legend" tab fixed to the right edge on every screen opens a non-modal drawer (22rem, full height; full screen under 36rem) with the notation from docs/hints.md. Closes on Escape, click elsewhere, Close. main.ts now exactly 200 lines. style.css grew by about 45 lines. impeccable detect (source scan): no findings. Run-cfop-driller driver fails on this Linux devbox (vite reachable check), so no screenshot was taken. npm run check: exit 0, 7447 tests.
+- PRODUCT.md and DESIGN.md (2026-10-22): PRODUCT.md from /impeccable init (users: intermediate cubers; a11y: WCAG 2.2 AA, color-blind safe, one-handed phone). DESIGN.md merged per /impeccable document: old 9 rules kept, tokens from style.css in frontmatter, North Star "The Flash Card", accent "Lavender Signal". Sidecar .impeccable/design.json. Docs only, no code change. npm run check: exit 0, 7447 tests.
 
 ## Next (one task per session)
 Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/hints.md.
-1. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 2 to 4 (global UI rule).
-2. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown, top right on the name row (not under the title). Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
+1. Fix .legend class clash. The legend drawer (src/ui/legend.ts:80) and the 3D face-name legend (src/ui/three-d/legend.ts:16) both use class "legend"; the drawer's fixed, full-height .legend rule in style.css overrides the 3D one. Rename the drawer class. Unpushed (commit 6936214). User to check 3D view and the drawer.
+2. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown, top right on the name row (not under the title). Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task. Answers so far: "Edit hint" opens the existing note editor unchanged. Where the menu item goes: user does not know, find the home menu (SPEC.md Layout: menu button on the home top bar opens Save, Load, Wipe, Share) and add it there. main.ts is at 200 lines: make room first if wiring is needed.
 3. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
 4. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
 5. README. I write it. Credit CubeHead.
 6. Minor UI tweaks (list to be supplied by me).
 
 ## Open decisions
-- Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
+- Split src/style.css (440 lines) or exempt CSS from the 200-line rule.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
 
