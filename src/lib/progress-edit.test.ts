@@ -3,7 +3,7 @@ import { ALL_CASES } from "../data/algorithms.ts";
 import type { CaseSet } from "../data/algorithms.ts";
 import { defaultProgress, parseProgress, serialize } from "./progress.ts";
 import type { Progress } from "./progress.ts";
-import { loadHints, setMode, setNote, setNumberPref, setPref, toggleSet } from "./progress-edit.ts";
+import { loadHints, setGuided, setMode, setNote, setNumberPref, setPref, toggleSet } from "./progress-edit.ts";
 
 const [A, B] = ALL_CASES.map((c) => c.id);
 
@@ -132,6 +132,20 @@ describe("the 3D view prefs", () => {
   it("still writes version 2, so a blob from before them loads without a migration", () => {
     const written: { version: number } = JSON.parse(serialize(progress({}), 1));
     expect(written.version).toBe(2);
+  });
+});
+
+describe("setGuided", () => {
+  const mixed = setPref(setPref(setPref(progress(), "showNames", true), "threeD", true), "crossAllStickers", true);
+
+  it.each([true, false])("sets every card aid to %s", (on) => {
+    const { prefs } = setGuided(mixed, on);
+    expect([prefs.showNames, prefs.showSolutions, prefs.showNotes, prefs.showHotkeys]).toEqual([on, on, on, on]);
+  });
+
+  it.each([true, false])("changes nothing else, so 3D and All stickers stay on, at %s", (on) => {
+    const { prefs } = setGuided(mixed, on);
+    expect({ ...prefs, showNames: on, showSolutions: on, showNotes: on, showHotkeys: on }).toEqual({ ...mixed.prefs, showNames: on, showSolutions: on, showNotes: on, showHotkeys: on });
   });
 });
 

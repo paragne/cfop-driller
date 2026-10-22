@@ -54,6 +54,12 @@ export function setPref(
   return { ...progress, prefs: { ...progress.prefs, [key]: value } };
 }
 
+// Blind and Guided cover what a card shows, not how it is viewed, so the 3D
+// view and Cross's sticker choice stay as they were.
+export function setGuided(progress: Progress, on: boolean): Progress {
+  return { ...progress, prefs: { ...progress.prefs, showNames: on, showSolutions: on, showNotes: on, showHotkeys: on } };
+}
+
 export function setNumberPref(progress: Progress, key: "speed" | "zoom", value: number): Progress {
   return { ...progress, prefs: { ...progress.prefs, [key]: value } };
 }
