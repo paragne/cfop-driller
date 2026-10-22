@@ -21,3 +21,8 @@ Format: date | decision | reason. Append only.
 2026-10-20 | PDF names for OLL 3, 4, 29, 30 not used; those keep their numbers | Public UI copy; OLL 3 and 4 names reference a hate group
 2026-10-20 | Case sections unchanged except "L Shapes" becomes "Knight Moves" | Sections are display only; current "L Shapes" clashes with the PDF's L-shapes
 2026-10-21 | OLL hints are CubeHead's PDF notes verbatim, typos included | User's call; README credits CubeHead
+2026-10-22 | Full OLL has one alg per case: the PDF top alg as algs[0], picture turned to match; all alternates removed. WTF uses the PDF y alg | Alternates were noise; the alg the user knows must work on the picture. Supersedes 2026-10-20 alternates entry
+2026-10-22 | OLL takes PDF names: oll-21 Cross, oll-57 H, oll-29 WTF, oll-30 Anti-WTF; OLL 3 and 4 stay numbered | User uses these names. Supersedes the 2026-10-20 H and OLL 29/30 entries
+2026-10-22 | Hints are owner-written (docs/oll-hints.md), replacing the verbatim CubeHead notes | Supersedes 2026-10-21
+2026-10-22 | Hints merge into notes: owner hints ship as data, off by default, "Load My Hints" fills empty notes after confirmation | One feature instead of two; never overwrites what the user wrote. Supersedes 2026-10-14 hint/notes split and 2026-10-20 hint display
+2026-10-22 | Pref toggles move to a hamburger menu with Blind and Guided presets | Fewer controls on the card
