@@ -38,6 +38,11 @@ describe("press on a verify screen", () => {
     expect(verifyView(screen)?.phase).toBe("checked");
   });
 
+  it("know on an attempt checks, like reveal", () => {
+    const attempt = press(started(), "reveal", ctx()).screen;
+    expect(verifyView(press(attempt, "know", ctx()).screen)?.phase).toBe("checked");
+  });
+
   it("ignores know and dontKnow before checked", () => {
     const ready = started();
     expect(press(ready, "know", ctx()).screen).toBe(ready);

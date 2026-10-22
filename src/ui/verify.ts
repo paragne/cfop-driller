@@ -141,6 +141,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
     }
 
     primary.text.textContent = v.phase === "attempt" ? "Check" : v.phase === "missed" ? "Reset" : "Begin";
+    primary.kbd.textContent = v.phase === "attempt" ? "space / num." : "space / num0";
     primary.node.hidden = v.phase === "checked";
     mismatch.node.hidden = v.phase !== "checked";
     match.node.hidden = v.phase !== "checked";

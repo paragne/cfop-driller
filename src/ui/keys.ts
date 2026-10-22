@@ -25,7 +25,7 @@ const BINDINGS = new Map<string, Action>([
 ]);
 
 // Numpad 0 is reveal/begin/check/reset, numpad . is the correct/confirm
-// action (know, match, next), numpad 3 is wrong (don't know, mismatch).
+// action (know, check, match, next), numpad 3 is wrong (don't know, mismatch).
 const NUMPAD_BINDINGS = new Map<string, Action>([
   ["Numpad0", "reveal"],
   ["NumpadDecimal", "know"],

@@ -5,7 +5,8 @@ import { begin, check, judge, reset } from "./verify.ts";
 import type { Verify } from "./verify.ts";
 
 // Verify reuses the flashcard action names: reveal is the primary action
-// (Begin, Check, or Reset), dontKnow is Mismatch and know is Match. Timing
+// (Begin, Check, or Reset), dontKnow is Mismatch and know is Match. Know also
+// checks, so numpad . (know) is Check and then Match without moving a finger. Timing
 // runs from whenever the current attempt began (startedAt) to Check, which is
 // what "attempts" and the time aggregates count; Match separately counts
 // "matches" on top of a time already recorded by that Check.
@@ -20,7 +21,7 @@ export function pressVerify(
     return action === "reveal" ? { verify: begin(v), startedAt: now, progress } : unchanged;
   }
   if (v.phase === "attempt") {
-    if (action !== "reveal") return unchanged;
+    if (action !== "reveal" && action !== "know") return unchanged;
     const withTime = recordVerifyTime(progress, v.current.id, now - startedAt);
     return { verify: check(v), startedAt, progress: withTime };
   }
