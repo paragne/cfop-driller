@@ -1,4 +1,4 @@
-import type { CaseSet } from "../data/algorithms.ts";
+import type { Case, CaseSet } from "../data/algorithms.ts";
 import type { Aesthetic } from "./aesthetic.ts";
 import type { Mode, SetMode } from "./prefs.ts";
 import type { Progress } from "./progress.ts";
@@ -11,6 +11,19 @@ export function setNote(progress: Progress, id: string, text: string): Progress 
   if (text === "") delete notes[id];
   else notes[id] = text;
   return { ...progress, notes };
+}
+
+// The owner's hints are offered, never imposed: a case the user already wrote a
+// note for keeps it.
+export function loadHints(progress: Progress, cases: readonly Case[]): { progress: Progress; added: number } {
+  const notes = { ...progress.notes };
+  let added = 0;
+  for (const c of cases) {
+    if (c.hint === undefined || c.id in notes) continue;
+    notes[c.id] = c.hint;
+    added++;
+  }
+  return { progress: { ...progress, notes }, added };
 }
 
 // Index 0 is what an unstarred case already uses, so it is deleted rather than

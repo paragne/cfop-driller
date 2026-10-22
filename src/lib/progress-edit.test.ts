@@ -3,7 +3,7 @@ import { ALL_CASES } from "../data/algorithms.ts";
 import type { CaseSet } from "../data/algorithms.ts";
 import { defaultProgress, parseProgress, serialize } from "./progress.ts";
 import type { Progress } from "./progress.ts";
-import { setMode, setNote, setNumberPref, setPref, toggleSet } from "./progress-edit.ts";
+import { loadHints, setMode, setNote, setNumberPref, setPref, toggleSet } from "./progress-edit.ts";
 
 const [A, B] = ALL_CASES.map((c) => c.id);
 
@@ -53,6 +53,35 @@ describe("setNote", () => {
     const before = Object.freeze(progress(Object.freeze({ [A]: "old" })));
     expect(() => setNote(before, A, "new")).not.toThrow();
     expect(() => setNote(before, A, "")).not.toThrow();
+  });
+});
+
+describe("loadHints", () => {
+  const hinted = ALL_CASES.filter((c) => c.hint !== undefined);
+  const [first, second] = hinted;
+
+  it("fills every hinted case when there are no notes", () => {
+    const { progress: after, added } = loadHints(progress(), ALL_CASES);
+    expect(added).toBe(hinted.length);
+    expect(after.notes[first.id]).toBe(first.hint);
+  });
+
+  it("keeps a note the user wrote and does not count that case", () => {
+    const { progress: after, added } = loadHints(progress({ [first.id]: "mine" }), ALL_CASES);
+    expect(after.notes[first.id]).toBe("mine");
+    expect(after.notes[second.id]).toBe(second.hint);
+    expect(added).toBe(hinted.length - 1);
+  });
+
+  it("writes nothing for a case without a hint", () => {
+    const plain = ALL_CASES.find((c) => c.hint === undefined);
+    if (plain === undefined) throw new Error("every case has a hint");
+    expect(plain.id in loadHints(progress(), ALL_CASES).progress.notes).toBe(false);
+  });
+
+  it("adds nothing on a second load", () => {
+    const once = loadHints(progress(), ALL_CASES).progress;
+    expect(loadHints(once, ALL_CASES).added).toBe(0);
   });
 });
 
