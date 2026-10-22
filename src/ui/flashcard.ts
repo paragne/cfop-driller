@@ -74,7 +74,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     const key = `${c.id}|${auf}`;
     if (key !== shown) {
       stage.picture.innerHTML = renderCase(turnState(caseState(c), auf), viewFor(c.mask));
-      section.textContent = `${c.group} · ${c.section}`;
+      section.textContent = c.section;
       name.textContent = [c.name, ...c.aliases].filter((s) => s !== null).join(" · ");
       notes.stop();
       shown = key;

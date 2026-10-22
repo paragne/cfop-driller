@@ -148,13 +148,13 @@ export function cardView(screen: Screen): CardView | null {
   if (screen.kind === "gallery") return screen.open === null ? null : { c: screen.open, revealed: true, count: "", mode: "gallery", auf: "" };
   if (screen.kind === "drill") {
     const { current: c, revealed, shown } = screen.drill;
-    return { c, revealed, count: String(shown), mode: "drill", auf: screen.auf };
+    return { c, revealed, count: `Card ${shown}`, mode: "drill", auf: screen.auf };
   }
   if (screen.kind !== "learn") return null;
   const c = current(screen.session);
   if (c === null) return null;
   const { revealed, done, total } = screen.session;
-  return { c, revealed, count: `${done} / ${total}`, mode: "learn", auf: screen.auf };
+  return { c, revealed, count: `Card ${done + 1} / ${total}`, mode: "learn", auf: screen.auf };
 }
 
 // Non-null only on a finished session's summary. Drill and Verify never end.
