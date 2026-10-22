@@ -1,12 +1,11 @@
 import type { Progress } from "../lib/progress.ts";
 import { el, keyedButton, toggleButton } from "./dom.ts";
 
+export type BarPref = "showSolutions" | "showNotes" | "showHotkeys" | "crossAllStickers";
+
 type Handlers = {
   onNames: () => void;
-  onAutoReveal: () => void;
-  onNotes: () => void;
-  onHotkeys: () => void;
-  onAllStickers: () => void;
+  onToggle: (key: BarPref) => void;
   // A touch-primary device has no keyboard to label, so the toggle never
   // shows there, regardless of the stored pref.
   touchPrimary: boolean;
@@ -14,12 +13,12 @@ type Handlers = {
 
 // Card behavior, not session setup, so it lives on the card screens and the
 // home screen carries only what a session is made of.
-export function createPrefBar({ onNames, onAutoReveal, onNotes, onHotkeys, onAllStickers, touchPrimary }: Handlers) {
+export function createPrefBar({ onNames, onToggle, touchPrimary }: Handlers) {
   const names = keyedButton("toggle", "Names", "n", onNames).node;
-  const autoReveal = toggleButton("Auto-reveal", onAutoReveal);
-  const notes = toggleButton("Hints", onNotes);
-  const hotkeys = toggleButton("Hotkeys", onHotkeys);
-  const allStickers = toggleButton("All stickers", onAllStickers);
+  const autoReveal = toggleButton("Auto-reveal", () => onToggle("showSolutions"));
+  const notes = toggleButton("Hints", () => onToggle("showNotes"));
+  const hotkeys = toggleButton("Hotkeys", () => onToggle("showHotkeys"));
+  const allStickers = toggleButton("All stickers", () => onToggle("crossAllStickers"));
   hotkeys.hidden = touchPrimary;
   const element = el("div", "prefs");
   element.append(names, autoReveal, notes, allStickers, hotkeys);

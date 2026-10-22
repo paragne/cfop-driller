@@ -90,10 +90,7 @@ const intro = createIntro({
 });
 const prefBar = createPrefBar({
   onNames: () => handle("toggleNames"),
-  onAutoReveal: () => commit(setPref(progress, "showSolutions", !progress.prefs.showSolutions)),
-  onNotes: () => commit(setPref(progress, "showNotes", !progress.prefs.showNotes)),
-  onHotkeys: () => commit(setPref(progress, "showHotkeys", !progress.prefs.showHotkeys)),
-  onAllStickers: () => commit(setPref(progress, "crossAllStickers", !progress.prefs.crossAllStickers)),
+  onToggle: (key) => commit(setPref(progress, key, !progress.prefs[key])),
   touchPrimary,
 });
 topbar.left.append(prefBar.element);
