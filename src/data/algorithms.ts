@@ -1072,11 +1072,11 @@ export const PLL_CASES: Case[] = [
     name: "Ua Perm",
     aliases: ["U Perm (a)"],
     algs: [
-      a("(R2 U' R') U' R (U R) (U R) U' R", "R2 U' R' U' R U R U R U' R"),
       a(
         "(R U R' U) R' U' (R2 U' R') U R' U R U2",
         "R U R' U R' U' R2 U' R' U R' U R U2",
       ),
+      a("(R2 U' R') U' R (U R) (U R) U' R", "R2 U' R' U' R U R U R U' R"),
     ],
     hint: "(Su) (R' U' R2 U' R') (⇌Su⇌)   palindrome: reads the same backward",
     mask: { kind: "pll-full" },
