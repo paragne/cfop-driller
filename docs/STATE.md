@@ -1,9 +1,9 @@
 # State
 
-Updated: 2026-10-22 (plan split)
+Updated: 2026-10-22 (OLL one alg, OLL and PLL hints)
 
 ## Current task
-None. Old OLL batches 2-5 replaced by the plan below (decided 2026-10-22). Next session: Next 1.
+None. Task 1 done, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, DESIGN.md).
 
 ## Done
 - Devbox clone, npm ci.
@@ -27,18 +27,20 @@ None. Old OLL batches 2-5 replaced by the plan below (decided 2026-10-22). Next 
 - Task 2 Case.hint (2026-10-20): optional hint?: string on Case (type only, no case changed). Shown as a .hint line under the name row on flashcards and in Verify, before reveal, hidden by the Notes toggle, hidden on the Verify intro. SPEC.md "Hints" section. Test in algorithms-structure.test.ts (trimmed, non-empty) passes vacuously until the OLL batches add hints. No style.css change. Viewed in browser by user. npm run check: exit 0, 72 files, 7460 tests.
 - OLL batch 1 (2026-10-21), commit 8ffe2e2: oll-21 to 27, 45, 33, 5, 6, 28, 57. Names T, Key, Righty Square, Lefty Square, Arrow (old "OLL n" moved to aliases). Alias Cross on 21, H on 57. Alternates on 27, 26, 23, and two on 21 with U prefix. Hints verbatim from the PDF on all 13, typos kept ("instad", "Righty-Square", "F' , easy"). verify-choices.test.ts one-alg fixture moved from oll-27 to oll-22. Leading-y alternates show as Verify choices; the independent choices test passes. npm run check: exit 0, 72 files, 7489 tests.
 
+- OLL one alg + hints (2026-10-22), commit 87f1e08: Full OLL keeps only the PDF top alg (WTF: the y alg), 23 algs[0] replaced, pictures follow. PDF names, "L Shapes" section now "Knight Moves". Owner hints on every Full OLL and Full PLL case (docs/hints.md), none on Sune, Anti-Sune, Pi. oll-29 and oll-52 now leave the cube rotated (oll-42 no longer does); Verify regrip test passes for both, 3D mask cross-check excludes them like f2l-slot-3/4/5. Alternate-alg tests use src/lib/two-alg.fixture.ts. npm run check: exit 0, 72 files, 7447 tests. User to check in browser: WTF and Rice Cooker in 3D, any turned picture (e.g. Reverse Lightning, City), Verify on WTF.
+
 ## Next (one task per session)
-Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/oll-hints.md.
-1. OLL one alg per case. For all 57 Full OLL cases: algs[0] is the PDF top alg (docs/oll-mapping.md), exactly as printed, so the picture turns where the table says "rotated". Exception: WTF (oll-29) uses the PDF y alg. Cases whose algs[0] already is the top alg (Sune, Anti-Sune, Headlights, oll-21, and more) keep it; oll-21 keeps `R U R' U (R U' R' U) R U2 R'`. Drop every OLL alternate (including batch 1's). 2-Look OLL shares oll-21 to 27: check it still makes sense. Names: PDF names, oll-21 "Cross" (alias H), oll-57 "H", oll-29 "WTF", oll-30 "Anti-WTF", oll-22 stays Pi (alias Bruno), oll-3 and oll-4 stay numbered. Old "OLL n" stays an alias. Hints: replace all with docs/oll-hints.md; Sune, Anti-Sune, Pi get none. Check every hint against its alg by hand and list mismatches to the user, do not fix them. State each changed case in the commit. Over 50 lines: plan first.
-2. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 3 to 6 (global UI rule).
-3. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown. Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
-4. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
-5. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
-6. Legend drawer: a button on the right edge opens the legend from docs/oll-hints.md. Full screen on mobile.
-7. README. I write it. Credit CubeHead.
-8. Minor UI tweaks (list to be supplied by me).
+Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/hints.md.
+1. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 2 to 5 (global UI rule).
+2. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown. Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
+3. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
+4. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
+5. Legend drawer: a button on the right edge opens the legend from docs/hints.md. Full screen on mobile.
+6. README. I write it. Credit CubeHead.
+7. Minor UI tweaks (list to be supplied by me).
 
 ## Open decisions
+- Ua hint describes its second alg (R U R' U R' U' R2 U' R' U R' U R U2), not algs[0] (R2 U' R' U' R U R U R U' R). Make the second algs[0], or keep as is.
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
