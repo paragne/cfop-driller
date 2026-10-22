@@ -20,6 +20,7 @@ import { createGallery } from "./ui/gallery.ts";
 import { createHelp } from "./ui/help.ts";
 import { createHome } from "./ui/home.ts";
 import { createIntro } from "./ui/intro.ts";
+import { createLegend } from "./ui/legend.ts";
 import { bindKeys } from "./ui/keys.ts";
 import { createMenu } from "./ui/menu.ts";
 import { createPrefBar } from "./ui/pref-bar.ts";
@@ -191,7 +192,7 @@ function handle(action: Action): void {
   render();
 }
 
-document.body.append(topbar.element, menu.element, help.element, status.element, home.element);
+document.body.append(topbar.element, menu.element, help.element, status.element, home.element, ...createLegend());
 document.body.append(gallery.element, intro.element, flashcard.element, verify.element, cross.element, summary.element);
 bindKeys(handle, (step) => flashcard.step(step) || verify.step(step) || cross.step(step), () => screen.kind === "drill" || screen.kind === "cross");
 if (loaded.problem === "unreadable") status.show(SET_ASIDE);
