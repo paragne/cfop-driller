@@ -134,10 +134,6 @@ n(alg)      = repeat alg n times
 *           = definition of cited alg
 =           = "explanation / other name"
 
-MERGE RULE
-When chunks are joined, adjacent turns of the same face combine:
-R' R' → R2,  R R' → nothing,  R R2 → R'
-
 COMMONLY DERIVED ELEMENTS
 ~Ne~        = R' U2 R
 ~Sune~      = R' U' R U' R' U2 R

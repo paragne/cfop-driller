@@ -1,6 +1,6 @@
 import { el } from "./dom.ts";
 
-type Section = { title: string; note?: string; rows: readonly (readonly [string, string])[] };
+type Section = { title: string; rows: readonly (readonly [string, string])[] };
 
 // The notation the owner's hints are written in (docs/hints.md). Static text:
 // nothing here is built from user input.
@@ -48,15 +48,6 @@ const SECTIONS: readonly Section[] = [
     ],
   },
   {
-    title: "Merge rule",
-    note: "When chunks are joined, adjacent turns of the same face combine:",
-    rows: [
-      ["R' R'", "R2"],
-      ["R R'", "nothing"],
-      ["R R2", "R'"],
-    ],
-  },
-  {
     title: "Commonly derived elements",
     rows: [
       ["~Ne~", "R' U2 R"],
@@ -85,11 +76,10 @@ export function createLegend(beside: HTMLElement): HTMLElement {
   const heading = el("div", "legend-head");
   heading.append(el("h2", "", "Hint notation"), close);
   panel.append(heading);
-  for (const { title, note, rows } of SECTIONS) {
+  for (const { title, rows } of SECTIONS) {
     const list = el("dl", "legend-list");
     for (const [term, meaning] of rows) list.append(el("dt", "", term), el("dd", "", meaning));
     panel.append(el("h3", "", title));
-    if (note !== undefined) panel.append(el("p", "", note));
     panel.append(list);
   }
 
