@@ -86,8 +86,10 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
 
     notes.show(progress.notes[c.id] ?? "", progress.prefs.showNotes);
 
-    name.hidden = !progress.prefs.showNames || name.textContent === "";
-    meta.hidden = !progress.prefs.showNames;
+    // Revealing answers the whole card, so a hidden name comes back with the alg.
+    const showName = progress.prefs.showNames || view.revealed;
+    name.hidden = !showName || name.textContent === "";
+    meta.hidden = !showName;
     for (const kbd of kbds) kbd.hidden = !progress.prefs.showHotkeys;
     revealed = view.revealed;
     showSolution();
