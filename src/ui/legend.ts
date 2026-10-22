@@ -77,7 +77,7 @@ export function createLegend(): readonly HTMLElement[] {
   tab.setAttribute("aria-expanded", "false");
   tab.setAttribute("aria-controls", "legend");
 
-  const panel = el("aside", "legend");
+  const panel = el("aside", "legend-drawer");
   panel.id = "legend";
   panel.hidden = true;
   panel.setAttribute("aria-label", "Hint notation");
