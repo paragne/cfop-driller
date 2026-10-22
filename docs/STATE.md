@@ -1,9 +1,9 @@
 # State
 
-Updated: 2026-10-22 (OLL one alg, OLL and PLL hints)
+Updated: 2026-10-22 (legend)
 
 ## Current task
-None. Task 1 done, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, DESIGN.md).
+None. Legend built ahead of PRODUCT.md at user request, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, DESIGN.md).
 
 ## Done
 - Devbox clone, npm ci.
@@ -29,16 +29,16 @@ None. Task 1 done, not yet viewed in browser. Next session: Next 1 (PRODUCT.md, 
 
 - OLL one alg + hints (2026-10-22), commit 87f1e08: Full OLL keeps only the PDF top alg (WTF: the y alg), 23 algs[0] replaced, pictures follow. PDF names, "L Shapes" section now "Knight Moves". Owner hints on every Full OLL and Full PLL case (docs/hints.md), none on Sune, Anti-Sune, Pi. oll-29 and oll-52 now leave the cube rotated (oll-42 no longer does); Verify regrip test passes for both, 3D mask cross-check excludes them like f2l-slot-3/4/5. Alternate-alg tests use src/lib/two-alg.fixture.ts. npm run check: exit 0, 72 files, 7447 tests. User to check in browser: WTF and Rice Cooker in 3D, any turned picture (e.g. Reverse Lightning, City), Verify on WTF.
 - Ua (2026-10-22): owner's alg is now algs[0], old algs[0] second. Same permutation, picture unchanged. npm run check: exit 0, 7447 tests.
+- Legend (2026-10-22): src/ui/legend.ts, a vertical "Legend" tab fixed to the right edge on every screen opens a non-modal drawer (22rem, full height; full screen under 36rem) with the notation from docs/hints.md. Closes on Escape, click elsewhere, Close. main.ts now exactly 200 lines. style.css grew by about 45 lines. impeccable detect (source scan): no findings. Run-cfop-driller driver fails on this Linux devbox (vite reachable check), so no screenshot was taken. npm run check: exit 0, 7447 tests.
 
 ## Next (one task per session)
 Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/hints.md.
-1. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 2 to 5 (global UI rule).
-2. Legend drawer (user priority): a button on the right edge opens the legend from docs/hints.md. Full screen on mobile.
-3. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown, top right on the name row (not under the title). Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
-4. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
-5. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
-6. README. I write it. Credit CubeHead.
-7. Minor UI tweaks (list to be supplied by me).
+1. PRODUCT.md (/impeccable init), DESIGN.md (/impeccable document, seeded from the old Visual design section; DESIGN.md already exists, decide replace or update). Required before tasks 2 to 4 (global UI rule).
+2. Merge hints into notes. Case.hint becomes owner hint data, not displayed. Notes are the only hint shown, top right on the name row (not under the title). Menu item "Load My Hints" with a confirmation ("Load the app owner's hints?"), fills only cases with no note, says how many. "Take notes" button becomes "Edit hint", "Notes" toggle becomes "Hints". Default: no notes. Update the CLAUDE.md rule "Never write hints into user notes" and SPEC.md "Hints" in the same task.
+3. Card cleanup. Hide the star when a case has one alg. Meta line: "OLL · Finish OLL · 1" becomes "Finish OLL · Card 1" (the number is the session position, flashcard.ts:98, users read it as an OLL number).
+4. Toggles into a top-left hamburger menu: Names, Hints, Auto-reveal, Hotkeys, 3D. Presets "Blind" (all off) and "Guided" (all on), both leave 3D alone. Only "Edit hint" stays top right.
+5. README. I write it. Credit CubeHead.
+6. Minor UI tweaks (list to be supplied by me).
 
 ## Open decisions
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
@@ -46,6 +46,8 @@ Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
 
 ## Known issues
+- main.ts is at the 200-line limit; the next wiring change needs room made first.
+- run-cfop-driller driver.mjs fails on this Linux devbox: vite starts but the driver's reachability check does not see it.
 - No README.
 - docs/DECISIONS.md line 13: two entries share one line (missing newline after the 2026-10-14 references/ entry).
 - Caret ranges in package.json. Install with npm ci only.
