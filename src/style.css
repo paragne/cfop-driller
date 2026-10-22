@@ -363,26 +363,11 @@ kbd {
 .help-list dt { color: var(--fg); font-weight: 600; }
 .help-list dd { margin: 0 0 0.5rem; }
 
-/* The legend tab sits on the right edge at mid height, clear of the top bar
-   and the thumb row. Its drawer is a full-height column on the right; on a
-   phone there is no room beside the card, so it takes the whole screen. */
-.legend-tab {
-  position: fixed;
-  top: 50%;
-  right: 0;
-  z-index: 1;
-  min-height: 0;
-  padding: 0.75rem 0.3rem;
-  border: 1px solid var(--line);
-  border-right: 0;
-  border-radius: 2px 0 0 2px;
-  background: var(--panel);
-  color: var(--dim);
-  font-size: 0.75rem;
-  writing-mode: vertical-rl;
-  transform: translateY(-50%) rotate(180deg);
-}
-.legend-tab[aria-expanded="true"] { color: var(--fg); }
+/* The legend chip matches the Names toggle and fills like 3D when open. Its
+   drawer is a full-height column on the right; on a phone there is no room
+   beside the card, so it takes the whole screen. */
+.topbar .legend-tab { min-height: 2rem; padding: 0.125rem 0.5rem; border-color: var(--line); background: var(--panel); font-size: 0.75rem; white-space: nowrap; }
+.topbar .legend-tab[aria-expanded="true"] { border-color: var(--fg); background: var(--fg); color: var(--bg); }
 .legend-drawer {
   position: fixed;
   inset: 0 0 0 auto;

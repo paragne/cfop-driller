@@ -1,5 +1,4 @@
 import { el } from "./dom.ts";
-import { dismissable } from "./panel.ts";
 
 type Section = { title: string; note?: string; rows: readonly (readonly [string, string])[] };
 
@@ -69,9 +68,9 @@ const SECTIONS: readonly Section[] = [
   },
 ];
 
-// A tab on the right edge and the drawer it opens. Not a dialog, like the
-// other panels, so the card stays usable beside it on a wide screen.
-export function createLegend(): readonly HTMLElement[] {
+// A top bar chip and the drawer it opens. Not a dialog, like the other
+// panels, so the card stays usable beside it on a wide screen.
+export function createLegend(beside: HTMLElement): HTMLElement {
   const tab = el("button", "legend-tab", "Legend");
   tab.type = "button";
   tab.setAttribute("aria-expanded", "false");
@@ -94,8 +93,19 @@ export function createLegend(): readonly HTMLElement[] {
     panel.append(list);
   }
 
-  const { toggle, close: hide } = dismissable(panel, tab, (open) => tab.setAttribute("aria-expanded", String(open)));
-  tab.addEventListener("click", toggle);
-  close.addEventListener("click", hide);
-  return [tab, panel];
+  // Unlike the other panels, a click elsewhere does not close it: it is a
+  // reference kept open while working through cards, and Next is a click.
+  let opened = false;
+  function setOpen(open: boolean): void {
+    opened = open;
+    panel.hidden = !open;
+    tab.setAttribute("aria-expanded", String(open));
+  }
+  tab.addEventListener("click", () => setOpen(!opened));
+  close.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
+  });
+  beside.before(tab);
+  return panel;
 }

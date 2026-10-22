@@ -192,7 +192,7 @@ function handle(action: Action): void {
   render();
 }
 
-document.body.append(topbar.element, menu.element, help.element, status.element, home.element, ...createLegend());
+document.body.append(topbar.element, menu.element, help.element, status.element, home.element, createLegend(topbar.helpButton));
 document.body.append(gallery.element, intro.element, flashcard.element, verify.element, cross.element, summary.element);
 bindKeys(handle, (step) => flashcard.step(step) || verify.step(step) || cross.step(step), () => screen.kind === "drill" || screen.kind === "cross");
 if (loaded.problem === "unreadable") status.show(SET_ASIDE);
