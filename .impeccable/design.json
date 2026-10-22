@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-22T04:28:13+00:00",
+  "title": "Design System: CFOP Driller",
+  "extensions": {
+    "colorMeta": {
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "#0b0b0c",
+        "tonalRamp": [
+          "#020202",
+          "#040405",
+          "#070707",
+          "#09090a",
+          "#3c3c3d",
+          "#6d6d6d",
+          "#9d9d9e",
+          "#cecece"
+        ]
+      },
+      "panel-graphite": {
+        "role": "neutral",
+        "displayName": "Panel Graphite",
+        "canonical": "#151517",
+        "tonalRamp": [
+          "#040405",
+          "#080809",
+          "#0d0d0e",
+          "#111112",
+          "#444445",
+          "#737374",
+          "#a1a1a2",
+          "#d0d0d1"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#2a2a2e",
+        "tonalRamp": [
+          "#080809",
+          "#111112",
+          "#19191c",
+          "#222225",
+          "#555558",
+          "#7f7f82",
+          "#aaaaab",
+          "#d4d4d5"
+        ]
+      },
+      "bone-white": {
+        "role": "neutral",
+        "displayName": "Bone White",
+        "canonical": "#ececee",
+        "tonalRamp": [
+          "#2f2f30",
+          "#5e5e5f",
+          "#8e8e8f",
+          "#bdbdbe",
+          "#f0f0f1",
+          "#f4f4f5",
+          "#f7f7f8",
+          "#fbfbfc"
+        ]
+      },
+      "ash-gray": {
+        "role": "neutral",
+        "displayName": "Ash Gray",
+        "canonical": "#8d8d96",
+        "tonalRamp": [
+          "#1c1c1e",
+          "#38383c",
+          "#55555a",
+          "#717178",
+          "#a4a4ab",
+          "#bbbbc0",
+          "#d1d1d5",
+          "#e8e8ea"
+        ]
+      },
+      "lavender-signal": {
+        "role": "primary",
+        "displayName": "Lavender Signal",
+        "canonical": "#a78bfa",
+        "tonalRamp": [
+          "#211c32",
+          "#433864",
+          "#645396",
+          "#866fc8",
+          "#b9a2fb",
+          "#cab9fc",
+          "#dcd1fd",
+          "#ede8fe"
+        ]
+      },
+      "tick-empty": {
+        "role": "neutral",
+        "displayName": "Tick Empty",
+        "canonical": "#34343a",
+        "tonalRamp": [
+          "#0a0a0c",
+          "#151517",
+          "#1f1f23",
+          "#2a2a2e",
+          "#5d5d61",
+          "#858589",
+          "#aeaeb0",
+          "#d6d6d8"
+        ]
+      },
+      "set-basic-f2l": {
+        "role": "set",
+        "displayName": "Set Basic F2L",
+        "canonical": "#f87171",
+        "tonalRamp": [
+          "#321717",
+          "#632d2d",
+          "#954444",
+          "#c65a5a",
+          "#f98d8d",
+          "#fbaaaa",
+          "#fcc6c6",
+          "#fee3e3"
+        ]
+      },
+      "set-advanced-f2l": {
+        "role": "set",
+        "displayName": "Set Advanced F2L",
+        "canonical": "#fb923c",
+        "tonalRamp": [
+          "#321d0c",
+          "#643a18",
+          "#975824",
+          "#c97530",
+          "#fca863",
+          "#fdbe8a",
+          "#fdd3b1",
+          "#fee9d8"
+        ]
+      },
+      "set-expert-f2l": {
+        "role": "set",
+        "displayName": "Set Expert F2L",
+        "canonical": "#facc15",
+        "tonalRamp": [
+          "#322904",
+          "#645208",
+          "#967a0d",
+          "#c8a311",
+          "#fbd644",
+          "#fce073",
+          "#fdeba1",
+          "#fef5d0"
+        ]
+      },
+      "set-2look-oll": {
+        "role": "set",
+        "displayName": "Set 2Look Oll",
+        "canonical": "#4ade80",
+        "tonalRamp": [
+          "#0f2c1a",
+          "#1e5933",
+          "#2c854d",
+          "#3bb266",
+          "#6ee599",
+          "#92ebb3",
+          "#b7f2cc",
+          "#dbf8e6"
+        ]
+      },
+      "set-full-oll": {
+        "role": "set",
+        "displayName": "Set Full Oll",
+        "canonical": "#60a5fa",
+        "tonalRamp": [
+          "#132132",
+          "#264264",
+          "#3a6396",
+          "#4d84c8",
+          "#80b7fb",
+          "#a0c9fc",
+          "#bfdbfd",
+          "#dfedfe"
+        ]
+      },
+      "set-2look-pll": {
+        "role": "set",
+        "displayName": "Set 2Look Pll",
+        "canonical": "#818cf8",
+        "tonalRamp": [
+          "#1a1c32",
+          "#343863",
+          "#4d5495",
+          "#6770c6",
+          "#9aa3f9",
+          "#b3bafb",
+          "#cdd1fc",
+          "#e6e8fe"
+        ]
+      },
+      "set-full-pll": {
+        "role": "set",
+        "displayName": "Set Full Pll",
+        "canonical": "#c084fc",
+        "tonalRamp": [
+          "#261a32",
+          "#4d3565",
+          "#734f97",
+          "#9a6aca",
+          "#cd9dfd",
+          "#d9b5fd",
+          "#e6cefe",
+          "#f2e6fe"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Summary and intro titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Case name on the card."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default text and buttons."
+      },
+      "body-small": {
+        "displayName": "Body small",
+        "purpose": "Toggles, meta, hints, popovers."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase section titles."
+      },
+      "alg": {
+        "displayName": "Alg",
+        "purpose": "Algorithms, scrambles, notation, key hints."
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "phone-max",
+        "value": "36rem"
+      },
+      {
+        "name": "desktop-min",
+        "value": "48rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default action button on cards, home and popovers.",
+      "html": "<button class=\"ds-btn\">Don't know it</button>",
+      "css": ".ds-btn{font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee;cursor:pointer;min-height:3.25rem;padding:0.5rem 1rem}.ds-btn:hover{border-color:#8d8d96}.ds-btn:focus-visible{outline:2px solid #ececee;outline-offset:2px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one primary action per screen: Start, Reveal, Begin.",
+      "html": "<button class=\"ds-btn-primary\">Reveal</button>",
+      "css": ".ds-btn-primary{font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee;cursor:pointer;min-height:3.25rem;padding:0.5rem 1rem;border-color:#a78bfa;background:#a78bfa;color:#0b0b0c;font-weight:600}.ds-btn-primary:hover{border-color:#ececee}.ds-btn-primary:focus-visible{outline:2px solid #ececee;outline-offset:2px}"
+    },
+    {
+      "name": "Toggle",
+      "kind": "chip",
+      "refersTo": "toggle",
+      "description": "Set, mode and option toggles. Pressed inverts to white on black.",
+      "html": "<button class=\"ds-toggle\" aria-pressed=\"false\">Full OLL</button><button class=\"ds-toggle\" aria-pressed=\"true\">Full PLL</button>",
+      "css": ".ds-toggle{font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee;cursor:pointer;min-height:2.25rem;padding:0.25rem 0.75rem;font-size:0.875rem;margin-right:0.25rem}.ds-toggle:hover{border-color:#8d8d96}.ds-toggle[aria-pressed=true]{border-color:#ececee;background:#ececee;color:#0b0b0c}.ds-toggle:focus-visible{outline:2px solid #ececee;outline-offset:2px}"
+    },
+    {
+      "name": "Top Bar Chip",
+      "kind": "chip",
+      "refersTo": "chip-topbar",
+      "description": "Names, Auto-reveal and Notes preferences in the top bar.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">Names</button>",
+      "css": ".ds-chip{font:16px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee;cursor:pointer;min-height:2rem;padding:0.125rem 0.5rem;font-size:0.75rem}.ds-chip:hover{border-color:#8d8d96}.ds-chip[aria-pressed=true]{border-color:#ececee;background:#ececee;color:#0b0b0c}.ds-chip:focus-visible{outline:2px solid #ececee;outline-offset:2px}"
+    },
+    {
+      "name": "Solution Panel",
+      "kind": "card",
+      "refersTo": "solution-panel",
+      "description": "Revealed solution: primary alg in mono, alternate smaller in gray.",
+      "html": "<div class=\"ds-solution\"><p class=\"ds-alg\">R U R' U R U2 R'</p><p class=\"ds-alg ds-alt\">y' R' U2 R U R' U R</p></div>",
+      "css": ".ds-solution{padding:0.5rem 0.75rem;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee}.ds-alg{margin:0.25rem 0;font:1.15rem/1.4 ui-monospace,'Cascadia Mono',Consolas,monospace}.ds-alt{color:#8d8d96;font-size:0.95rem}"
+    },
+    {
+      "name": "Note Field",
+      "kind": "input",
+      "refersTo": "note-field",
+      "description": "In-place note editor on the card.",
+      "html": "<textarea class=\"ds-note\" rows=\"2\">Headlights at the back</textarea>",
+      "css": ".ds-note{width:100%;min-height:2.5rem;padding:0.5rem;border:1px solid #2a2a2e;border-radius:2px;background:#151517;color:#ececee;font:16px/1.4 system-ui,sans-serif;resize:none}.ds-note:focus-visible{outline:2px solid #ececee;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Flash Card",
+    "overview": "One card, one answer, next. The screen is a flash card held up in a dark room: the case picture is the card face, and everything else is the hand holding it. The tool is used with a cube in one hand and a thumb or a keyboard in the other, in short daily sessions, so every element earns its place by speeding up the next card.\n\nDense, fast, high-contrast. A drilling tool, not a marketing page. Near-black ground, bright cube, grayscale chrome, and one violet that means \"do this\". Flat surfaces separated by 1px hairlines. No ornament.\n\nMobile first, single column. Desktop gets more padding and a three-button action row, not a different layout.",
+    "keyCharacteristics": [
+      "The case picture is the largest element on screen by a wide margin.",
+      "Grayscale chrome, one accent for the primary action.",
+      "System fonts only, monospace for algs.",
+      "Flat, hairline borders, 2px corners.",
+      "Primary actions in the thumb zone at the bottom."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Lavender Signal appears on the primary action and nowhere else. A pressed toggle inverts to Bone White on Ink Black, never violet, so the accent always means \"the next step\".",
+        "section": "colors"
+      },
+      {
+        "name": "The Rainbow Stays Home Rule",
+        "body": "Set colors live in the home stats only. They never tint cards, buttons or the cube.",
+        "section": "colors"
+      },
+      {
+        "name": "The Label Beside Hue Rule",
+        "body": "Hue is never the only carrier of meaning. Every set color sits next to its set name, and learned versus missed ticks differ in opacity as well as presence.",
+        "section": "colors"
+      },
+      {
+        "name": "The Executable Is Mono Rule",
+        "body": "If the user can turn it on a cube or press it on a keyboard, it is set in monospace. Nothing else is.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Font Loading Rule",
+        "body": "No web fonts. The app must render its first card offline with nothing to fetch.",
+        "section": "typography"
+      },
+      {
+        "name": "The Picture Wins Rule",
+        "body": "The case picture is the largest element on screen by a wide margin. If a new element shrinks it noticeably on a phone, the element moves or goes.",
+        "section": "layout"
+      },
+      {
+        "name": "The Thumb Zone Rule",
+        "body": "Primary actions sit in the lower third, reachable by thumb on a phone.",
+        "section": "layout"
+      },
+      {
+        "name": "The Hairline Not Shadow Rule",
+        "body": "Separation is a 1px Hairline border or a background step, never a shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Nothing Moves Rule",
+        "body": "Opening a popover, menu or drawer never reflows the page. It overlays.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep Lavender Signal on the one primary action per screen.",
+      "**Do** invert to Bone White on Ink Black for any pressed or selected state.",
+      "**Do** use a 1px Hairline and Panel Graphite for every new surface.",
+      "**Do** set algs, notation and key hints in the mono stack.",
+      "**Do** design at phone width first, single column, then add padding on desktop.",
+      "**Do** pair every set color with its set name."
+    ],
+    "donts": [
+      "**Don't** add web fonts or any font loading.",
+      "**Don't** use shadows, gradients, glass effects or blur.",
+      "**Don't** use corners rounder than 2px on controls or panels.",
+      "**Don't** open modal dialogs. Notes edit in place; menus and drawers overlay without blocking.",
+      "**Don't** animate transitions unless the motion conveys a state change (3D move playback is that state change).",
+      "**Don't** use set colors outside the home stats.",
+      "**Don't** design a desktop layout and shrink it."
+    ]
+  }
+}
