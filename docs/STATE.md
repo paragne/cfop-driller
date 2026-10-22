@@ -40,7 +40,6 @@ Decisions for all of these: DECISIONS.md 2026-10-22. Hint text and legend: docs/
 
 ## Open decisions
 - Split src/style.css (396 lines) or exempt CSS from the 200-line rule.
-- Crown hint `(Wide Anti-Sune) ||Wide Anti-Sune||` does not match its top alg `(r U R' U R U2 r') (r' U' R U' R' U2 r)`, which reads as (Wide Sune) ~Wide Sune~. User to confirm.
 - Whether CI gates production deploys.
 - slop-check hook flags the em dash in the frozen fixture progress-v2.test.ts:19. Left as is. Change fixture and expected value together if wanted.
 

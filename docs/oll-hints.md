@@ -59,7 +59,7 @@ Names are PDF names (docs/oll-mapping.md). "Anti-Nazi" and "Nazi" are keys from 
 | Slash | `(Su) (sledge) U2' (sledge)` |
 | X | `M U (sexy) M2 (thick insert)` |
 | Bunny | `M U (sexy) M' (sledge)` |
-| Crown | `(Wide Anti-Sune) \|\|Wide Anti-Sune\|\|` |
+| Crown | `(Wide Sune) ~Wide Sune~` |
 | Anti-Nazi (oll-3) | `(P) U' (T)` |
 | Nazi (oll-4) | `(P) U (T)` |
 
