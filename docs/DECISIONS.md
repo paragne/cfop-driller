@@ -32,3 +32,5 @@ Format: date | decision | reason. Append only.
 2026-10-22 | Case hint shows on the right of the name row, before the note | Interim step toward merging hints into notes, which take that spot
 2026-10-22 | In Verify, know (numpad . and 2) also triggers Check; numpad 0 still does | One key for Check then Match. Removing num0 for Check alone would need a new action
 2026-10-22 | Legend drops the merge rule | Owner's second hint list writes merges explicitly with ∧
+2026-10-22 | UI says "hint" for a note; the stored key stays `notes` | Saved files and exports keep loading without a migration
+2026-10-22 | Load My Hints confirms in an in-place strip under the menu (Load, Cancel), like the import strip | Menu has no dialogs; one pattern for both confirmations
