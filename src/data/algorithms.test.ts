@@ -87,12 +87,9 @@ describe("set membership", () => {
     },
   );
 
-  it.each(ALL_CASES.filter((c) => c.sets.includes("Full OLL")))(
-    "$id carries its own number as a name or alias",
-    (c) => {
-      expect([c.name, ...c.aliases]).toContain(c.id.replace("oll-", "OLL "));
-    },
-  );
+  it.each(ALL_CASES)("$id shows no OLL number", (c) => {
+    expect([c.name, ...c.aliases].filter((s) => s !== null && /^OLL \d+$/.test(s))).toEqual([]);
+  });
 
   it.each(ALL_CASES)("$id lists sets once each, in canonical order, at least one", (c) => {
     expect(c.sets).not.toEqual([]);

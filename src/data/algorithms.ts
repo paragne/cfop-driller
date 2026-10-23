@@ -100,19 +100,17 @@ function multi(display: string, moves: string): Alg {
   return { display, moves, affectsOtherSlots: true };
 }
 
-// Names are CubeHead's ("How to Learn OLL in One Month"); OLL 3 and 4 keep
-// their number because the PDF names them after a hate group. The number
-// stays an alias, derived by matching orientation patterns against two public
-// tables. Hints are the owner's (docs/hints.md).
-function oll(id: string, section: string, name: string | null, alg: Alg, hint: string): Case {
-  const number = `OLL ${id.slice("oll-".length)}`;
+// Names are CubeHead's ("How to Learn OLL in One Month"). OLL 3 and 4 take
+// neutral names from their hints, because the PDF names them after a hate
+// group. Hints are the owner's (docs/hints.md).
+function oll(id: string, section: string, name: string, alg: Alg, hint: string): Case {
   return {
     id,
     group: "OLL",
     sets: ["Full OLL"],
     section,
-    name: name ?? number,
-    aliases: name === null ? [] : [number],
+    name,
+    aliases: [],
     algs: [alg],
     hint,
     mask: { kind: "oll-full" },
@@ -611,7 +609,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Sune",
-    aliases: ["OLL 27"],
+    aliases: [],
     algs: [a("R U R' U (R U2 R')", "R U R' U R U2 R'")],
     mask: { kind: "oll-full" },
     setup: null,
@@ -623,7 +621,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Anti-Sune",
-    aliases: ["OLL 26", "Antisune"],
+    aliases: ["Antisune"],
     algs: [a("(R U2 R') U' R U' R'", "R U2 R' U' R U' R'")],
     mask: { kind: "oll-full" },
     setup: null,
@@ -635,7 +633,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Cross",
-    aliases: ["OLL 21", "Double Sune", "H"],
+    aliases: ["Double Sune", "H"],
     algs: [a("R U R' U (R U' R' U) R U2 R'", "R U R' U R U' R' U R U2 R'")],
     hint: "(Su) (R U' R' U) (Ne)",
     mask: { kind: "oll-full" },
@@ -648,7 +646,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Pi",
-    aliases: ["OLL 22", "Bruno"],
+    aliases: ["Bruno"],
     algs: [a("R U2 (R2 U') (R2 U') R2 U2 R", "R U2 R2 U' R2 U' R2 U2 R")],
     mask: { kind: "oll-full" },
     setup: null,
@@ -660,7 +658,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Chameleon",
-    aliases: ["OLL 24"],
+    aliases: [],
     algs: [a("(r U R' U') (r' F R F')", "r U R' U' r' F R F'")],
     hint: "(fat sexy) (fat sledge)",
     mask: { kind: "oll-full" },
@@ -673,7 +671,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Bowtie",
-    aliases: ["OLL 25"],
+    aliases: [],
     algs: [a("F' (r U R' U') (r' F R)", "F' r U R' U' r' F R")],
     hint: "Chameleon* ∧ F' to front [*(fat sexy) (fat sledge)]",
     mask: { kind: "oll-full" },
@@ -686,7 +684,7 @@ export const OLL_CASES: Case[] = [
     sets: ["2-Look OLL", "Full OLL"],
     section: "Finish OLL",
     name: "Headlights",
-    aliases: ["OLL 23"],
+    aliases: [],
     algs: [a("R2 D (R' U2 R) D' (R' U2 R')", "R2 D R' U2 R D' R' U2 R'")],
     hint: "R2 D (~Ne~) D' (~Ne~ ∧ last R')",
     mask: { kind: "oll-full" },
@@ -1003,14 +1001,14 @@ export const OLL_CASES: Case[] = [
   oll(
     "oll-4",
     "Dot Cases",
-    null,
+    "Dot P-T",
     a("f (R U R' U') f' U F (R U R' U') F'", "f R U R' U' f' U F R U R' U' F'"),
     "(P*) U (T**) [*f (sexy) f'] [**F (sexy) F']",
   ),
   oll(
     "oll-3",
     "Dot Cases",
-    null,
+    "Dot P-T'",
     a("f (R U R' U') f' U' F (R U R' U') F'", "f R U R' U' f' U' F R U R' U' F'"),
     "(P*) U' (T**) [*f (sexy) f'] [**F (sexy) F']",
   ),
@@ -1022,7 +1020,7 @@ export const OLL_CASES: Case[] = [
       a("M U (R U R' U') M2 (U R U' r')", "M U R U R' U' M2 U R U' r'"),
       "M U (sexy) M2 (thick insert)",
     ),
-    aliases: ["OLL 20", "Super Lip"],
+    aliases: ["Super Lip"],
   },
 ];
 
