@@ -13,6 +13,13 @@ export function gallerySections(cases: readonly Case[], sets: readonly CaseSet[]
   return sections;
 }
 
+// A case's place among the cases sharing its group and section, in stored
+// order, so it reads the same whichever sets the session drew from.
+export function placeInSection(cases: readonly Case[], c: Case): string {
+  const peers = cases.filter((peer) => peer.group === c.group && peer.section === c.section);
+  return `${peers.indexOf(c) + 1}/${peers.length}`;
+}
+
 export function openCase(screen: Screen, c: Case): Screen {
   if (screen.kind !== "gallery") throw new Error("case opened outside the gallery");
   return { kind: "gallery", open: c };

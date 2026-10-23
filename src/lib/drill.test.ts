@@ -38,10 +38,6 @@ describe("startDrill", () => {
     expect([d.current, ...d.bag].map((c) => c.id).toSorted()).toEqual(["p1", "p2"]);
   });
 
-  it("starts at one card shown", () => {
-    expect(startDrill(cases(3), progress(["F2L"]), Math.random).shown).toBe(1);
-  });
-
   it("throws when the selection has fewer than two cases", () => {
     expect(() => startDrill(cases(1), progress(["F2L"]), Math.random)).toThrow(/two/);
     expect(() => startDrill([], progress(["F2L"]), Math.random)).toThrow(/two/);
@@ -94,12 +90,6 @@ describe("nextCase", () => {
     expect(nextCase(d, p, random).current.id).toBe("b");
   });
 
-  it("counts every card shown", () => {
-    const p = progress(["F2L"]);
-    let d = startDrill(cases(3), p, Math.random);
-    for (let i = 0; i < 7; i++) d = nextCase(d, p, Math.random);
-    expect(d.shown).toBe(8);
-  });
 
   it("hides a revealed solution on the next card unless auto-reveal is on", () => {
     const off = progress(["F2L"], false);

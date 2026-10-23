@@ -48,7 +48,6 @@ export type Context = {
 export type CardView = {
   c: Case;
   revealed: boolean;
-  count: string;
   mode: "learn" | "drill" | "gallery";
   auf: Auf;
 };
@@ -145,16 +144,15 @@ export function press(
 
 export function cardView(screen: Screen): CardView | null {
   // The solution is always up: a gallery card has no Reveal, so it never hides.
-  if (screen.kind === "gallery") return screen.open === null ? null : { c: screen.open, revealed: true, count: "", mode: "gallery", auf: "" };
+  if (screen.kind === "gallery") return screen.open === null ? null : { c: screen.open, revealed: true, mode: "gallery", auf: "" };
   if (screen.kind === "drill") {
-    const { current: c, revealed, shown } = screen.drill;
-    return { c, revealed, count: `Card ${shown}`, mode: "drill", auf: screen.auf };
+    const { current: c, revealed } = screen.drill;
+    return { c, revealed, mode: "drill", auf: screen.auf };
   }
   if (screen.kind !== "learn") return null;
   const c = current(screen.session);
   if (c === null) return null;
-  const { revealed, done, total } = screen.session;
-  return { c, revealed, count: `Card ${done + 1} / ${total}`, mode: "learn", auf: screen.auf };
+  return { c, revealed: screen.session.revealed, mode: "learn", auf: screen.auf };
 }
 
 // Non-null only on a finished session's summary. Drill and Verify never end.

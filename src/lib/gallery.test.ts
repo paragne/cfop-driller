@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CASE_SETS } from "../data/algorithms.ts";
-import { closeCase, gallerySections, openCase } from "./gallery.ts";
+import { closeCase, gallerySections, openCase, placeInSection } from "./gallery.ts";
 import { defaultPrefs, readPrefs } from "./prefs.ts";
 import { defaultProgress } from "./progress.ts";
 import { cardView, press, start } from "./screen.ts";
@@ -27,6 +27,17 @@ describe("gallerySections", () => {
 
   it("is empty when no set is chosen", () => {
     expect(gallerySections(cases, []).size).toBe(0);
+  });
+});
+
+describe("placeInSection", () => {
+  it("counts a case among its section's cases in stored order", () => {
+    expect([c, b, a].map((x) => placeInSection(cases, x))).toEqual(["1/1", "1/2", "2/2"]);
+  });
+
+  it("keeps a section name in two groups apart", () => {
+    const pll = { ...mk("d", ["Full PLL"]), section: "Finish OLL" };
+    expect(placeInSection([...cases, pll], pll)).toBe("1/1");
   });
 });
 

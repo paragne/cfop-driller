@@ -49,7 +49,6 @@ describe("drill", () => {
     const before = drill();
     const next = press(before, "next", context);
     expect(cardView(next.screen)?.c.id).not.toBe(cardView(before)?.c.id);
-    expect(cardView(next.screen)?.count).toBe("Card 2");
     expect(next.progress).toBe(context.progress);
   });
 

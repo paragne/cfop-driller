@@ -25,7 +25,7 @@ type Handlers = {
 export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, onStar, play }: Handlers) {
   const element = el("section", "card");
   const section = el("span", "section");
-  const count = el("span", "count");
+  const place = el("span", "place");
   const figure = el("figure", "case");
   const stage = createPlayPanel(play);
   figure.append(stage.element);
@@ -43,9 +43,9 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
   const actions = el("nav", "actions");
   actions.append(reveal.node, ...grades, next.node);
 
-  // The title line: the section, then the card's place in the session.
+  // The title line: the section, then the case's place in it.
   const title = el("span", "title");
-  title.append(section, " · ", count);
+  title.append(section, " · ", place);
   const meta = el("div", "meta");
   meta.append(title);
   // The note sits to the right of the name and meta line together, so a long
@@ -66,8 +66,8 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     solution.hidden = !revealed || threeD;
   };
 
-  function render(view: CardView, progress: Progress): void {
-    const { c, count: position, mode, auf } = view;
+  function render(view: CardView, progress: Progress, position: string): void {
+    const { c, mode, auf } = view;
     // Only these two writes use innerHTML, and both take markup generated in
     // lib from our own case data. The AUF is part of the key: a failed card can
     // come straight back, turned differently.
@@ -97,7 +97,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     revealed = view.revealed;
     showSolution();
     reveal.text.textContent = view.revealed ? "Hide" : "Reveal";
-    count.textContent = position;
+    place.textContent = position;
     element.dataset.mode = mode;
     // A gallery card only browses: nothing to reveal, grade or advance.
     actions.hidden = mode === "gallery";

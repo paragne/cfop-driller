@@ -98,7 +98,7 @@ describe("learn", () => {
     const id = cardView(before)?.c.id ?? "";
     const next = press(before, "know", ctx());
     expect(next.progress.cards[id]?.lastGrade).toBe(1);
-    expect(cardView(next.screen)?.count).toBe("Card 2 / 3");
+    expect(next.screen.kind === "learn" && next.screen.session.done).toBe(1);
   });
 
   it("dontKnow grades the card as failed", () => {

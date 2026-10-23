@@ -9,7 +9,6 @@ export type Drill = {
   pool: readonly Case[];
   // Cases still to come in this pass over the pool.
   bag: readonly Case[];
-  shown: number;
   revealed: boolean;
 };
 
@@ -23,7 +22,7 @@ export function startDrill(
   // could not honor "no immediate repeat".
   if (pool.length < 2) throw new Error("drill needs at least two cases");
   const [current, ...bag] = orderer(progress.prefs.shuffle, random)(pool);
-  return { current, pool, bag, shown: 1, revealed: progress.prefs.showSolutions };
+  return { current, pool, bag, revealed: progress.prefs.showSolutions };
 }
 
 export function nextCase(d: Drill, progress: Progress, random: () => number): Drill {
@@ -32,7 +31,6 @@ export function nextCase(d: Drill, progress: Progress, random: () => number): Dr
     current,
     pool: d.pool,
     bag,
-    shown: d.shown + 1,
     revealed: progress.prefs.showSolutions,
   };
 }
