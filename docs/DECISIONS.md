@@ -12,7 +12,8 @@ Format: date | decision | reason. Append only.
 2026-10-14 (backfill) | storage.ts is the only module touching localStorage | One place to audit persistence
 2026-10-14 | Rename repo and product to CFOP Driller; keep localStorage keys and Worker name | Keys hold users' progress; Worker name is internal
 2026-10-14 | Built-in teaching text goes in Case.hint, not user notes | User notes are storage-only and must not be overwritten
-2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work2026-10-15 | Stale tests were fixed by adding crossAllStickers to the expected prefs, not by changing code | New prefs must appear in the frozen-blob and key-list tests; old blobs read back with the default
+2026-10-14 | references/ is gitignored, third-party PDFs never committed | Source is another author's work
+2026-10-15 | Stale tests were fixed by adding crossAllStickers to the expected prefs, not by changing code | New prefs must appear in the frozen-blob and key-list tests; old blobs read back with the default
 2026-10-19 | Hint UI work moved ahead of UI tweaks; UI tweaks go last | Hints unblock the OLL batches
 2026-10-20 | Case.hint is optional, shown before reveal, hidden by the Notes toggle, also shown in Verify | Same role as a note as a recall hook; an optional field needs no data edits; a shared toggle avoids a new pref and its test churn
 2026-10-20 | OLL source is references/OLL in one month.pdf (CubeHead); all 57 cases map to existing ids, table in docs/oll-mapping.md | The file STATE named does not exist; ids are frozen, so the PDF maps onto them
@@ -48,3 +49,8 @@ Format: date | decision | reason. Append only.
 2026-10-23 | Gallery: Back is an arrow icon left of the menu; a click on bare page (body or html) closes an open case; 500ms hover or keyboard focus shows starred alg and the user's hint | Owner request; bare-page test avoids tracking every panel
 2026-10-23 | Verify shows the shared meta line; "x matched" appears only after Mismatch. Verify.step and Drill.shown removed | They fed only the removed counters
 2026-10-23 | Hint footnotes [*...] start on a new line in Case.hint; slice marks [:n] stay inline | Owner request; existing notes are not rewritten, owner reloads them
+2026-10-23 | CSS is exempt from the 200-line rule; style.css stays one file | Product is finished; a split is churn with no user effect
+2026-10-23 | CI does not gate production deploys for now | CI has never run on GitHub
+2026-10-23 | Legend chip stays where it is | Owner approved the UI as is
+2026-10-23 | contact-sheet.html keeps shipping in production builds | Harmless, no network requests; three-d.html is a feature
+2026-10-23 | Em dash in the frozen fixture progress-v2.test.ts stays | Frozen fixture; the slop-check flag is accepted
