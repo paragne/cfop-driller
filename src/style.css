@@ -5,7 +5,6 @@
   --line: #2a2a2e;
   --fg: #ececee;
   --dim: #8d8d96;
-  --skip: #c4c4ca;
   --accent: #a78bfa;
   --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
@@ -409,14 +408,14 @@ kbd {
 /* Overrides the shared .actions grid only while it holds "Don't show this
    again" under a single Begin button, on an intro screen. */
 .actions.confirm-row { display: flex; flex-direction: column; gap: 0.5rem; }
-/* Begin's twin in light grey: the same size and weight, a quieter color. */
+/* The second option under Begin: its size, but hollow and grey. */
 button.skip {
   grid-column: 1 / -1;
-  border-color: var(--skip);
-  background: var(--skip);
-  color: var(--bg);
-  font-weight: 600;
+  border-color: var(--dim);
+  background: none;
+  color: var(--dim);
 }
+button.skip:hover { border-color: var(--fg); color: var(--fg); }
 
 /* Drill has no grades: Next takes the row under Reveal. */
 [data-mode="drill"] .actions > button:not(.primary) { grid-column: 1 / -1; }
