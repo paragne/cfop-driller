@@ -107,7 +107,7 @@ describe("a long session", () => {
       state = press(state.screen, "reveal", ctx(state.progress));
       state = press(state.screen, "know", ctx(state.progress));
     }
-    expect(verifyView(state.screen)).toMatchObject({ step: 31, matches: 30 });
+    expect(verifyView(state.screen)).toMatchObject({ matches: 30 });
     expect(resultText(state.screen)).toBeNull();
   });
 });

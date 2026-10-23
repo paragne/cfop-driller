@@ -23,7 +23,6 @@ export type Verify = {
   // Index into current.algs; the starred alg at every new step. See choose().
   chosen: number;
   phase: Phase;
-  step: number;
   matches: number;
 };
 
@@ -44,7 +43,6 @@ export function startVerify(
     auf: pickAuf(current, progress.prefs.randomRotation, random),
     chosen: starredAlg(current, progress.stars),
     phase: "ready",
-    step: 1,
     matches: 0,
   };
 }
@@ -113,7 +111,6 @@ function advance(v: Verify, cube: Cube, progress: Progress, random: () => number
     auf: pickAuf(current, progress.prefs.randomRotation, random),
     chosen: starredAlg(current, progress.stars),
     phase: "attempt",
-    step: v.step + 1,
   };
 }
 

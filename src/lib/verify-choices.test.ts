@@ -45,7 +45,6 @@ describe("alternate algs", () => {
     auf: "",
     chosen: 0,
     phase: "checked",
-    step: 1,
     matches: 0,
   });
 
@@ -80,11 +79,11 @@ describe("Match, Mismatch and Reset", () => {
   const pool = [byId("oll-27"), byId("oll-26")];
   const p = withVerify(["Full OLL"]);
 
-  it("Mismatch does not advance the step or the tally", () => {
+  it("Mismatch does not advance the case or the tally", () => {
     const v = check(begin(startVerify(pool, p, seeded(1))));
     const after = judge(v, false, p, Math.random);
     expect(after.phase).toBe("missed");
-    expect(after.step).toBe(v.step);
+    expect(after.current).toBe(v.current);
     expect(after.matches).toBe(0);
   });
 
@@ -94,7 +93,7 @@ describe("Match, Mismatch and Reset", () => {
     const after = reset(missed, p, Math.random);
     expect(after.cube).toEqual(SOLVED);
     expect(after.phase).toBe("attempt");
-    expect(after.step).toBe(v.step + 1);
+    expect(after.current).not.toBe(v.current);
     expect(after.matches).toBe(0);
   });
 
@@ -102,15 +101,14 @@ describe("Match, Mismatch and Reset", () => {
     const v = check(begin(startVerify(pool, p, seeded(3))));
     const after = judge(v, true, p, Math.random);
     expect(after.matches).toBe(1);
-    expect(after.step).toBe(v.step + 1);
+    expect(after.current).not.toBe(v.current);
     expect(after.phase).toBe("attempt");
   });
 
-  it("never ends: after 60 matches it is on step 61 and ready for the next attempt", () => {
+  it("never ends: after 60 matches it is ready for the next attempt", () => {
     let v = begin(startVerify(pool, p, seeded(9)));
     for (let i = 0; i < 60; i++) v = judge(check(v), true, p, seeded(9));
     expect(v.phase).toBe("attempt");
-    expect(v.step).toBe(61);
     expect(v.matches).toBe(60);
   });
 });

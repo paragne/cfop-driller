@@ -25,9 +25,9 @@ const withVerify = (verify: Progress["prefs"]["sets"]["verify"], over: Partial<P
   progress({ sets: { ...defaultProgress().prefs.sets, verify }, ...over });
 
 describe("startVerify", () => {
-  it("starts ready, at step 1, tally 0, from a solved cube", () => {
+  it("starts ready, tally 0, from a solved cube", () => {
     const v = startVerify(ALL_CASES, withVerify(["Full OLL"]), Math.random);
-    expect(v).toMatchObject({ step: 1, phase: "ready", matches: 0, cube: SOLVED, chosen: 0 });
+    expect(v).toMatchObject({ phase: "ready", matches: 0, cube: SOLVED, chosen: 0 });
   });
 
   it("starts each step on the starred alg, the primary when none is starred", () => {
@@ -111,7 +111,6 @@ describe("oll-29 leaves a displaced grip", () => {
     auf: "",
     chosen: 0,
     phase: "checked",
-    step: 1,
     matches: 0,
     ...over,
   });
