@@ -1,18 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { CASE_SETS } from "../data/algorithms.ts";
 import { closeCase, gallerySections, openCase } from "./gallery.ts";
 import { defaultPrefs, readPrefs } from "./prefs.ts";
-import { defaultProgress } from "./progress.ts";
 import { cardView, press, start } from "./screen.ts";
 import type { Action, Context, Screen } from "./screen.ts";
-import { mk, NOW } from "./session.fixture.ts";
+import { mk, NOW, picked } from "./session.fixture.ts";
 
 const a = { ...mk("a", ["2-Look OLL", "Full OLL"]), section: "Finish OLL" };
 const b = { ...mk("b", ["Full OLL"]), section: "Finish OLL" };
 const c = { ...mk("c", ["2-Look PLL"]), section: "Finish PLL" };
 const cases = [c, b, a];
 
-const ctx = (): Context => ({ progress: defaultProgress(), cases, now: NOW, random: () => 0.5 });
+const ctx = (): Context => ({ progress: picked(), cases, now: NOW, random: () => 0.5 });
 
 const titles = (sets: Parameters<typeof gallerySections>[1]) => [...gallerySections(cases, sets)].map(([t, cs]) => [t, cs.map((x) => x.id)]);
 
@@ -39,7 +37,7 @@ describe("gallery screen", () => {
   });
 
   it("goes from the home screen straight to the grid, past any intro", () => {
-    const progress = { ...defaultProgress(), prefs: { ...defaultProgress().prefs, mode: "gallery" as const } };
+    const progress = { ...picked(), prefs: { ...picked().prefs, mode: "gallery" as const } };
     const next = press({ kind: "home" }, "reveal", { ...ctx(), progress });
     expect(next.screen).toEqual({ kind: "gallery", open: null });
   });
@@ -72,10 +70,9 @@ describe("gallery screen", () => {
 });
 
 describe("gallery pref", () => {
-  it("defaults to every set, and a stored blob without it takes that default", () => {
-    expect(defaultPrefs().sets.gallery).toEqual([...CASE_SETS]);
-    const { learn, drill, verify } = defaultPrefs().sets;
-    expect(readPrefs({ sets: { learn, drill, verify } }).sets.gallery).toEqual([...CASE_SETS]);
+  it("defaults to no set, and a stored blob without it takes that default", () => {
+    expect(defaultPrefs().sets.gallery).toEqual([]);
+    expect(readPrefs({ sets: { learn: ["F2L"], drill: ["F2L"], verify: ["Full OLL"] } }).sets.gallery).toEqual([]);
   });
 
   it("keeps a stored selection, F2L included, and rejects an unknown set", () => {

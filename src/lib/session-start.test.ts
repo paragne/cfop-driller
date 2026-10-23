@@ -1,16 +1,15 @@
 import { describe, expect, it } from "vitest";
 import type { CaseSet } from "../data/algorithms.ts";
-import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { startSession } from "./session.ts";
-import { card, DAY, ids, mk, NOW } from "./session.fixture.ts";
+import { card, DAY, ids, mk, NOW, picked } from "./session.fixture.ts";
 
 describe("startSession", () => {
   const cases = [mk("f1"), mk("f2"), mk("f3"), mk("o1", ["2-Look OLL"]), mk("p1", ["2-Look PLL"])];
-  const all = (over: Partial<Progress> = {}): Progress => ({ ...defaultProgress(), ...over });
+  const all = (over: Partial<Progress> = {}): Progress => ({ ...picked(), ...over });
 
   const learning = (learn: CaseSet[]): Progress => {
-    const base = defaultProgress();
+    const base = picked();
     return all({ prefs: { ...base.prefs, sets: { ...base.prefs.sets, learn } } });
   };
 
@@ -26,13 +25,13 @@ describe("startSession", () => {
   });
 
   it("ignores the sets chosen for the other modes", () => {
-    const base = defaultProgress();
+    const base = picked();
     const p = all({ prefs: { ...base.prefs, sets: { learn: ["F2L"], drill: ["Full PLL"], verify: ["Full OLL"], gallery: ["2-Look PLL"] } } });
     expect(ids(startSession(cases, p, NOW, () => 0.5)).sort()).toEqual(["f1", "f2", "f3"]);
   });
 
   it.each([true, false])("starts revealed from the auto-reveal pref (%s)", (show) => {
-    const base = defaultProgress();
+    const base = picked();
     const p = all({ prefs: { ...base.prefs, showSolutions: show } });
     expect(startSession(cases, p, NOW, () => 0.5).revealed).toBe(show);
   });

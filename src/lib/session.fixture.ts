@@ -1,5 +1,7 @@
-import { SET_GROUP } from "../data/algorithms.ts";
+import { CASE_SETS, SET_GROUP } from "../data/algorithms.ts";
 import type { Case, CaseSet } from "../data/algorithms.ts";
+import { defaultProgress } from "./progress.ts";
+import type { Progress } from "./progress.ts";
 import type { Session } from "./session.ts";
 import type { Card } from "./srs.ts";
 
@@ -31,3 +33,16 @@ export const card = (over: Partial<Card> = {}): Card => ({
 });
 
 export const ids = (s: Session) => s.queue.map((c) => c.id);
+
+// A first visit chooses no sets, and no mode starts empty, so a test that
+// starts a mode begins from a player who has picked some.
+export const picked = (): Progress => {
+  const base = defaultProgress();
+  const sets: Progress["prefs"]["sets"] = {
+    learn: ["F2L", "2-Look OLL", "2-Look PLL"],
+    drill: ["F2L", "2-Look OLL", "2-Look PLL"],
+    verify: ["2-Look OLL", "2-Look PLL"],
+    gallery: [...CASE_SETS],
+  };
+  return { ...base, prefs: { ...base.prefs, sets } };
+};

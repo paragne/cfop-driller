@@ -42,8 +42,8 @@ export const SPEEDS = [0.2, 0.5, 1, 2, 4, 10] as const;
 // A multiplier on the size that fits the canvas, so 1 is always "fills it".
 export const ZOOM_RANGE = { min: 0.5, max: 3 } as const;
 
-// The full sets are opt-in: they add about a hundred cases to a session queue
-// of twenty. Verify never offers an F2L set.
+// A first visit opens on Drill with nothing chosen, so Start waits for the
+// player to pick what to practice.
 export function defaultPrefs(): Prefs {
   return {
     showNames: true,
@@ -51,7 +51,7 @@ export function defaultPrefs(): Prefs {
     showNotes: true,
     randomRotation: false,
     shuffle: true,
-    mode: "learn",
+    mode: "drill",
     threeD: false,
     speed: 1,
     zoom: 1,
@@ -62,11 +62,10 @@ export function defaultPrefs(): Prefs {
     skipDrillIntro: false,
     skipVerifyIntro: false,
     sets: {
-      learn: ["F2L", "2-Look OLL", "2-Look PLL"],
-      drill: ["F2L", "2-Look OLL", "2-Look PLL"],
-      verify: ["2-Look OLL", "2-Look PLL"],
-      // Browsing adds nothing to a queue, so no set is held back for size.
-      gallery: [...CASE_SETS],
+      learn: [],
+      drill: [],
+      verify: [],
+      gallery: [],
     },
   };
 }

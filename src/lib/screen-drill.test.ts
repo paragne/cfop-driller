@@ -1,13 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { cardView, press, start } from "./screen.ts";
 import type { Context } from "./screen.ts";
-import { mk, NOW } from "./session.fixture.ts";
+import { mk, NOW, picked } from "./session.fixture.ts";
 
 const cases = ["a", "b", "c"].map((id) => mk(id));
 
-const ctx = (progress: Progress = defaultProgress()): Context => ({
+const ctx = (progress: Progress = picked()): Context => ({
   progress,
   cases,
   now: NOW,
@@ -37,7 +36,7 @@ describe("drill", () => {
   });
 
   it("does not time a card that starts already revealed (auto-reveal on)", () => {
-    const base = defaultProgress();
+    const base = picked();
     const auto: Progress = { ...base, prefs: { ...base.prefs, showSolutions: true, mode: "drill" } };
     const screen = start("drill", ctx(auto));
     const next = press(screen, "reveal", ctx(auto));

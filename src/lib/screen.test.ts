@@ -1,18 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { cardView, introMode, press, resultText, start } from "./screen.ts";
 import type { Action, Context, Screen } from "./screen.ts";
-import { mk, NOW } from "./session.fixture.ts";
+import { mk, NOW, picked } from "./session.fixture.ts";
 
 const cases = ["a", "b", "c"].map((id) => mk(id));
 
 const inMode = (mode: "learn" | "drill"): Progress => {
-  const base = defaultProgress();
+  const base = picked();
   return { ...base, prefs: { ...base.prefs, mode } };
 };
 
-const ctx = (progress: Progress = defaultProgress()): Context => ({
+const ctx = (progress: Progress = picked()): Context => ({
   progress,
   cases,
   now: NOW,
@@ -35,7 +34,7 @@ describe("home", () => {
   });
 
   it("starts verify directly, since its own ready phase is already an instruction screen", () => {
-    const base = defaultProgress();
+    const base = picked();
     const verifyMode = {
       ...base,
       prefs: { ...base.prefs, mode: "verify" as const, sets: { ...base.prefs.sets, verify: ["F2L" as const] } },
@@ -45,8 +44,8 @@ describe("home", () => {
   });
 
   it("does not start a mode with no sets selected", () => {
-    const base = defaultProgress();
-    const none = { ...base, prefs: { ...base.prefs, sets: { ...base.prefs.sets, learn: [] } } };
+    const base = picked();
+    const none: Progress = { ...base, prefs: { ...base.prefs, mode: "learn", sets: { ...base.prefs.sets, learn: [] } } };
     const context = ctx(none);
     const next = press(home, "reveal", context);
     expect(next.screen).toBe(home);
@@ -111,7 +110,7 @@ describe("learn", () => {
 
 describe("a finished learn session", () => {
   const finished = (): { screen: Screen; progress: Progress } => {
-    let state = { screen: start("learn", { ...ctx(), cases: [cases[0]] }), progress: defaultProgress() };
+    let state = { screen: start("learn", { ...ctx(), cases: [cases[0]] }), progress: picked() };
     state = press(state.screen, "know", ctx(state.progress));
     return state;
   };

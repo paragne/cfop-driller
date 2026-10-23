@@ -155,7 +155,7 @@ describe("parseProgress tolerates", () => {
 
   it("a set list given for one mode, defaulting the others", () => {
     const result = parse(blob({ prefs: { sets: { drill: ["Full PLL"] } } }));
-    expect(result.ok && result.progress.prefs.sets).toEqual({ ...SETS, drill: ["Full PLL"], gallery: ["F2L", "Advanced F2L", "Expert F2L", "2-Look OLL", "2-Look PLL", "Full OLL", "Full PLL"] });
+    expect(result.ok && result.progress.prefs.sets).toEqual({ learn: [], drill: ["Full PLL"], verify: [], gallery: [] });
   });
 
   it("an empty note, storing no entry", () => {

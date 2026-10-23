@@ -3,16 +3,16 @@ import { ALL_CASES } from "../data/algorithms.ts";
 import { prefixed } from "./auf.ts";
 import { parse } from "./notation.ts";
 import { caseView, playView } from "./play.ts";
-import { defaultProgress } from "./progress.ts";
 import type { Progress } from "./progress.ts";
 import { chooseAlt, press, start, verifyView } from "./screen.ts";
 import type { Action, Context, Screen } from "./screen.ts";
 import { OLL_24_TWO_ALGS, OLL_25_TWO_ALGS } from "./two-alg.fixture.ts";
+import { picked } from "./session.fixture.ts";
 
 const NOW = 1_800_000_000_000;
 
 const progress = (over: Partial<Progress["prefs"]> = {}): Progress => {
-  const base = defaultProgress();
+  const base = picked();
   return { ...base, prefs: { ...base.prefs, ...over } };
 };
 
@@ -39,7 +39,7 @@ describe("the gate", () => {
   });
 
   it("stays closed in Verify through ready and attempt, opens on checked and missed", () => {
-    const p = progress({ mode: "verify", sets: { ...defaultProgress().prefs.sets, verify: ["Full OLL"] } });
+    const p = progress({ mode: "verify", sets: { ...picked().prefs.sets, verify: ["Full OLL"] } });
     let screen = start("verify", ctx(p));
     expect(playView(screen)).toBeNull();
     screen = after(screen, p, "reveal");
@@ -72,7 +72,7 @@ describe("the case picture", () => {
   });
 
   it("shows in Verify from the attempt on, not while ready", () => {
-    const p = progress({ mode: "verify", sets: { ...defaultProgress().prefs.sets, verify: ["Full OLL"] } });
+    const p = progress({ mode: "verify", sets: { ...picked().prefs.sets, verify: ["Full OLL"] } });
     let screen = start("verify", ctx(p));
     expect(caseView(screen)).toBeNull();
     screen = after(screen, p, "reveal");
@@ -84,7 +84,7 @@ describe("the case picture", () => {
 
 describe("what the view carries", () => {
   it("prefixes the random AUF to the solution, merged the way the shown alg is", () => {
-    const p = progress({ randomRotation: true, sets: { ...defaultProgress().prefs.sets, learn: ["Full OLL"] } });
+    const p = progress({ randomRotation: true, sets: { ...picked().prefs.sets, learn: ["Full OLL"] } });
     const screen = after(start("learn", ctx(p)), p, "reveal");
     const view = playView(screen);
     if (view === null) throw new Error("revealed card has no play view");
@@ -94,7 +94,7 @@ describe("what the view carries", () => {
 
   it("plays the starred alg in Learn, the primary without one, and the primary when the star is stale", () => {
     const pair = [OLL_24_TWO_ALGS, OLL_25_TWO_ALGS];
-    const p = progress({ sets: { ...defaultProgress().prefs.sets, learn: ["Full OLL"] } });
+    const p = progress({ sets: { ...picked().prefs.sets, learn: ["Full OLL"] } });
     const screen = after(start("learn", { ...ctx(p), cases: pair }), p, "reveal");
     const id = playView(screen)?.c.id;
     if (id === undefined) throw new Error("revealed card has no play view");
@@ -105,7 +105,7 @@ describe("what the view carries", () => {
 
   it("follows the alg chosen in Verify, keeping the card's key", () => {
     const pair = [OLL_24_TWO_ALGS, OLL_25_TWO_ALGS];
-    const p = progress({ mode: "verify", sets: { ...defaultProgress().prefs.sets, verify: ["Full OLL"] } });
+    const p = progress({ mode: "verify", sets: { ...picked().prefs.sets, verify: ["Full OLL"] } });
     let screen = start("verify", { ...ctx(p), cases: pair });
     screen = after(screen, p, "reveal", "reveal");
     const first = playView(screen);
