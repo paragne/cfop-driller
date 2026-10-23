@@ -7,7 +7,7 @@ import { el } from "./dom.ts";
 
 // The grid is built once per Start and only hidden while a case is open, so
 // the page can come back to the scroll position it was left at.
-export function createGallery(onOpen: (c: Case) => void) {
+export function createGallery(onOpen: (c: Case) => void, onClose: () => void) {
   const element = el("main", "gallery");
   element.hidden = true;
 
@@ -50,6 +50,14 @@ export function createGallery(onOpen: (c: Case) => void) {
     const below = cell.bottom + box.height + 4 <= window.innerHeight;
     tip.style.top = `${(below ? cell.bottom + 4 : cell.top - box.height - 4) - area.top}px`;
   }
+
+  // A click on the bare page around an open case, outside the card and the top
+  // bar, closes it like Back. Only the page itself is bare: every panel and
+  // control sits in an element of its own.
+  document.addEventListener("click", (event) => {
+    const caseOpen = builtFor !== "" && element.hidden;
+    if (caseOpen && (event.target === document.body || event.target === document.documentElement)) onClose();
+  });
 
   function later(button: HTMLButtonElement, c: Case): void {
     hideTip();

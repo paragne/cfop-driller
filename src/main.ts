@@ -110,7 +110,7 @@ const verify = createVerify({
 });
 const cross = createCross({ onReveal: () => handle("reveal"), onNext: () => handle("next"), onChoose: (i) => show(chooseCross(screen, i)), play });
 const summary = createSummary(() => handle("reveal"), goHome);
-const gallery = createGallery((c) => show(openCase(screen, c)));
+const gallery = createGallery((c) => show(openCase(screen, c)), () => show(closeCase(screen)));
 const menu = createMenu({
   cases: ALL_CASES,
   cardCount: () => Object.keys(progress.cards).length,
