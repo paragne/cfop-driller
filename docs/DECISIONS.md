@@ -40,3 +40,11 @@ Format: date | decision | reason. Append only.
 2026-10-22 | One top-left menu button: data menu on home, card toggles menu on card screens (two panels, one trigger) | Task asked for a hamburger; a second button would crowd the left cell beside Back
 2026-10-22 | Blind and Guided set Names, Hints, Auto-reveal, Hotkeys; they leave 3D and All stickers alone | Presets cover what a card shows, not how it is viewed
 2026-10-22 | All stickers moves into the card menu, shown only in Cross | The toggle bar it lived in is gone
+2026-10-23 | Meta line reads "Section · n/total", n counted among same group and section in stored order; "Group · " leads only when the mode's chosen sets mix groups. Gallery headings show the section alone | Owner: OLL/PLL/F2L appears only there; position is stable whatever the session drew
+2026-10-23 | No "OLL n" names or aliases anywhere; oll-3 and oll-4 are "Dot P-T'" and "Dot P-T" | Owner decision; the PDF's names for 3 and 4 are unusable
+2026-10-23 | Blind and Guided no longer touch Hotkeys; Hotkeys default off | Owner: hotkeys only on request
+2026-10-23 | First visit: mode Drill, no sets chosen in any mode, Start disabled. Tests that start a mode use the picked() fixture | Owner: player picks what to practice; tests must not lean on defaults
+2026-10-23 | Intro skip is a hollow grey button under Begin that saves the skip and begins (Learn, Drill, Verify); checkboxLabel removed | Owner preference; one click instead of check plus Begin
+2026-10-23 | Gallery: Back is an arrow icon left of the menu; a click on bare page (body or html) closes an open case; 500ms hover or keyboard focus shows starred alg and the user's hint | Owner request; bare-page test avoids tracking every panel
+2026-10-23 | Verify shows the shared meta line; "x matched" appears only after Mismatch. Verify.step and Drill.shown removed | They fed only the removed counters
+2026-10-23 | Hint footnotes [*...] start on a new line in Case.hint; slice marks [:n] stay inline | Owner request; existing notes are not rewritten, owner reloads them
