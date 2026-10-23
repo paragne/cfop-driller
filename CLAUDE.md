@@ -32,7 +32,7 @@ Vite builds three entries: index.html, contact-sheet.html, three-d.html.
 Case images are computed from the solution alg plus a mask, never stored.
 
 ## Rules
-- No file over 200 lines (src/data/ exempt).
+- No file over 200 lines (src/data/ and CSS exempt).
 - No file named utils, helpers, common, shared, misc, or index (entry points excepted).
 - No any, no as casts to silence the compiler, no @ts-ignore.
 - No abstraction with one caller. No options object with fewer than three fields.
