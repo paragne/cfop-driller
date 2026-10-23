@@ -38,8 +38,6 @@ body {
 .logo { padding: 0.25rem 0.5rem; }
 .logo img { display: block; width: auto; height: 2rem; }
 .topbar-left { justify-self: start; display: flex; align-items: center; gap: 0.25rem; min-width: 0; }
-/* Large and outlined: it is the way out of a case, so it must not be missed. */
-.topbar .back { padding: 0 1rem; border-color: var(--fg); font-size: 1.125rem; font-weight: 600; white-space: nowrap; }
 .tools { justify-self: end; display: flex; }
 .icon { display: grid; place-items: center; width: 2.75rem; padding: 0; }
 /* One chip size on both sides of the logo. */

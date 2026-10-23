@@ -1,6 +1,6 @@
 import logoMark from "../assets/logo-mark.svg";
 import { el } from "./dom.ts";
-import { HELP_ICON, MENU_ICON, NOTE_EDIT_ICON } from "./icons.ts";
+import { BACK_ICON, HELP_ICON, MENU_ICON, NOTE_EDIT_ICON } from "./icons.ts";
 
 type Handlers = {
   onHome: () => void;
@@ -23,10 +23,8 @@ function iconButton(className: string, label: string, markup: string, onClick: (
 
 export function createTopbar({ onHome, onMenu, onHelp, onNotes, onBack }: Handlers) {
   const home = iconButton("logo", "CFOP Driller, home", `<img src="${logoMark}" alt="" />`, onHome);
-  const back = el("button", "back", "‹ Back");
-  back.type = "button";
+  const back = iconButton("icon", "Back", BACK_ICON, onBack);
   back.hidden = true;
-  back.addEventListener("click", onBack);
   const menu = iconButton("icon", "Menu", MENU_ICON, onMenu);
   menu.setAttribute("aria-expanded", "false");
   const help = iconButton("icon", "How to use", HELP_ICON, onHelp);
@@ -36,7 +34,7 @@ export function createTopbar({ onHome, onMenu, onHelp, onNotes, onBack }: Handle
 
   // Empty, the left cell would let the logo drift off center.
   const left = el("div", "topbar-left");
-  left.append(menu, back);
+  left.append(back, menu);
   const tools = el("div", "tools");
   tools.append(notes, help);
   const element = el("header", "topbar");
