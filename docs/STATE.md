@@ -3,7 +3,7 @@
 Updated: 2026-10-23 (toggles menu check, UI fixes)
 
 ## Current task
-Fixes from the owner's browser check of the toggles menu are built and committed. Awaiting browser check of the items listed under "Not confirmed". Next session: fix what that check finds, then Next 5.
+Toggles menu and its fixes are done and confirmed in browser. Next session: Next 5 (owner supplies the list), or Next 4 when the owner has written the README.
 
 ## Done
 - Setup and audit (2026-10-15 to 10-18): devbox, CI workflow (not yet run on GitHub), CLAUDE.md Layout.
@@ -18,10 +18,7 @@ Fixes from the owner's browser check of the toggles menu are built and committed
   - Gallery: 500ms hover/focus tooltip (starred alg, user hint), arrow Back left of menu, bare-page click closes a case.
   - Verify: shared meta line, "x matched" only after Mismatch, Verify.step removed. Ready copy updated.
   - Hint footnotes [*...] on their own line. New help icon.
-- Owner confirmed in browser 2026-10-23: all of the above except the items under "Not confirmed in browser".
-
-## Not confirmed in browser
-- Hollow skip button (448b6ee). Verify meta line and "x matched" (2aa98c2). Help icon (28eef46). Verify ready copy (cd092ae).
+- Owner confirmed all of the above in browser 2026-10-23.
 
 ## Next (one task per session)
 4. README. User writes it. Credit CubeHead.
