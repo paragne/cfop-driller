@@ -38,7 +38,7 @@ describe("a frozen version 2 blob", () => {
           zoom: 2,
           aesthetic: "moyu",
           crossAllStickers: false,
-          showHotkeys: true,
+          showHotkeys: false,
           skipLearnIntro: false,
           skipDrillIntro: false,
           skipVerifyIntro: false,

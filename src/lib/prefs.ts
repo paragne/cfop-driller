@@ -57,7 +57,7 @@ export function defaultPrefs(): Prefs {
     zoom: 1,
     aesthetic: "moyu",
     crossAllStickers: false,
-    showHotkeys: true,
+    showHotkeys: false,
     skipLearnIntro: false,
     skipDrillIntro: false,
     skipVerifyIntro: false,
