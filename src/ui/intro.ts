@@ -1,9 +1,9 @@
 import type { IntroMode } from "../lib/screen.ts";
-import { checkboxLabel, el, keyedButton } from "./dom.ts";
+import { el, keyedButton, skipButton } from "./dom.ts";
 
 type Handlers = {
   onBegin: () => void;
-  onSkip: (skip: boolean) => void;
+  onSkip: () => void;
 };
 
 // The instruction page shown once, between Home's Start button and the first
@@ -33,19 +33,18 @@ export function createIntro({ onBegin, onSkip }: Handlers) {
   const title = el("h1", "");
   const body = el("div", "intro-body");
   const begin = keyedButton("primary", "Begin", "space / num0", onBegin);
-  const skip = checkboxLabel("Don't show this again", onSkip);
+  const skip = skipButton(onSkip, onBegin);
   const actions = el("nav", "actions confirm-row");
-  actions.append(begin.node, skip.label);
+  actions.append(begin.node, skip);
   element.append(title, body, actions);
 
   return {
     element,
-    render(mode: IntroMode, showHotkeys: boolean, skipped: boolean): void {
+    render(mode: IntroMode, showHotkeys: boolean): void {
       const copy = COPY[mode];
       title.textContent = copy.title;
       body.replaceChildren(...copy.body.map((text) => el("p", "hint", text)));
       begin.kbd.hidden = !showHotkeys;
-      skip.input.checked = skipped;
     },
   };
 }

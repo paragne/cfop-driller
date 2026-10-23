@@ -30,7 +30,7 @@ export type Prefs = {
   // Mobile is detected, never stored: a touch-primary device shows no
   // labels regardless of this pref.
   showHotkeys: boolean;
-  // "Don't show this again", checked from a mode's own intro screen. There is
+  // "Don't show this again", pressed on a mode's own intro screen. There is
   // no toggle to turn one back on; the only way is to clear it by hand or wipe.
   skipLearnIntro: boolean;
   skipDrillIntro: boolean;

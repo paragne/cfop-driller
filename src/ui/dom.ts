@@ -21,15 +21,16 @@ export function keyedButton(className: string, label: string, key: string, onCli
   return { node, text, kbd };
 }
 
-// A checkbox with its own label text, for a plain preference like "don't show
-// this again", not a pressed-state toggle button.
-export function checkboxLabel(text: string, onChange: (checked: boolean) => void) {
-  const input = el("input", "");
-  input.type = "checkbox";
-  input.addEventListener("change", () => onChange(input.checked));
-  const label = el("label", "checkbox-label");
-  label.append(input, text);
-  return { label, input };
+// The way past a mode's intro for good: it records the skip and begins, so
+// skipping costs no more clicks than Begin.
+export function skipButton(onSkip: () => void, onBegin: () => void): HTMLButtonElement {
+  const node = el("button", "skip", "Don't show this again");
+  node.type = "button";
+  node.addEventListener("click", () => {
+    onSkip();
+    onBegin();
+  });
+  return node;
 }
 
 export function toggleButton(label: string, onClick: () => void): HTMLButtonElement {

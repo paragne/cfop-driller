@@ -82,9 +82,9 @@ const home = createHome({
 });
 const intro = createIntro({
   onBegin: () => handle("reveal"),
-  onSkip: (skip) => {
+  onSkip: () => {
     if (screen.kind !== "intro") throw new Error("skip toggled outside the intro screen");
-    commit(setPref(progress, screen.mode === "learn" ? "skipLearnIntro" : "skipDrillIntro", skip));
+    commit(setPref(progress, screen.mode === "learn" ? "skipLearnIntro" : "skipDrillIntro", true));
   },
 });
 const flashcard = createFlashcard({
@@ -105,7 +105,7 @@ const verify = createVerify({
   onStar: star,
   onRestart: () => startMode("verify"),
   onHome: goHome,
-  onSkipIntro: (skip) => commit(setPref(progress, "skipVerifyIntro", skip)),
+  onSkipIntro: () => commit(setPref(progress, "skipVerifyIntro", true)),
   play,
 });
 const cross = createCross({ onReveal: () => handle("reveal"), onNext: () => handle("next"), onChoose: (i) => show(chooseCross(screen, i)), play });

@@ -67,8 +67,7 @@ export function renderApp(
       verifyPace: verifyPaceRows(ALL_CASES, progress.verifyStats, progress.stars),
     });
   } else if (introFor !== null) {
-    const skipped = introFor === "learn" ? progress.prefs.skipLearnIntro : progress.prefs.skipDrillIntro;
-    intro.render(introFor, progress.prefs.showHotkeys, skipped);
+    intro.render(introFor, progress.prefs.showHotkeys);
   }
   const view = cardView(screen);
   const verifying = verifyView(screen);

@@ -6,7 +6,7 @@ import { renderSolution } from "../lib/solution.ts";
 import { starredAlg } from "../lib/stars.ts";
 import { choices, expected, regrip } from "../lib/verify.ts";
 import type { Verify } from "../lib/verify.ts";
-import { checkboxLabel, el, keyedButton, onStarClick, toggleButton } from "./dom.ts";
+import { el, keyedButton, onStarClick, skipButton, toggleButton } from "./dom.ts";
 import { createNotes } from "./notes.ts";
 import { createPlayPanel } from "./play-panel.ts";
 import type { PlayHandlers } from "./play-panel.ts";
@@ -20,7 +20,7 @@ type Handlers = {
   onStar: (algIndex: number) => void;
   onRestart: () => void;
   onHome: () => void;
-  onSkipIntro: (skip: boolean) => void;
+  onSkipIntro: () => void;
   play: PlayHandlers;
 };
 
@@ -62,7 +62,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const mismatch = keyedButton("", "Mismatch", "1 / num3", onMismatch);
   const match = keyedButton("", "Match", "2 / num.", onMatch);
   const kbds = [primary.kbd, mismatch.kbd, match.kbd];
-  const skipIntro = checkboxLabel("Don't show this again", onSkipIntro);
+  const skipIntro = skipButton(onSkipIntro, onPrimary);
   // Only shown after a Mismatch: the streak is over, so the user is offered a
   // way out on top of Reset, which keeps the same session going.
   const restart = el("button", "quiet", "Start another session");
@@ -72,7 +72,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   home.type = "button";
   home.addEventListener("click", onHome);
   const actions = el("nav", "actions");
-  actions.append(primary.node, skipIntro.label, mismatch.node, match.node, restart, home);
+  actions.append(primary.node, skipIntro, mismatch.node, match.node, restart, home);
 
   element.append(headline, ready, figure, solution, altLabel, altPicker, regripLine, actions);
 
@@ -121,8 +121,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
     }
     notes.show(progress.notes[v.current.id] ?? "", progress.prefs.showNotes);
     for (const kbd of kbds) kbd.hidden = !progress.prefs.showHotkeys;
-    skipIntro.label.hidden = v.phase !== "ready";
-    skipIntro.input.checked = progress.prefs.skipVerifyIntro;
+    skipIntro.hidden = v.phase !== "ready";
 
     missed = v.phase === "missed";
     showSolution();
