@@ -137,15 +137,20 @@ describe("the 3D view prefs", () => {
 
 describe("setGuided", () => {
   const mixed = setPref(setPref(setPref(progress(), "showNames", true), "threeD", true), "crossAllStickers", true);
+  const hotkeys = (on: boolean) => setPref(progress(), "showHotkeys", on);
 
   it.each([true, false])("sets every card aid to %s", (on) => {
     const { prefs } = setGuided(mixed, on);
-    expect([prefs.showNames, prefs.showSolutions, prefs.showNotes, prefs.showHotkeys]).toEqual([on, on, on, on]);
+    expect([prefs.showNames, prefs.showSolutions, prefs.showNotes]).toEqual([on, on, on]);
+  });
+
+  it.each([true, false])("leaves Hotkeys as it was, at %s", (on) => {
+    expect(setGuided(hotkeys(on), !on).prefs.showHotkeys).toBe(on);
   });
 
   it.each([true, false])("changes nothing else, so 3D and All stickers stay on, at %s", (on) => {
     const { prefs } = setGuided(mixed, on);
-    expect({ ...prefs, showNames: on, showSolutions: on, showNotes: on, showHotkeys: on }).toEqual({ ...mixed.prefs, showNames: on, showSolutions: on, showNotes: on, showHotkeys: on });
+    expect({ ...prefs, showNames: on, showSolutions: on, showNotes: on }).toEqual({ ...mixed.prefs, showNames: on, showSolutions: on, showNotes: on });
   });
 });
 

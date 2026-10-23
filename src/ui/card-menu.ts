@@ -39,7 +39,7 @@ export function createCardMenu({ onNames, onToggle, onGuided, touchPrimary, onOp
     element,
     ...dismissable(element, trigger, onOpenChange),
     render({ prefs }: Progress, threeDAvailable: boolean): void {
-      const aids = [prefs.showNames, prefs.showSolutions, prefs.showNotes, prefs.showHotkeys];
+      const aids = [prefs.showNames, prefs.showSolutions, prefs.showNotes];
       blind.setAttribute("aria-pressed", String(aids.every((on) => !on)));
       guided.setAttribute("aria-pressed", String(aids.every((on) => on)));
       names.node.setAttribute("aria-pressed", String(prefs.showNames));
