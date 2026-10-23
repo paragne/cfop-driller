@@ -53,7 +53,7 @@ export function renderApp(
     help.close();
   }
   if (!carding) cardMenu.close();
-  gallery.render(browsing && gallerySections(ALL_CASES, progress.prefs.sets.gallery), browsing?.open ?? null);
+  gallery.render(browsing && gallerySections(ALL_CASES, progress.prefs.sets.gallery), browsing?.open ?? null, progress);
   topbar.setBack(browsing !== null && !onGrid);
   if (onHome) {
     home.render({
