@@ -24,8 +24,6 @@ type Handlers = {
 // textarea keeps its caret and focus.
 export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, onStar, play }: Handlers) {
   const element = el("section", "card");
-  const section = el("span", "section");
-  const place = el("span", "place");
   const figure = el("figure", "case");
   const stage = createPlayPanel(play);
   figure.append(stage.element);
@@ -43,11 +41,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
   const actions = el("nav", "actions");
   actions.append(reveal.node, ...grades, next.node);
 
-  // The title line: the section, then the case's place in it.
-  const title = el("span", "title");
-  title.append(section, " · ", place);
   const meta = el("div", "meta");
-  meta.append(title);
   // The note sits to the right of the name and meta line together, so a long
   // note grows downward without pushing the meta line away from the name.
   const lead = el("div", "lead");
@@ -66,7 +60,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     solution.hidden = !revealed || threeD;
   };
 
-  function render(view: CardView, progress: Progress, position: string): void {
+  function render(view: CardView, progress: Progress, metaLine: string): void {
     const { c, mode, auf } = view;
     // Only these two writes use innerHTML, and both take markup generated in
     // lib from our own case data. The AUF is part of the key: a failed card can
@@ -74,7 +68,6 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     const key = `${c.id}|${auf}`;
     if (key !== shown) {
       stage.picture.innerHTML = renderCase(turnState(caseState(c), auf), viewFor(c.mask));
-      section.textContent = c.section;
       name.textContent = [c.name, ...c.aliases].filter((s) => s !== null).join(" · ");
       notes.stop();
       shown = key;
@@ -97,7 +90,7 @@ export function createFlashcard({ onReveal, onDontKnow, onKnow, onNext, onNote, 
     revealed = view.revealed;
     showSolution();
     reveal.text.textContent = view.revealed ? "Hide" : "Reveal";
-    place.textContent = position;
+    meta.textContent = metaLine;
     element.dataset.mode = mode;
     // A gallery card only browses: nothing to reveal, grade or advance.
     actions.hidden = mode === "gallery";

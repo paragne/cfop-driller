@@ -3,7 +3,9 @@ import type { Screen } from "./screen.ts";
 import { inReadingOrder } from "./selection.ts";
 
 // The gallery's cases grouped by section, in the order the home screen lists
-// the sets. A case in two chosen sets appears once.
+// the sets. A case in two chosen sets appears once. The key carries the group
+// so two groups' sections of one name stay apart; the heading shows only the
+// section.
 export function gallerySections(cases: readonly Case[], sets: readonly CaseSet[]): Map<string, Case[]> {
   const sections = new Map<string, Case[]>();
   for (const c of inReadingOrder(cases, sets)) {
@@ -11,13 +13,6 @@ export function gallerySections(cases: readonly Case[], sets: readonly CaseSet[]
     sections.set(title, [...(sections.get(title) ?? []), c]);
   }
   return sections;
-}
-
-// A case's place among the cases sharing its group and section, in stored
-// order, so it reads the same whichever sets the session drew from.
-export function placeInSection(cases: readonly Case[], c: Case): string {
-  const peers = cases.filter((peer) => peer.group === c.group && peer.section === c.section);
-  return `${peers.indexOf(c) + 1}/${peers.length}`;
 }
 
 export function openCase(screen: Screen, c: Case): Screen {

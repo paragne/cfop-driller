@@ -82,10 +82,10 @@ export function createGallery(onOpen: (c: Case) => void) {
 
   function build(sections: ReadonlyMap<string, readonly Case[]>): void {
     element.replaceChildren(
-      ...[...sections].flatMap(([title, cases]) => {
+      ...[...sections.values()].flatMap((cases) => {
         const grid = el("div", "gallery-grid");
         grid.append(...cases.map(cell));
-        return [el("h2", "gallery-title", `${title} (${cases.length})`), grid];
+        return [el("h2", "gallery-title", `${cases[0].section} (${cases.length})`), grid];
       }),
       tip,
     );

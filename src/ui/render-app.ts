@@ -1,5 +1,6 @@
 import { ALL_CASES } from "../data/algorithms.ts";
-import { gallerySections, placeInSection } from "../lib/gallery.ts";
+import { cardMeta } from "../lib/card-meta.ts";
+import { gallerySections } from "../lib/gallery.ts";
 import { caseView, playView } from "../lib/play.ts";
 import type { Progress } from "../lib/progress.ts";
 import { cardView, crossView, introMode, resultText, verifyView } from "../lib/screen.ts";
@@ -78,7 +79,7 @@ export function renderApp(
   flashcard.element.hidden = view === null;
   verify.element.hidden = verifying === null;
   summary.element.hidden = result === null;
-  if (view !== null) flashcard.render(view, progress, placeInSection(ALL_CASES, view.c));
+  if (view !== null) flashcard.render(view, progress, cardMeta(ALL_CASES, view.c, progress.prefs.sets[view.mode]));
   if (verifying !== null) verify.render(verifying, progress);
   if (result !== null) summary.render(result);
 
