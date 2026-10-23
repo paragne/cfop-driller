@@ -37,7 +37,8 @@ const READY_COPY: readonly string[] = [
 // Built once, like flashcard: render() only syncs what the phase says.
 export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote, onStar, onRestart, onHome, onSkipIntro, play }: Handlers) {
   const element = el("section", "card verify");
-  const count = el("p", "meta");
+  const meta = el("p", "meta");
+  const streak = el("p", "streak");
   const ready = el("div", "intro-body");
   ready.append(...READY_COPY.map((text) => el("p", "hint", text)));
   const figure = el("figure", "case");
@@ -45,9 +46,9 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   figure.append(stage.element);
   const name = el("p", "name");
   const notes = createNotes(onNote);
-  // As on the flashcard: a long note must not push the count away from the name.
+  // As on the flashcard: a long note must not push the meta line away from the name.
   const lead = el("div", "lead");
-  lead.append(name, count);
+  lead.append(name, meta);
   const headline = el("div", "headline");
   headline.append(lead, notes.element);
   const solution = el("div", "solution");
@@ -74,7 +75,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
   const actions = el("nav", "actions");
   actions.append(primary.node, skipIntro, mismatch.node, match.node, restart, home);
 
-  element.append(headline, ready, figure, solution, altLabel, altPicker, regripLine, actions);
+  element.append(headline, ready, figure, streak, solution, altLabel, altPicker, regripLine, actions);
 
   function renderAlts(v: Verify): void {
     const indices = choices(v);
@@ -98,8 +99,8 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
     solution.hidden = !missed || threeD;
   };
 
-  function render(v: Verify, progress: Progress): void {
-    count.textContent = `Verify · step ${v.step} · ${v.matches} matched`;
+  function render(v: Verify, progress: Progress, metaLine: string): void {
+    meta.textContent = metaLine;
     ready.hidden = v.phase !== "ready";
 
     const attempting = v.phase === "attempt";
@@ -114,6 +115,7 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
     }
 
     name.hidden = v.phase === "ready" || !progress.prefs.showNames;
+    meta.hidden = name.hidden;
     name.textContent = [v.current.name, ...v.current.aliases].filter((s) => s !== null).join(" · ");
     if (v.current.id !== shownCase) {
       notes.stop();
@@ -124,6 +126,9 @@ export function createVerify({ onPrimary, onMismatch, onMatch, onChoose, onNote,
     skipIntro.hidden = v.phase !== "ready";
 
     missed = v.phase === "missed";
+    // The streak is told once, when it ends, so it never distracts mid-run.
+    streak.hidden = !missed;
+    streak.textContent = `${v.matches} matched`;
     showSolution();
     if (v.phase === "missed") solution.innerHTML = renderSolution(v.current, v.auf, starredAlg(v.current, progress.stars));
 

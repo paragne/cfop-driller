@@ -79,7 +79,7 @@ export function renderApp(
   verify.element.hidden = verifying === null;
   summary.element.hidden = result === null;
   if (view !== null) flashcard.render(view, progress, cardMeta(ALL_CASES, view.c, progress.prefs.sets[view.mode]));
-  if (verifying !== null) verify.render(verifying, progress);
+  if (verifying !== null) verify.render(verifying, progress, cardMeta(ALL_CASES, verifying.current, progress.prefs.sets.verify));
   if (result !== null) summary.render(result);
 
   const available = webgl2Available();

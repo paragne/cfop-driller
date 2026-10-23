@@ -288,6 +288,7 @@ body {
 /* Verify shows the primary alone through ready, attempt and missed, so it
    stays full width even in the three-column desktop layout. */
 .verify .actions .primary { grid-column: 1 / -1; }
+.streak { margin: 0; font-size: 1.5rem; font-weight: 600; }
 /* Checked shows only Mismatch and Match; missed adds Start another session and
    Return Home under Reset. Either way it is a narrow, centered pair, not the
    content column's full width. */
